@@ -106,8 +106,8 @@ public class PlannerProGame {
     	    	            username = scan.nextLine().trim();
     	            	 
     	            } else {
-    	                break;
-    	            }
+    	              
+    	            
 
     	            boolean usernameExist = hashinfofromfile(userInfo);
 
@@ -128,8 +128,8 @@ public class PlannerProGame {
     	            	System.out.println("Please re-enter your desired password: ");
     	    	            password = scan.nextLine().trim();
     	            } else {
-    	                break;
-    	        }
+    	               
+    	        
 
     	        // Add username and password to the hashmap
     	        userInfo.put(username, password);
@@ -143,7 +143,9 @@ public class PlannerProGame {
     	        // Start the games by calling the method
     	        startgames(username, password, scan);
     	    }
-    	}
+    	  }
+    }
+    }
             
           		 
           			 
@@ -553,6 +555,7 @@ public static void DateGuesser(Scanner scanner){
             System.out.println("Congratulations! You guessed the correct due date: " +
              correctMonth + "/" + correctDay);
             planPoints+= 20; // +20 plan pts
+            break;
         } else if (userGuess < correctDay) {
             System.out.println("The correct day is later.");
         } else if (userGuess > correctDay){
