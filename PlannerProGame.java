@@ -167,8 +167,9 @@ public class PlannerProGame {
  //rachenza
 //writes username and password to file -rachenza
 public static void hashtofile(HashMap<String, String> map ) throws IOException {
-	BufferedWriter writer = new BufferedWriter(new FileWriter("Userinfo.txt"));
+	BufferedWriter writer = new BufferedWriter(new FileWriter("Userinfo.txt",true));
 	for (String key : map.keySet()) {
+		writer.newLine();
 		writer.write(key + ":" + map.get(key));
 		writer.newLine();
 	}
@@ -225,7 +226,7 @@ public static void saveprogress(String username, String password, int Game, int 
 
 //rachenza
 //sends the user to the correct game once they log back in
-public static void handlelevel(int Game,int Level,Scanner scan, String password, String username, String nameofficial) throws IOException {
+public static void handlelevel(int Game,int Level,Scanner scan, String password, String username, String nameofficial, ArrayList<String>namesf) throws IOException {
 	System.out.println("Debug: handlelevel called with Game = " + Game + ", Level = " + Level);
 
 	if (Game == 1 && Level == 1) {
@@ -233,7 +234,7 @@ public static void handlelevel(int Game,int Level,Scanner scan, String password,
 		saveprogress(username,password,Game,Level,planPoints);
 		DateGuesser(scan);
 		saveprogress(username,password,Game,Level,planPoints);
-		Wedding(scan, Name, nameofficial, planPoints);
+		Wedding(scan, Name, nameofficial, planPoints,namesf);
 	    saveprogress(username,password,Game,Level,planPoints);
 
 		
@@ -246,7 +247,7 @@ public static void handlelevel(int Game,int Level,Scanner scan, String password,
 	if (Game == 2 && Level == 1) {
 		DateGuesser(scan);
 		saveprogress(username,password,Game,Level,planPoints);
-		Wedding(scan,Name,nameofficial, planPoints);
+		Wedding(scan,Name,nameofficial, planPoints,namesf);
 	    saveprogress(username,password,Game,Level,planPoints);
 
 	}else {
@@ -254,7 +255,7 @@ public static void handlelevel(int Game,int Level,Scanner scan, String password,
 	}
 	if (Game == 3 && Level == 1) {
 		
-		 Wedding(scan,Name,nameofficial, planPoints);
+		 Wedding(scan,Name,nameofficial, planPoints, namesf);
 	}else {
 		
 	}
@@ -322,7 +323,7 @@ public static void startgames(String username, String password, Scanner scan) th
     
     //rachenza
     //calling intro to lvl 2
-    Wedding(scan,Name,nameofficial, planPoints);
+    Wedding(scan,Name,nameofficial, planPoints,namesf);
     }
 
   //rachenza  
@@ -556,6 +557,7 @@ public static void DateGuesser(Scanner scanner){
              correctMonth + "/" + correctDay);
             planPoints+= 20; // +20 plan pts
             break;
+            
         } else if (userGuess < correctDay) {
             System.out.println("The correct day is later.");
         } else if (userGuess > correctDay){
@@ -577,7 +579,9 @@ planPoints+= 5; }
 
 //rachenza
 //Lvl 2 Intro 
-public static void Wedding(Scanner scan, String Name, String nameofficial,int planPoints) throws FileNotFoundException {
+public static void Wedding(Scanner scan, String Name, String nameofficial,int planPoints,ArrayList<String> namesf) throws FileNotFoundException {
+	 int random = (int)(Math.random() * namesf.size()); // range of random numbers from 0 to the size of my array
+	    nameofficial = namesf.get(random);
     	Game = 0;
        
 
@@ -819,7 +823,7 @@ public static void Bartender(Scanner scan, String playerName, int planPoints) th
 					 "\nYour Plan Points are " + planPoints + "Let's get you back where you left off!"); 
 		   //System.out.println("Debug: handlelevel called with Game = " + Game + ", Level = " + Level);
 
-		   handlelevel(Game, Level,scan, password, username, nameofficial);
+		   handlelevel(Game, Level,scan, password, username, nameofficial,namesf);
 		   
 	 }else {
 		 System.out.println("error");
