@@ -17,8 +17,6 @@ import java.io.IOException;
 
 
 
-
-
 public class PlannerProGame {
 	//static variables that will be shared with all instances of the class - rachenza
 	static String Name;
@@ -31,10 +29,6 @@ public class PlannerProGame {
 	static String input;
 
 
-	//
-	
-	
-	
 	
     //Hashmap for the usernames(keys) and passwords(values)-emily
     private static HashMap<String, String> userInfo = new HashMap<>();
@@ -87,10 +81,8 @@ public class PlannerProGame {
         	 else {
             	  System.out.println("invalid log in. Please try again");
             	  System.exit(0);}
-         }
-         
-    }
-        	
+         }}    
+    
     //create a new acc method
     private static void register(Scanner scan, String intro) throws IOException {
     	
@@ -148,23 +140,7 @@ public class PlannerProGame {
     	  }
     }
     }
-            
-          		 
-          			 
-    
-    	  
-    	  
-           
-    
-    
 
-            
-        
-
-        
-
-       
-    
     
  //rachenza
 //writes username and password to file -rachenza
@@ -195,16 +171,10 @@ while ((line = reader.readLine()) != null){
 	if(!username.isEmpty() && usernamefromfile.equals(username)){
 		username = usernamefromfile;
 			return true;
-		
-	}
-	}
-}
-		
+		}}}
+
 		reader.close();
-		return false;
-
-
-}
+		return false;}
 
 //rachenza
 //save the users progress once they say yes and add to a progress file
@@ -241,8 +211,6 @@ public static void handlelevel(int Game,int Level,Scanner scan, String password,
 	    saveprogress(username,password,Game,Level,planPoints);
 
 		
-		
-		
 	}else {
 		
 	}
@@ -263,23 +231,18 @@ public static void handlelevel(int Game,int Level,Scanner scan, String password,
 		
 	}
 	if (Game == 1 && Level == 2) {
+		GuestSeatingGame(scan, Name, planPoints);
 		saveprogress(username,password,Game,Level,planPoints);
 	}else {
 		
 	}
 	if (Game == 2 && Level == 2) {
-		//game 2 of level 2
+		// dice 
+		saveprogress(username,password,Game,Level,planPoints);
 	}else {
 		
 	}
 }
-
-
-		  
-	 
-     
-    
-
 
 
 //rachenza  
@@ -330,8 +293,12 @@ public static void startgames(String username, String password, Scanner scan) th
     
     //rachenza
     //calling intro to lvl 2
+    
+    //Level=2 now
     Wedding(scan,Name,nameofficial, planPoints,namesf);
-    }
+    Game+=1;
+	GuestSeatingGame(scan, Name, planPoints);
+	Game+=1;}
 
   //rachenza  
 //intro to level 1 
@@ -418,12 +385,9 @@ private static boolean playerWins(String playerMove, String computerMove) {
 
 
 
-
-
-
 //mini game #2 - unscramble the baby name
 public static void UnscrambleBabyName(Scanner scanner) {
-    System.out.println("\n NIce job playing the rock paper scissors game! It seems you're ready to get this baby shower going. \n ");
+    System.out.println("\n Nice job playing the rock paper scissors game! It seems you're ready to get this baby shower going. \n ");
     System.out.println("\n To start off we need to make a banner for the celebrating couple.. but it seems the computer got the name messed up when it was sent to us. ");
     System.out.println("\n Can you help us figure it out?  ");
     Random random = new Random();
@@ -581,7 +545,6 @@ public static void DateGuesser(Scanner scanner){
             }}
 planPoints+= 5; }
 
-    
 
 
 //rachenza
@@ -607,8 +570,6 @@ public static void Wedding(Scanner scan, String Name, String nameofficial,int pl
         }
 
 
-
-
  //rachenza  
 //game 1 of level 2
 public static void Bartender(Scanner scan, String playerName, int planPoints) throws FileNotFoundException {
@@ -629,12 +590,7 @@ public static void Bartender(Scanner scan, String playerName, int planPoints) th
          int random = (int)(Math.random() * fileorders.size()); // range of random numbers from 0 to the size of my array
          String order = fileorders.get(random);
           
-
-            
-              
-              
-              
-              
+  
               
          //create array to hold file info for ingredients
          ArrayList<String> ingredients = new ArrayList<String>();
@@ -650,10 +606,6 @@ public static void Bartender(Scanner scan, String playerName, int planPoints) th
           //create a variable to hold the randomly picked ingredients
           int randomm = (int)(Math.random() * ingredients.size()); // range of random numbers from 0 to the size of my array
           String correctingredients = ingredients.get(randomm);
-
-            
-              
-              
               
               
           //create array to hold file info for guest feedback when drinks are going badly 
@@ -669,11 +621,7 @@ public static void Bartender(Scanner scan, String playerName, int planPoints) th
               }
           int randommm = (int)(Math.random() * feedback.size()); // range of random numbers from 0 to the size of my array
           String  guestfeedback = feedback.get(randommm);
-   	  
 
-             
-              
-           
         
             // Welcome message for the bartender game as well as dialouge
             System.out.println("\nEMERGENCY!!" +
@@ -690,26 +638,17 @@ public static void Bartender(Scanner scan, String playerName, int planPoints) th
              System.out.println("\nI would like to order a: " + order + " With: " + correctingredients);
              
              
-             
-             
              Scanner scan2 = new Scanner(System.in);
              System.out.println("\nPick Your Base: Espresso, Tonic Water, Club Soda, Rum, Tequila, Vodka, Gin, Whiskey, Ice Tea\n ");
              String Base = scan2.nextLine().trim().toLowerCase(); 
-             
-            
-           
              
              if (correctingredients.contains(Base)){
             	 System.out.println("\nYou got the Base right!"); 
              }else {
             	 System.out.println("\nGuest: " + guestfeedback);
             	 System.out.println("\nYou got the Base wrong you are down 1 point lets move on ");
-                 planPoints -=1;
-            	 
-             }
-          
+                 planPoints -=1;}
              
-            
              Scanner scan3 = new Scanner(System.in);
              System.out.println("\nPick Your Sweetner: Honey, Cane sugar, caramel, pineapple juice\n");
              String Sweetner = scan3.nextLine().trim().toLowerCase(); 
@@ -723,9 +662,7 @@ public static void Bartender(Scanner scan, String playerName, int planPoints) th
                  guestfeedback = feedback.get(randommm);
             	 System.out.println("\nGuest: " + guestfeedback);
             	 System.out.println("\nYou got the Sweetner wrong you are down 1 point lets move on");
-            	  planPoints -=1;
-            	
-             }
+            	  planPoints -=1;}
              
          
              Scanner scan4 = new Scanner(System.in);
@@ -741,30 +678,15 @@ public static void Bartender(Scanner scan, String playerName, int planPoints) th
              guestfeedback = feedback.get(randommm);
         	 System.out.println("\nGuest: " + guestfeedback);
        	     System.out.println("\nYou got the Topping wrong you are down 1 point lets move on ");
-       	     planPoints -=1;
-       	
-     
-            }
+       	     planPoints -=1;}
             random = (int)(Math.random() * fileorders.size()); // range of random numbers from 0 to the size of my array
             order = fileorders.get(random);
             randomm = (int)(Math.random() * ingredients.size()); // range of random numbers from 0 to the size of my array
             correctingredients = ingredients.get(randomm);
-            i+=1;
-            
-           
-           
-      
-           
-            }
+            i+=1;}
         
            System.out.println("\nNice game " + playerName + "The status of your points are: " + planPoints);
-           Game+=1;
-           
-         
-        
-        
-        
-            }
+           Game+=1;}
 
 public static void GuestSeatingGame(Scanner scan, String playerName, int planPoints) {
     // Game description + intro
@@ -881,18 +803,73 @@ public static void GuestSeatingGame(Scanner scan, String playerName, int planPoi
 
             remainingSeating--; // Reduce the number of unseated guests
             break; // Exit table assignment loop
-        }
-    }
+}}
 
     // End of game summary
     System.out.println("\nCongratulations " + playerName + ", the seating arrangement is complete!");
-    System.out.println("You have earned a total of " + planPoints + " planning points.");
+    System.out.println("You have earned a total of " + planPoints + " planning points.");}
 
+// public static void GamblingGame(Scanner scan, String playerName, int planPoints) {
+	// making dice roller game, "dealer" asks what number the user think they will roll, the user guesses, then 
+	// the dealer then rolls the dice and we see if the number matches it, and if it does, 
+	// user makes money (2x, 3x, etc), and if they lose, then they lose the money they bet}
 
+public class Level3 {
+    public static void startLevel() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\nWElcome to level 3!");
+        System.out.println("Your client Tom is getting married, and you're in charge of planning his bachelor party!");
+        System.out.println("Tom and his six closest friends have decided to celebrate at the local casino.");
+        System.out.println("To keep the fun going, They will play a special dice gambling game! But its up to yo uto test it first.");
+        System.out.println("Are you ready to roll the dice and test your luck?");
+
+        scanner.nextLine();
+
+        DiceGame.play();
+    } }
+
+class DiceGame {
+    public static void play() {
+        Scanner scanner = new Scanner(System.in);
+        Random random = new Random();
+
+        System.out.println("\nYou and the dealer will each roll one dice. If you roll the same number, you win!");
+        System.out.println("Otherwise, you lose 10 planning points.");
+        System.out.println("Press ENTER to roll the dice...");
+        scanner.nextLine();
+
+        int playerRoll = random.nextInt(6) + 1;
+        int dealerRoll = random.nextInt(6) + 1;
+
+        System.out.println("You rolled: " + playerRoll);
+        printDie(playerRoll);
+        System.out.println("Dealer rolled: " + dealerRoll);
+        printDie(dealerRoll);
+
+        if (playerRoll == dealerRoll) {
+            System.out.println("Congratulations! You won the round!");
+            planPoints += 10;
+        } else {
+            planPoints -= 10;
+            System.out.println("You lost this round. 10 planning points deducted. You now have " + planPoints +"points:");
+          
+        }}
+
+    private static void printDie(int roll) {
+        String[] diceFaces = {
+            "   -------\n  |       |\n  |   ●   |\n  |       |\n   -------",
+            "   -------\n  | ●     |\n  |       |\n  |     ● |\n   -------",
+            "   -------\n  | ●     |\n  |   ●   |\n  |     ● |\n   -------",
+            "   -------\n  | ●   ● |\n  |       |\n  | ●   ● |\n   -------",
+            "   -------\n  | ●   ● |\n  |   ●   |\n  | ●   ● |\n   -------",
+            "   -------\n  | ●   ● |\n  | ●   ● |\n  | ●   ● |\n   -------"
+        };
+        System.out.println(diceFaces[roll - 1]);
+    }
 }
 
-    
-  
+
+
 
  //finds the users progress and information needed to move them through the game once they log back in
  public static void goingback(String username,String password, String nameofficial) throws IOException {
@@ -902,9 +879,7 @@ public static void GuestSeatingGame(Scanner scan, String playerName, int planPoi
 	  
 	  while (scan.hasNextLine()) {
 		  String data = scan.nextLine();
-		  usersaveprogress.add(data);
-		  
-	  }
+		  usersaveprogress.add(data);}
 	  
 	  int index = -1;
 	  for (int i = 0; i < usersaveprogress.size(); i++) {
@@ -912,16 +887,14 @@ public static void GuestSeatingGame(Scanner scan, String playerName, int planPoi
 		  String[] parts = data.split(", ");
 		  
 	   if (parts.length < 6) {
-		   continue;
-	   }
+		   continue;}
 		   String use = parts[0];
 		  String  pass = parts[1];
 		  
 		  if (use.equals(username) && pass.equals(password)) {
 			  index = i;
-			 break;
-		  }
-	  }
+			 break;}}
+	  
 	 if (index != -1) {
 		 //create array to hold file info for female names
 		    ArrayList<String> namesf = new ArrayList<String>();
@@ -955,19 +928,10 @@ public static void GuestSeatingGame(Scanner scan, String playerName, int planPoi
 		   handlelevel(Game, Level,scan, password, username, nameofficial,namesf);
 		   
 	 }else {
-		 System.out.println("error");
-	 }
+		 System.out.println("error");}
 	 //scan.close();
-		 
-		 
- }
+	 }
 
 }
 	  
  
-		  
-			
-			 
-			  
-		 
-		  
