@@ -767,7 +767,7 @@ public static void play(String playerName) {
 Scanner scanner = new Scanner(System.in);
 Random random = new Random();
 
-	System.out.println("\nYou and the dealer will each roll one dice. If you roll the same number, you win!");
+	System.out.println("\nYou and the dealer will each roll one dice. If you roll the same number as the dealer, you win!");
 	System.out.println("Otherwise, you lose 10 planning points.");
 	System.out.println("Continue and press enter to roll the dice and test your luck!");
 	scanner.nextLine();
@@ -787,10 +787,10 @@ Random random = new Random();
 	planPoints -= 10;
 	System.out.println("You lost this round. 10 planning points deducted.");
 	
+		}	
 	System.out.println("Alright, good work. you have done a great job of tackling all these wedding tasks." );
 	System.out.println("I think you are ready to handle a new challenge... " );
-	System.out.println(playerName + "You now have"  + planPoints + "points:");
-}}
+	System.out.println(Name + "You now have"  + planPoints + "points:");}
 
 private static void printDie(int roll) {
 	String[] diceFaces = {
