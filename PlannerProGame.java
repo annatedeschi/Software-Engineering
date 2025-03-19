@@ -17,7 +17,7 @@ import java.io.IOException;
 
 
 
-public class PlannerProGame {
+public class PlannerProGamev4 {
 //static variables that will be shared with all instances of the class - rachenza
 static String Name;
 static int planPoints = 0;
@@ -748,10 +748,9 @@ public static void Bartender(Scanner scan, String playerName, int planPoints) th
 	// the dealer then rolls the dice and we see if the number matches it, and if it does,
 	// user makes money (2x, 3x, etc), and if they lose, then they lose the money they bet}
 
-//public class Level3 {
+
 public static void diceGame() {
 	Scanner scanner = new Scanner(System.in);
-	System.out.println("\nWElcome to level 3!");
 	System.out.println("Your client's Husband, Tom wants help planning his bachelor after party!");
 	System.out.println("Tom and his six closest friends have decided to celebrate at the local casino.");
 	System.out.println("To keep the fun going, They will play a special dice gambling game! But its up to yo uto test it first.");
@@ -762,8 +761,8 @@ public static void diceGame() {
 	play();
 }
 
-//class DiceGame {
-public static void play(String playerName) {
+
+public static void play() {
 Scanner scanner = new Scanner(System.in);
 Random random = new Random();
 
