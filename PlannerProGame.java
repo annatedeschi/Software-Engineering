@@ -2,6 +2,13 @@ package Planner;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Scanner;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 import java.util.Random;
 import java.util.Collections;
 import java.util.List;
@@ -14,10 +21,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 
-public class PlannerProGamev4 {
+public class PlannerProGame {
 //static variables that will be shared with all instances of the class - rachenza
 static String Name;
 static int planPoints = 0;
@@ -27,6 +36,13 @@ static String nameofficial;
 static String username;
 static String password;
 static String input;
+static Clip clip;
+static String response = "";
+static String guest = "";
+static Scanner scan = new Scanner(System.in);
+static String choiceresponse = "";
+static String getguest = "";
+static String req = "";
 
 
 //Hashmap for the usernames(keys) and passwords(values)-emily
@@ -39,9 +55,9 @@ public static void main(String[] args) throws IOException {
 	// trim whitespaces and make lowercases to account for users input
 	String intro = scan.nextLine().trim().toLowerCase();
 	if (intro.equals("yes")) {
-	login(scan,nameofficial);
+	login();
 	} else if (intro.equals("no")) {
-	register(scan,intro);
+	register(intro);
 	} else {
 	System.out.println("ERROR: Invalid input. Please restart, and try again!");
 	scan.close();
@@ -49,8 +65,11 @@ public static void main(String[] args) throws IOException {
 	}
 }
 //login method
-private static void login(Scanner scan, String nameofficial) throws IOException {
+private static void login() throws IOException {
 	System.out.println("\nLet's log into your account");
+	
+	 boolean Login = false;
+	while(!Login) {
 	System.out.print("Enter your username: ");
 	username = scan.nextLine().trim();
 	System.out.print("Enter your password: ");
@@ -65,40 +84,57 @@ private static void login(Scanner scan, String nameofficial) throws IOException 
 	//add username and password to the hashmap-rachenza
 	userInfo.put(username, password);
 	//send them back where they left off by calling the method which does so-rachenza
-	goingback(username,password,nameofficial);}
+	Login = true;
+	goingback();}
 	else {
-	System.out.println("invalid log in. Please try again");
-	System.exit(0);}
-	}}
+        continue;
+    }
+
+		}System.out.println("Invalid login. Please try again.");
+		}}
+
+
 	//create a new acc method
-	private static void register(Scanner scan, String intro) throws IOException {
+	private static void register(String intro) throws IOException {
 	System.out.println("\nCreate a New Account!");
 	while (intro.equals("no")) {
 	System.out.print("Create a username: ");
 	username = scan.nextLine().trim();
 	System.out.println("Is this the username you would like to use for your account: " + username);
-	input = scan.nextLine().trim();
+	input = scan.nextLine().trim().toLowerCase();
 	if (input.equals("no")) {
-	System.out.println("Please re-enter your desired username: ");
-	username = scan.nextLine().trim();
-	} else {
+	continue;
+	} else if (input.equals("yes")) {
+		boolean usernameExist = hashinfofromfile(userInfo);
+		
+		if (usernameExist) {
+		System.out.println("Username is already taken. Please restart.");
+		}else {
+			break;
+		}
+		
+     }else {
+    	 System.out.println("Invalid response lets try again"); 
+	 }
+	 }
 	
-	boolean usernameExist = hashinfofromfile(userInfo);
 	
-	if (usernameExist) {
-	System.out.println("Username is already taken. Please restart.");
-	System.exit(0);
-	}
 	
+	while (intro.equals("no")) {
 	System.out.print("Create a password: ");
 	password = scan.nextLine().trim();
 	System.out.println("Is this the password you would like to use for your account: " + password);
 	input = scan.nextLine().trim();
 	
 	if (input.equals("no")) {
-	System.out.println("Please re-enter your desired password: ");
-	password = scan.nextLine().trim();
-	} else {
+	continue;
+	} else if (input.equals("yes")) {
+		break;
+	}else {
+		 System.out.println("Invalid response lets try again");
+	}
+	}
+	
 	
 	// Add username and password to the hashmap
 	userInfo.put(username, password);
@@ -106,12 +142,17 @@ private static void login(Scanner scan, String nameofficial) throws IOException 
 	// Add username and password to the file
 	hashtofile(userInfo);
 	
-	System.out.println("Account created successfully!");
+	System.out.println("\nAccount created successfully!");
 	System.out.println("You're all set! Now it's time to begin your life as an event planner!");
 	
-	// Start the games by calling the method
-	startgames(username, password, scan);
-	}}}}
+	// Start the games
+	startgames();
+	
+	
+	
+	
+
+	}
 
 //rachenza
 //writes username and password to file -rachenza
@@ -133,22 +174,28 @@ public static boolean hashinfofromfile(HashMap<String, String> map) throws IOExc
 
 	BufferedReader reader = new BufferedReader(new FileReader("Userinfo.txt"));
 	
-	String line;//creating a variable named line-rachenza
+	String line;
+	
+	
 	while ((line = reader.readLine()) != null){
 	String[] parts = line.split(":");
 	if (parts.length == 2) {
 	String usernamefromfile = parts[0].trim();
 	if(!username.isEmpty() && usernamefromfile.equals(username)){
 	username = usernamefromfile;
-	return true;
-}}}
+	return true;}
+	else{
+		}}
+	}
 
 reader.close();
 return false;}
 
 //rachenza
 //save the users progress once they say yes and add to a progress file
-public static void saveprogress(String username, String password, int Game, int Level, int planPoints) throws IOException {
+public static void saveprogress() throws IOException {
+	int i = 0;
+while (i != 1) {
 	Scanner scan0 = new Scanner(System.in);
 	System.out.println("Would you like to save your progress so far and log out ?");
 	String userfeedprogress = scan0.nextLine().trim().toLowerCase();
@@ -158,61 +205,138 @@ public static void saveprogress(String username, String password, int Game, int 
 	writer.newLine();
 	writer.close();
 	System.out.println("all set");
+	i++;
 	System.exit(0);
-	}else {
+	}else if(userfeedprogress.equals("no")){
 	System.out.println("Okay lets keep going");
+	break;
+	}else {
+		continue;
 	}
+}
 }
 
 //rachenza
 //sends the user to the correct game once they log back in
-	public static void handlelevel(int Game,int Level,Scanner scan, String password, String username, String nameofficial, ArrayList<String>namesf) throws IOException {
+	public static void handlelevel( ArrayList<String>namesf) throws IOException {
 	System.out.println("Debug: handlelevel called with Game = " + Game + ", Level = " + Level);
 	
 	if (Game == 1 && Level == 1) {
 	UnscrambleBabyName(scan);
-	saveprogress(username,password,Game,Level,planPoints);
+	saveprogress();
 	DateGuesser(scan);
-	saveprogress(username,password,Game,Level,planPoints);
-	Wedding(scan, Name, nameofficial, planPoints,namesf);
-	GuestSeatingGame(scan, Name, planPoints );
-	saveprogress(username,password,Game,Level,planPoints);
+	saveprogress();
+	Wedding(namesf);
+	diceGame();
+	saveprogress();
+	Bartender();
+	saveprogress();
+	GuestSeatingGame( );
+	saveprogress();
+	Quincenera(namesf);
+	Shopping();
+	saveprogress();
+	DJ();
+	saveprogress();
+	
 	
 	}else {
 	}
 	if (Game == 2 && Level == 1) {
 	DateGuesser(scan);
-	saveprogress(username,password,Game,Level,planPoints);
-	Wedding(scan,Name,nameofficial, planPoints,namesf);
-	Bartender(scan, Name, planPoints);
-	saveprogress(username,password,Game,Level,planPoints);
+	saveprogress();
+	Wedding(namesf);
+	diceGame();
+	saveprogress();
+	Bartender();
+	saveprogress();
+	GuestSeatingGame();
+	saveprogress();
+	Quincenera(namesf);
+	Shopping();
+	saveprogress();
+	DJ();
+	saveprogress();
+	}else {
+	}
 	
-	}else {
-	}
 	if (Game == 3 && Level == 1) {
-	Wedding(scan,Name,nameofficial, planPoints, namesf);
-	Bartender(scan, Name, planPoints);
-	saveprogress(username,password,Game,Level,planPoints);
+	Wedding(namesf);
+	diceGame();
+	saveprogress();
+	Bartender();
+	saveprogress();
+	GuestSeatingGame();
+	saveprogress();
+	Quincenera(namesf);
+	Shopping();
+	saveprogress();
+	DJ();
+	saveprogress();
 	}else {
 	}
+	
+	
 	if (Game == 1 && Level == 2) {
-	GuestSeatingGame(scan, Name, planPoints);
-	saveprogress(username,password,Game,Level,planPoints);
 	diceGame();
-	saveprogress(username,password,Game,Level,planPoints);
+	saveprogress();
+	Bartender();
+	saveprogress();
+	GuestSeatingGame();
+	saveprogress();
+	Quincenera(namesf);
+	Shopping();
+	saveprogress();
+	DJ();
+	saveprogress();
 	}else {
 	}
+	
 	if (Game == 2 && Level == 2) {
-	diceGame();
-	saveprogress(username,password,Game,Level,planPoints);
+	Bartender();
+	saveprogress();
+	GuestSeatingGame();
+	saveprogress();
+	Quincenera(namesf);
+	Shopping();
+	saveprogress();
+	DJ();
+	saveprogress();
 	}else {
 	}
+	
+	if (Game == 3 && Level == 2) {
+    GuestSeatingGame();
+	saveprogress();
+	Quincenera(namesf);
+	Shopping();
+	saveprogress();
+	DJ();
+	saveprogress();
+	}else {
+	}
+	
+	if (Game == 1 && Level == 3) {
+	Quincenera(namesf);
+	Shopping();
+	saveprogress();
+	DJ();
+	saveprogress();
+	}else {
+	}
+	
+	if (Game == 2 && Level == 3) {
+	DJ();
+	saveprogress();
+		}else {
+		}
+	
 }
 
 
 //rachenza
 //introduction to the overall game
-public static void startgames(String username, String password, Scanner scan) throws IOException {
+public static void startgames() throws IOException {
 	// Game INtro == in future: can change this to reading in from TXT file...
 	System.out.println("\nWelcome to your event planning adventure!");
 	System.out.println("We need help to plan a variety of events happening around town.");
@@ -236,33 +360,47 @@ namesf.add(data1);
 //create a variable to hold the randomly picked female names
 int random = (int)(Math.random() * namesf.size()); // range of random numbers from 0 to the size of my array
 	nameofficial = namesf.get(random);
+	Level +=1;
 	Babyshower(Level, Name, nameofficial);
 	//minigames
 	RockPaperScissors(scan);
 	Game +=1;
-	Level +=1;
-	saveprogress(username,password,Game,Level,planPoints);
+	saveprogress();
 	UnscrambleBabyName(scan);
 	Game +=1;
-	saveprogress(username,password,Game,Level,planPoints);
+	saveprogress();
 	DateGuesser(scan);
 	Game +=1;
-	saveprogress(username,password,Game,Level,planPoints);
-	Level +=1;
+	saveprogress();
 	System.out.println("\n" + Name + ", great job so far! You have earned a total of " + planPoints + " planning points! Lets move on to level 2...");
 	//rachenza
 	//calling intro to lvl 2
-	//Level=2 now
+	
 	Game = 0;
-	Wedding(scan,Name,nameofficial, planPoints,namesf);
-	Bartender(scan, Name, planPoints);
-	Game+=1;
-	saveprogress(username,password,Game,Level,planPoints);
-	GuestSeatingGame(scan, Name, planPoints);
-	Game+=1;
-	saveprogress(username,password,Game,Level,planPoints);
+	Wedding(namesf);
 	diceGame();
-	saveprogress(username,password,Game,Level,planPoints);
+	Game+=1;
+	saveprogress();
+	Bartender();
+	Game+=1;
+	saveprogress();
+	GuestSeatingGame();
+	Game+=1;
+	Level +=1;
+	saveprogress();
+	System.out.println("\n" + Name + ", great job so far! You have earned a total of " + planPoints + " planning points! Lets move on to level 3...");
+	//rachenza
+	//calling intro to lvl 3
+	
+	Game = 0;
+	Quincenera(namesf);
+	Shopping();
+	Game+=1;
+	saveprogress();
+	DJ();
+	Game+=1;
+	saveprogress();
+	
 	}
 
 //rachenza
@@ -511,7 +649,7 @@ public static void DateGuesser(Scanner scanner){
 
 //rachenza
 //Lvl 2 Intro
-public static void Wedding(Scanner scan, String Name, String nameofficial,int planPoints,ArrayList<String> namesf) throws FileNotFoundException {
+public static void Wedding(ArrayList<String> namesf) throws FileNotFoundException {
 	int random = (int)(Math.random() * namesf.size()); // range of random numbers from 0 to the size of my array
 	nameofficial = namesf.get(random);
 	Game = 0;
@@ -529,9 +667,82 @@ public static void Wedding(Scanner scan, String Name, String nameofficial,int pl
 }
 
 
+public static void diceGame() {
+	String answer = "";
+	int i = 0;
+	System.out.println("Your client's Husband, Tom wants help planning his bachelor after party!");
+	System.out.println("Tom and his six closest friends have decided to celebrate at the local casino.");
+	System.out.println("To keep the fun going, They will play a special dice gambling game! But its up to yo uto test it first.");
+	System.out.println("Are you ready to roll the dice and test your luck?");
+	
+	answer = scan.nextLine().toLowerCase();
+	
+ while (i != 1){
+	if (!answer.equals("yes")) {
+		System.out.println("Are you ready to roll the dice and test your luck?");
+		answer = scan.nextLine().toLowerCase();
+	}else if(answer.equals("yes")) {
+		i++;
+		System.out.println("blah");
+		play();
+}
+}
+}
+
+
+public static void play() {
+int i = 1;
+Scanner scanner = new Scanner(System.in);
+Random random = new Random();
+
+	System.out.println("\nYou and the dealer will each roll one dice. If you roll the same number as the dealer, you win!");
+	System.out.println("\nOtherwise, you lose 10 planning points.");
+	
+while (i != 4) {
+	System.out.println("\nRound: " + i);
+	System.out.println("\nContinue and press enter to roll the dice and test your luck!");
+	scanner.nextLine();
+	
+	int playerRoll = random.nextInt(6) + 1;
+	int dealerRoll = random.nextInt(6) + 1;
+	
+	System.out.println("You rolled: " + playerRoll);
+	printDie(playerRoll);
+	System.out.println("The dealer rolled: " + dealerRoll);
+	printDie(dealerRoll);
+	
+	if (playerRoll == dealerRoll) {
+	System.out.println("Congratulations! You won the round!");
+	planPoints += 10;
+	} else {
+	planPoints -= 10;
+	System.out.println("You lost this round. 10 planning points deducted.");
+	
+		}	i++;}
+	System.out.println("Alright, good work. you have done a great job of tackling all these wedding tasks." );
+	System.out.println("I think you are ready to handle a new challenge... " );
+	System.out.println(Name + "You now have "  + planPoints + " points:");}
+
+private static void printDie(int roll) {
+	String[] diceFaces = {
+	" -------\n | |\n | ● |\n | |\n -------",
+	" -------\n | ● |\n | |\n | ● |\n -------",
+	" -------\n | ● |\n | ● |\n | ● |\n -------",
+	" -------\n | ● ● |\n | |\n | ● ● |\n -------",
+	" -------\n | ● ● |\n | ● |\n | ● ● |\n -------",
+	" -------\n | ● ● |\n | ● ● |\n | ● ● |\n -------"
+	};
+	System.out.println(diceFaces[roll - 1]);
+	}
+
+
+
 //rachenza
 //game 1 of level 2
-public static void Bartender(Scanner scan, String playerName, int planPoints) throws FileNotFoundException {
+public static void Bartender( ) throws FileNotFoundException {
+	String Base = "";
+	String Topping = "";
+	String Sweetner = "";
 	//create array to hold file info for orders
 	ArrayList<String> fileorders = new ArrayList<String>();
 	File O1 = new File("Drinkorders.txt");
@@ -558,6 +769,10 @@ public static void Bartender(Scanner scan, String playerName, int planPoints) th
 	//create a variable to hold the randomly picked ingredients
 	int randomm = (int)(Math.random() * ingredients.size()); // range of random numbers from 0 to the size of my array
 	String correctingredients = ingredients.get(randomm);
+	String [] eachingredient = correctingredients.split("\\s+");
+	
+	
+			
 	//create array to hold file info for guest feedback when drinks are going badly
 	ArrayList<String> feedback = new ArrayList<String>();
 	File O3 = new File("Guestfeedback.txt");
@@ -568,7 +783,7 @@ public static void Bartender(Scanner scan, String playerName, int planPoints) th
 	String data3 = read3.nextLine();
 	feedback.add(data3);
 	}
-	int randommm = (int)(Math.random() * feedback.size()); // range of random numbers from 0 to the size of my array
+	int randommm = (int)(Math.random() * feedback.size());
 	String guestfeedback = feedback.get(randommm);
 	
 	// Welcome message for the bartender game as well as dialouge
@@ -583,17 +798,19 @@ public static void Bartender(Scanner scan, String playerName, int planPoints) th
 	System.out.println("\nI would like to order a: " + order + " With: " + correctingredients);
 	Scanner scan2 = new Scanner(System.in);
 	System.out.println("\nPick Your Base: Espresso, Tonic Water, Club Soda, Rum, Tequila, Vodka, Gin, Whiskey, Ice Tea\n ");
-	String Base = scan2.nextLine().trim().toLowerCase();
-	if (correctingredients.contains(Base)){
+	Base = scan2.nextLine().trim().toLowerCase();
+	if (Base.equals(eachingredient[0])){
 	System.out.println("\nYou got the Base right!");
 	}else {
+    randommm = (int)(Math.random() * feedback.size()); // range of random numbers from 0 to the size of my array
+    guestfeedback = feedback.get(randommm);
 	System.out.println("\nGuest: " + guestfeedback);
 	System.out.println("\nYou got the Base wrong you are down 1 point lets move on ");
 	planPoints -=1;}
 	Scanner scan3 = new Scanner(System.in);
 	System.out.println("\nPick Your Sweetner: Honey, Cane sugar, caramel, pineapple juice\n");
-	String Sweetner = scan3.nextLine().trim().toLowerCase();
-	if (correctingredients.contains(Sweetner)){
+	Sweetner = scan3.nextLine().trim().toLowerCase();
+	if (Sweetner.equals(eachingredient[1])){
 	System.out.println("\nYou got the Sweetner right!");
 	}else {
 	//create a variable to hold the randomly picked guest feedback
@@ -604,8 +821,8 @@ public static void Bartender(Scanner scan, String playerName, int planPoints) th
 	planPoints -=1;}
 	Scanner scan4 = new Scanner(System.in);
 	System.out.println("\nPick Your Topping: Strawberries, Oranges, Lime, Pineapple Chunks, Mint Leaves, Cherries, Apple Slices, Candy Cane\n");
-	String Topping = scan4.nextLine().trim().toLowerCase();
-	if (correctingredients.contains(Topping)){
+	Topping = scan4.nextLine().trim().toLowerCase();
+	if (Topping.equals(eachingredient[2])){
 	System.out.println("\nYou got the Topping right!");
 	}else {
 	//create a variable to hold the randomly picked guest feedback
@@ -614,17 +831,23 @@ public static void Bartender(Scanner scan, String playerName, int planPoints) th
 	System.out.println("\nGuest: " + guestfeedback);
 	System.out.println("\nYou got the Topping wrong you are down 1 point lets move on ");
 	planPoints -=1;}
+	
+	
 	random = (int)(Math.random() * fileorders.size()); // range of random numbers from 0 to the size of my array
 	order = fileorders.get(random);
 	randomm = (int)(Math.random() * ingredients.size()); // range of random numbers from 0 to the size of my array
 	correctingredients = ingredients.get(randomm);
+	eachingredient = correctingredients.split("\\s+");
 	i+=1;}
-	System.out.println("\nNice game " + playerName + " The status of your points are: " + planPoints);
+	System.out.println("\nNice game " + Name + " The status of your points are: " + planPoints);
 	}
 	
-	public static void GuestSeatingGame(Scanner scan, String playerName, int planPoints) {
+
+
+
+	public static void GuestSeatingGame() {
 	// Game description + intro
-	System.out.println("\nWelcome, " + playerName + "!");
+	System.out.println("\nWelcome, " + Name + "!");
 	System.out.println("In this mini-game, you will be organizing the seating for the wedding guests.");
 	System.out.println("Each guest has specific preferences for where they want to sit, which will affect their satisfaction with the seating.");
 	System.out.println("Be strategic! Assign guests to tables according to their preferences to earn planning points.\n");
@@ -740,7 +963,7 @@ public static void Bartender(Scanner scan, String playerName, int planPoints) th
 	}}
 	
 	// End of game summary
-	System.out.println("\nCongratulations " + playerName + ", the seating arrangement is complete!");
+	System.out.println("\nCongratulations " + Name + ", the seating arrangement is complete!");
 	System.out.println("You have earned a total of " + planPoints + " planning points.");}
 	
 	// public static void GamblingGame(Scanner scan, String playerName, int planPoints) {
@@ -749,65 +972,439 @@ public static void Bartender(Scanner scan, String playerName, int planPoints) th
 	// user makes money (2x, 3x, etc), and if they lose, then they lose the money they bet}
 
 
-public static void diceGame() {
-	Scanner scanner = new Scanner(System.in);
-	System.out.println("Your client's Husband, Tom wants help planning his bachelor after party!");
-	System.out.println("Tom and his six closest friends have decided to celebrate at the local casino.");
-	System.out.println("To keep the fun going, They will play a special dice gambling game! But its up to yo uto test it first.");
-	System.out.println("Are you ready to roll the dice and test your luck?");
+
+
+//Intro Level 3 
+public static void Quincenera(ArrayList<String> namesf) {
+	int random = (int)(Math.random() * namesf.size());
+	nameofficial = namesf.get(random);
+	System.out.println("\n"
+			+ "\n"
+			+ "Welccome " + Name + " To " + nameofficial + " Quincenera she has been looking foward to this day since she was 7. "
+			+ "She wants the party to be Fairytale theme, very flashy with lots of flowers and vines. "
+			+ "And she wants a really big dress something that sticks out. "
+			+ "This is a really sopecial day for " + nameofficial );
 	
-	scanner.nextLine();
 	
-	play();
+	
+}
+
+public static void Shopping() {
+	        int satisfactionPoints = 0;
+	        int cart = 0;
+	        int total = 0;
+	        int toInput = 0;
+	        String input = "";
+	      
+	       
+	        Scanner scan = new Scanner(System.in);
+
+	        
+	        System.out.println("\n"
+	        		+ "\n"
+	        		+ "\nIt's time for you to shop for the Quincenera.");
+	        System.out.println("Be mindful of what you buy because " + nameofficial + "'s parents set the budget at $475.");
+	        System.out.println("If you go over budget, you will lose points, but if you go under, you gain points. Let's go shopping!");
+
+	        // Dresses selection
+	        System.out.println("\n"
+	        		+ "\n"
+	        		+ "\nDresses:");
+	        System.out.println("Pink Dress Ball Gown ($200), Blue Mermaid Dress ($120), Purple Frill Dress ($100)");
+	        System.out.print("\nType in the price to buy your item: ");
+	        
+	        while (true) {
+	            input = scan.nextLine().trim();
+	            if (input.isEmpty()) {
+	                System.out.println("\nPlease enter a valid price: ");
+	                continue;
+	            }
+
+	            try {
+	                toInput = Integer.parseInt(input);
+	                if (toInput == 200) {
+	                    satisfactionPoints += 20;
+	                    cart++;
+	                    total += toInput;
+	                    System.out.println("\nItem added. Cart[" + cart + "]");
+	                } else if (toInput == 120) {
+	                    satisfactionPoints += 10;
+	                    cart++;
+	                    total += toInput;
+	                    System.out.println("\nItem added. Cart[" + cart + "]");
+	                } else if (toInput == 100) {
+	                    satisfactionPoints += 5;
+	                    cart++;
+	                    total += toInput;
+	                    System.out.println("\nItem added. Cart[" + cart + "]");
+	                } else {
+	                    System.out.println("\nThis item isn't ringing up. Please try again.");
+	                    continue;
+	                }
+	                break;
+	            } catch (NumberFormatException e) {
+	                System.out.println("\nPlease enter a valid price: ");
+	            }
+	        }
+
+	        // Decorations selection
+	        System.out.println("\n"
+	        		+ "\n"
+	        		+ "\nDecorations:");
+	        System.out.println("Pink Banner ($200), Floral Centerpiece ($30), LED Lights ($100)");
+	        System.out.print("]nType in the price to buy your item: ");
+
+	        while (true) {
+	            input = scan.nextLine().trim();
+	            if (input.isEmpty()) {
+	                System.out.println("\nPlease enter a valid price: ");
+	                continue;
+	            }
+
+	            try {
+	                toInput = Integer.parseInt(input);
+	                if (toInput == 200) {
+	                    satisfactionPoints += 5;
+	                    cart++;
+	                    total += toInput;
+	                    System.out.println("\nItem added. Cart[" + cart + "]");
+	                } else if (toInput == 30) {
+	                    satisfactionPoints += 20;
+	                    cart++;
+	                    total += toInput;
+	                    System.out.println("\nItem added. Cart[" + cart + "]");
+	                } else if (toInput == 100) {
+	                    satisfactionPoints += 10;
+	                    cart++;
+	                    total += toInput;
+	                    System.out.println("\nItem added. Cart[" + cart + "]");
+	                } else {
+	                    System.out.println("\nThis item isn't ringing up. Please try again.");
+	                    continue;
+	                }
+	                break;
+	            } catch (NumberFormatException e) {
+	                System.out.println("\nPlease enter a valid price: ");
+	            }
+	        }
+
+	        // Cakes selection
+	        System.out.println("\n"
+	        		+ "\n"
+	        		+ "\nCakes:");
+	        System.out.println("Marble Cake ($200), Vanilla Cake with Rainbow Frosting ($60), Red Velvet Cake ($100)");
+	        System.out.print("\nType in the price to buy your item: ");
+	        
+	        while (true) {
+	            input = scan.nextLine().trim();
+	            if (input.isEmpty()) {
+	                System.out.println("\nPlease enter a valid price: ");
+	                continue;
+	            }
+
+	            try {
+	                toInput = Integer.parseInt(input);
+	                if (toInput == 200) {
+	                    satisfactionPoints += 5;
+	                    cart++;
+	                    total += toInput;
+	                    System.out.println("\nItem added. Cart[" + cart + "]");
+	                } else if (toInput == 60) {
+	                    satisfactionPoints += 10;
+	                    cart++;
+	                    total += toInput;
+	                    System.out.println("\nItem added. Cart[" + cart + "]");
+	                } else if (toInput == 100) {
+	                    satisfactionPoints += 20;
+	                    cart++;
+	                    total += toInput;
+	                    System.out.println("\nItem added. Cart[" + cart + "]");
+	                } else {
+	                    System.out.println("\nThis item isn't ringing up. Please try again.");
+	                    continue;
+	                }
+	                break;
+	            } catch (NumberFormatException e) {
+	                System.out.println("\nPlease enter a valid price: ");
+	            }
+	        }
+
+	        // Tiaras selection
+	        System.out.println("\n"
+	        		+ "\n"
+	        		+ "\nTiaras:");
+	        System.out.println("Simple Silver Tiara ($100), Gold Tiara with Diamonds ($300), Flower Crown ($50)");
+	        System.out.print("\nType in the price to buy your item: ");
+	        
+	        while (true) {
+	            input = scan.nextLine().trim();
+	            if (input.isEmpty()) {
+	                System.out.println("\nPlease enter a valid price: ");
+	                continue;
+	            }
+
+	            try {
+	                toInput = Integer.parseInt(input);
+	                if (toInput == 100) {
+	                    satisfactionPoints += 20;
+	                    cart++;
+	                    total += toInput;
+	                    System.out.println("\nItem added. Cart[" + cart + "]");
+	                } else if (toInput == 300) {
+	                    satisfactionPoints += 10;
+	                    cart++;
+	                    total += toInput;
+	                    System.out.println("\nItem added. Cart[" + cart + "]");
+	                } else if (toInput == 50) {
+	                    satisfactionPoints += 5;
+	                    cart++;
+	                    total += toInput;
+	                    System.out.println("\nItem added. Cart[" + cart + "]");
+	                } else {
+	                    System.out.println("\nThis item isn't ringing up. Please try again.");
+	                    continue;
+	                }
+	                break;
+	            } catch (NumberFormatException e) {
+	                System.out.println("\nPlease enter a valid price: ");
+	            }
+	        }
+
+	        // Party Favors selection
+	        System.out.println("\n"
+	        		+ "\n"
+	        		+ "\nParty Favors:");
+	        System.out.println("Gift Cards ($300), Cotton Candy ($45), Tiara Bottle Openers ($40)");
+	        System.out.print("\nType in the price to buy your item: ");
+
+	        while (true) {
+	            input = scan.nextLine().trim();
+	            if (input.isEmpty()) {
+	                System.out.println("\nPlease enter a valid price: ");
+	                continue;
+	            }
+
+	            try {
+	                toInput = Integer.parseInt(input);
+	                if (toInput == 300) {
+	                    satisfactionPoints += 20;
+	                    cart++;
+	                    total += toInput;
+	                    System.out.println("\nItem added. Cart[" + cart + "]");
+	                } else if (toInput == 45) {
+	                    satisfactionPoints += 10;
+	                    cart++;
+	                    total += toInput;
+	                    System.out.println("\nItem added. Cart[" + cart + "]");
+	                } else if (toInput == 40) {
+	                    satisfactionPoints += 5;
+	                    cart++;
+	                    total += toInput;
+	                    System.out.println("\nItem added. Cart[" + cart + "]");
+	                } else {
+	                    System.out.println("\nThis item isn't ringing up. Please try again.");
+	                    continue;
+	                }
+	                break;
+	            } catch (NumberFormatException e) {
+	                System.out.println("\nPlease enter a valid price: ");
+	            }
+	        }
+
+	        // Print receipt
+	        System.out.println("\nPrinting Your Receipt....."
+	        		+ "\n....."
+	        		+ "\n....."
+	        		+ "\n.....");
+	        LocalDate currentDate = LocalDate.now();
+	        System.out.println("\n" +
+	                "Card Owner: " + Name +
+	                "\nDate: " + currentDate +
+	                "\n-------------------------------------------------" +
+	                "\nTotal Items: " + cart +
+	                "\nTotal Amount: $" + total +
+	                "\nBudget: $475  Difference: $" + (total - 475));
+
+	        // Check if the user stayed within budget
+	        if (total == 475) {
+	            System.out.println("\nYou have purchased perfectly within the budget! Good job " + Name + ". You have earned 20 points.");
+	        } else if (total > 475) {
+	            System.out.println("\nYou did not purchase within the budget. You went over. You have lost 20 points.");
+	        } else if (total < 475) {
+	            System.out.println("\nYou did not purchase within the budget. You went under. You have gained 10 points.");
+	        }
+
+	        // Satisfaction Points check
+	        if (satisfactionPoints == 100) {
+	            System.out.println("\nYou have made " + nameofficial + " really happy! You will end this game with an extra 2 points.");
+	        } else if (satisfactionPoints >= 60) {
+	            System.out.println("\nYou have made " + nameofficial + " somewhat happy. You will end this game with an extra 1 point.");
+	        } else {
+	            System.out.println("\nYou have made " + nameofficial + " unsatisfied with the choices you picked.");
+	        }
+
+	        // Final Points
+	        planPoints += satisfactionPoints;
+	        System.out.println("\nCongrats on finishing the shopping spree. Your total points are now: " + planPoints);
+	    }
+	
+
+   
+	
+//ball gown dress-200
+   //floral centerpiecec-30
+   //red velvet cake-100
+   //cooton candy bags-45
+	//simple silver tiraa-100
+//475-perfect amount
+
+
+
+public static void DJ() throws IOException {
+
+	System.out.println("\n"
+            + "\n"
+            + "Hello " + "Name" + " The DJ is sick and we need you to fill in"
+            + "\nThe party guests have song requests and you need to use your judgment"
+            + "\nTo select based off the options you have for each request"
+            + "\nChoose the right songs and earn points. Choose the wrong song and lose points"
+            + "\nYou got this, if you mess up the only murder on the dancefloor will be your music.");
+
+    ArrayList<String> GuestReq = new ArrayList<>();
+    BufferedReader read = new BufferedReader(new FileReader("MusicRequest.txt"));
+    String line;
+    int g = 0;  
+    int i = 0; 
+
+   
+    while ((line = read.readLine()) != null) {
+        GuestReq.add(line);
+    }
+
+    while (g != 4) { 
+       
+    
+        System.out.println("\nRound: " + (g + 1));
+
+        // Choose a random request from the list
+        int random = (int)(Math.random() * GuestReq.size());
+        String randomline = GuestReq.get(random);
+        String[] parts = randomline.split(":", 2);
+        guest = parts[0].trim();  
+        req = parts[1].trim();  
+        System.out.println(guest + ": " + req); 
+     
+
+       
+            System.out.println("\nYour options are: "
+                    + "\nA. Espresso-Sabrina Carpenter "
+                    + "\nB. Push 2 Start-Tyla "
+                    + "\nC. On The Floor-Jennifer Lopez ft Pitbull"
+                    + "\nD. Feel This Moment-Pitbull ft Christina Aguilera"
+                    + "\nE. BIRDS OF A FEATHER-Billie Eilish"
+                    + "\nF. Until I Found You-Stephen Sanchez");
+
+            System.out.println("\nType 'Yes' to listen to the samples of these songs."
+             		+ "\nOr type 'No' to pick which song to play for the guest?");
+                  
+            response = scan.next().toLowerCase();
+            
+            while (response.equals("yes")){
+            	System.out.println("\nWhich sample did you want to hear:");
+            	 response = scan.next().toLowerCase();
+            	 if(response.equals("a")) {
+                     stopSong();
+                     playSong("Espresso-Sabrina Carpenter-cut.wav");
+                 } else if (response.equals("b")) {
+                     stopSong();
+                     playSong("PUSH 2 START-Tyla-cut.wav");
+                 } else if (response.equals("c")) {
+                     stopSong();
+                     playSong("On The Floor - Jennifer Lopez ft Pitbull-cut.wav");
+                 } else if (response.equals("d")) {
+                     stopSong();
+                     playSong("Feel This Moment-Pitbull  ft. Christina Aguilera-cut.wav");
+                 } else if (response.equals("e")) {
+                     stopSong();
+                     playSong("BIRDS OF A FEATHER-Billie Eilish-cut.wav");
+                 } else if (response.equals("f")) {
+                     stopSong();
+                     playSong("Until I Found You-Stephen Sanchez-cut.wav");
+                 }
+                 }
+            if (!response.equals("yes") || (!response.equals("no"))){
+                    System.out.println("invalid response try again");
+                                  continue;
+            }
+            		
+            
+                 
+              
+            	 
+               
+            
+            if (response.equals("no")){
+            		 System.out.println("\nWhich sample suits the guest's request?");
+                     response = scan.next().toLowerCase();
+                     g++;  // Increment the round counter
+                     
+
+                  if ((response.equals("b") && guest.equals("Birthday Girl")) ||
+                    	        (response.equals("c") && guest.equals("Dad")) ||
+                    	        (response.equals("e") && guest.equals("Mom")) ||
+                    	        (response.equals("f") && guest.equals("Grandma"))) {
+                    	        stopSong();
+                    	        System.out.println("\nYou're good at this.");
+                    	        planPoints += 10;
+                    	   } else {
+                    	        stopSong();
+                    	        System.out.println("\nNot the best choice.");
+                    	        planPoints -= 5;
+                    	    }
+                  
+                    	}
+          
+      
+                     }
+            
+        
+        
+       
+        
+    
+    
+
+    System.out.println("\nGood job " + Name + " You have earned a total of " + planPoints + " points!");
 }
 
 
-public static void play() {
-Scanner scanner = new Scanner(System.in);
-Random random = new Random();
 
-	System.out.println("\nYou and the dealer will each roll one dice. If you roll the same number as the dealer, you win!");
-	System.out.println("Otherwise, you lose 10 planning points.");
-	System.out.println("Continue and press enter to roll the dice and test your luck!");
-	scanner.nextLine();
-	
-	int playerRoll = random.nextInt(6) + 1;
-	int dealerRoll = random.nextInt(6) + 1;
-	
-	System.out.println("You rolled: " + playerRoll);
-	printDie(playerRoll);
-	System.out.println("The dealer rolled: " + dealerRoll);
-	printDie(dealerRoll);
-	
-	if (playerRoll == dealerRoll) {
-	System.out.println("Congratulations! You won the round!");
-	planPoints += 10;
-	} else {
-	planPoints -= 10;
-	System.out.println("You lost this round. 10 planning points deducted.");
-	
-		}	
-	System.out.println("Alright, good work. you have done a great job of tackling all these wedding tasks." );
-	System.out.println("I think you are ready to handle a new challenge... " );
-	System.out.println(Name + "You now have"  + planPoints + "points:");}
+//play the song using Clip
+private static void playSong(String fileName) {
+    try {
+        File soundfile = new File(fileName);
+        AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundfile);
+        clip = AudioSystem.getClip();
+        clip.open(audioStream);
+        clip.start();
+    } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+        System.err.println("Error with audio file or playback: " + e.getMessage());
+    }
+}
 
-private static void printDie(int roll) {
-	String[] diceFaces = {
-	" -------\n | |\n | ● |\n | |\n -------",
-	" -------\n | ● |\n | |\n | ● |\n -------",
-	" -------\n | ● |\n | ● |\n | ● |\n -------",
-	" -------\n | ● ● |\n | |\n | ● ● |\n -------",
-	" -------\n | ● ● |\n | ● |\n | ● ● |\n -------",
-	" -------\n | ● ● |\n | ● ● |\n | ● ● |\n -------"
-	};
-	System.out.println(diceFaces[roll - 1]);
-	}
+// stop the song
+private static void stopSong() {
+    if (clip != null) {
+        clip.stop();
+        clip.flush();
+    }
+}
 
 
 
 
 //finds the users progress and information needed to move them through the game once they log back in
-public static void goingback(String username,String password, String nameofficial) throws IOException {
+public static void goingback() throws IOException {
 	ArrayList<String> usersaveprogress = new ArrayList<>();
 	File O4 = new File("progress.txt");
 	Scanner scan = new Scanner(O4);
@@ -852,7 +1449,7 @@ public static void goingback(String username,String password, String nameofficia
 	"\nYour Plan Points are " + planPoints + "Let's get you back where you left off!");
 	//System.out.println("Debug: handlelevel called with Game = " + Game + ", Level = " + Level);
 	
-	handlelevel(Game, Level,scan, password, username, nameofficial,namesf);
+	handlelevel(namesf);
 	}else {
 	System.out.println("error");}
 	//scan.close();
