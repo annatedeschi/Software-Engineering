@@ -1,5 +1,6 @@
 package Planner;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,46 +10,69 @@ import java.util.Scanner;
 public class PartyPlannerIntros {
 	static String nameofficial;
 	static String Name;
+	static String playerName;
 	static int Game;
 	static int Level;
+	static int random;
 	static String username;
 	static String password;
 	static Scanner scan = new Scanner(System.in);
 	static int planPoints;
 	static PartyPlannerHandle Obj2 = new PartyPlannerHandle();
 	public static HashMap<String, String> userInfo = new HashMap<>();
-
+	public static ArrayList<String> namesf = new ArrayList<>();
+	
 	public static void main(String[] args) throws IOException {
+	 planPoints = 0;
+	 File O = new File("Femalenames.txt");
+     Scanner read = new Scanner(O);
+     while (read.hasNextLine()) {
+	   String data1 = read.nextLine();
+	    namesf.add(data1);}
 		Scanner scan = new Scanner(System.in);
 		System.out.println("Welcome to Event Planner Pro the game!");
 		System.out.println("Are you a returning user? (yes/no)");
 		// trim whitespaces and make lowercases to account for users input
 		String intro = scan.nextLine().trim().toLowerCase();
 		if (intro.equals("yes")) {
-		Obj2.login();
+		Obj2.login(namesf);
 		} else if (intro.equals("no")) {
 		PartyPlannerHandle.register(intro);
-		} else {
-		System.out.println("ERROR: Invalid input. Please restart, and try again!");
-		scan.close();
+		} else if (intro.equals("yes") || intro.equals("no")){
+			System.out.println("Welcome to Event Planner Pro the game!");
+			System.out.println("Are you a returning user? (yes/no)");
+		    intro = scan.nextLine().trim().toLowerCase();
+			}
 		return;
 		}
-	}
+	
 
 	//rachenza
 	//intro to level 1
 	public static void Babyshower() {
-
+		 
+		 random = (int)(Math.random() * namesf.size()); // range of random numbers from 0 to the size of my array
+		nameofficial = namesf.get(random);
+		if (nameofficial.equals(null)) {
+			random = (int)(Math.random() * namesf.size()); // range of random numbers from 0 to the size of my array
+			nameofficial = namesf.get(random);
+		}
+		System.out.println("\nWelcome to Level 1 " + PartyPlannerHandle.Name);
+		
 		System.out.println("You are tasked with planning events for your local neighborhood!\n");
-		System.out.println("Lets start easy," + Name + ". First you will begin by planning a baby shower for " + nameofficial + "\n.");
+		System.out.println("Lets start easy," + PartyPlannerHandle.Name + ". First you will begin by planning a baby shower for " + nameofficial + "\n.");
 		}
 
 	
 	//rachenza
 	//Lvl 2 Intro
-	public static void Wedding(ArrayList<String> namesf)  {
-		int random = (int)(Math.random() * namesf.size()); // range of random numbers from 0 to the size of my array
+	public static void Wedding()  {
+		random = (int)(Math.random() * namesf.size()); // range of random numbers from 0 to the size of my array
 		nameofficial = namesf.get(random);
+		if (nameofficial.equals(null)) {
+			random = (int)(Math.random() * namesf.size()); // range of random numbers from 0 to the size of my array
+			nameofficial = namesf.get(random);
+		}
 
 		
 		System.out.println("\nCongrats on making it to Level 2 " + Name + "\nIn this level you will be planning a wedding");
@@ -66,15 +90,24 @@ public class PartyPlannerIntros {
 
 
 	//Intro Level 3 
-	public static void Quincenera(ArrayList<String> namesf) {
-		int random = (int)(Math.random() * namesf.size());
+	public static void Quincenera() {
+		
+		random = (int)(Math.random() * namesf.size());
 		nameofficial = namesf.get(random);
+		if (nameofficial.equals(null)) {
+			random = (int)(Math.random() * namesf.size()); // range of random numbers from 0 to the size of my array
+			nameofficial = namesf.get(random);
+		}
+		
+		
+		System.out.println("\nCongrats on making it to Level 3 " + PartyPlannerHandle.Name);
+		
 		System.out.println("\n"
 				+ "\n"
-				+ "Welccome " + Name + " To " + nameofficial + " Quincenera she has been looking foward to this day since she was 7. "
-				+ "She wants the party to be Fairytale theme, very flashy with lots of flowers and vines. "
-				+ "And she wants a really big dress something that sticks out. "
-				+ "This is a really sopecial day for " + nameofficial );
+				+ "\nWelccome " + PartyPlannerHandle.Name + " To " + nameofficial + " Quincenera she has been looking foward to this day since she was 7. "
+				+ "\nShe wants the party to be Fairytale theme, very flashy with lots of flowers and vines. "
+				+ "\nAnd she wants a really big dress something that sticks out. "
+				+ "\nThis is a really sopecial day for " + nameofficial );
 		
 		
 		

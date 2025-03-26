@@ -44,7 +44,7 @@ public static void Shopping() {
 	        System.out.println("\n"
 	        		+ "\n"
 	        		+ "\nIt's time for you to shop for the Quincenera.");
-	        System.out.println("Be mindful of what you buy because " + nameofficial + "'s parents set the budget at $475.");
+	        System.out.println("Be mindful of what you buy because " + PartyPlannerIntros.nameofficial + "'s parents set the budget at $475.");
 	        System.out.println("If you go over budget, you will lose points, but if you go under, you gain points. Let's go shopping!");
 
 	        // Dresses selection
@@ -259,7 +259,7 @@ public static void Shopping() {
 	        		+ "\n.....");
 	        LocalDate currentDate = LocalDate.now();
 	        System.out.println("\n" +
-	                "Card Owner: " + Name +
+	                "Card Owner: " + PartyPlannerHandle.Name +
 	                "\nDate: " + currentDate +
 	                "\n-------------------------------------------------" +
 	                "\nTotal Items: " + cart +
@@ -268,25 +268,29 @@ public static void Shopping() {
 
 	        // Check if the user stayed within budget
 	        if (total == 475) {
-	            System.out.println("\nYou have purchased perfectly within the budget! Good job " + Name + ". You have earned 20 points.");
+	        	PartyPlannerIntros.planPoints+=10;
+	            System.out.println("\nYou have purchased perfectly within the budget! Good job " + PartyPlannerHandle.Name + ". You have earned 10 points.");
 	        } else if (total > 475) {
-	            System.out.println("\nYou did not purchase within the budget. You went over. You have lost 20 points.");
+	        	PartyPlannerIntros.planPoints-=10;
+	            System.out.println("\nYou did not purchase within the budget. You went over. You have lost 10 points.");
 	        } else if (total < 475) {
-	            System.out.println("\nYou did not purchase within the budget. You went under. You have gained 10 points.");
+	        	PartyPlannerIntros.planPoints+=5;
+	            System.out.println("\nYou did purchase within the budget. However you went under. You have gained 5 points.");
 	        }
 
 	        // Satisfaction Points check
 	        if (satisfactionPoints == 100) {
-	            System.out.println("\nYou have made " + nameofficial + " really happy! You will end this game with an extra 2 points.");
+	        	PartyPlannerIntros.planPoints+=2;
+	            System.out.println("\nYou have made " + PartyPlannerIntros.nameofficial + " really happy! You will end this game with an extra 2 points.");
 	        } else if (satisfactionPoints >= 60) {
-	            System.out.println("\nYou have made " + nameofficial + " somewhat happy. You will end this game with an extra 1 point.");
+	        	PartyPlannerIntros.planPoints+=1;
+	            System.out.println("\nYou have made " + PartyPlannerIntros.nameofficial + " somewhat happy. You will end this game with an extra 1 point.");
 	        } else {
-	            System.out.println("\nYou have made " + nameofficial + " unsatisfied with the choices you picked.");
+	            System.out.println("\nYou have made " + PartyPlannerIntros.nameofficial + " unsatisfied with the choices you picked you gain no extra points.");
 	        }
 
 	        // Final Points
-	        planPoints += satisfactionPoints;
-	        System.out.println("\nCongrats on finishing the shopping spree. Your total points are now: " + planPoints);
+	        System.out.println("\nCongrats on finishing the shopping spree. Your total points are now: " + PartyPlannerIntros.planPoints);
 	    }
 	
 
@@ -305,7 +309,7 @@ public static void DJ() throws IOException {
 
 	System.out.println("\n"
             + "\n"
-            + "Hello " + "Name" + " The DJ is sick and we need you to fill in"
+            + "Hello " + PartyPlannerHandle.Name + " The DJ is sick and we need you to fill in"
             + "\nThe party guests have song requests and you need to use your judgment"
             + "\nTo select based off the options you have for each request"
             + "\nChoose the right songs and earn points. Choose the wrong song and lose points"
@@ -345,12 +349,14 @@ public static void DJ() throws IOException {
                     + "\nE. BIRDS OF A FEATHER-Billie Eilish"
                     + "\nF. Until I Found You-Stephen Sanchez");
 
-            System.out.println("\nType 'Yes' to listen to the samples of these songs."
-             		+ "\nOr type 'No' to pick which song to play for the guest?");
+            System.out.println("\n"
+            		+ "\nType 'Preview Song' to listen to the samples of these songs."
+             		+ "\n"
+             		+ "\nOr type 'Select Song' to pick which song to play for the guest?");
                   
             response = scan.next().toLowerCase();
             
-            while (response.equals("yes")){
+            while (response.equals("Preview Song")){
             	System.out.println("\nWhich sample did you want to hear:");
             	 response = scan.next().toLowerCase();
             	 if(response.equals("a")) {
@@ -373,7 +379,7 @@ public static void DJ() throws IOException {
                      playSong("Until I Found You-Stephen Sanchez-cut.wav");
                  }
                  }
-            if (!response.equals("yes") && !response.equals("no")){
+            if (!response.equals("Preview Song") && !response.equals("Select Song")){
                     System.out.println("invalid response try again");
                                   continue;}
            
@@ -384,7 +390,7 @@ public static void DJ() throws IOException {
             	 
                
             
-            if (response.equals("no")){
+            if (response.equals("Select Song")){
             		 System.out.println("\nWhich sample suits the guest's request?");
                      response = scan.next().toLowerCase();
                      g++;  // Increment the round counter
@@ -396,11 +402,11 @@ public static void DJ() throws IOException {
                     	        (response.equals("f") && guest.equals("Grandma"))) {
                     	        stopSong();
                     	        System.out.println("\nYou're good at this.");
-                    	        planPoints += 10;
+                    	        PartyPlannerIntros.planPoints += 2;
                     	   } else {
                     	        stopSong();
                     	        System.out.println("\nNot the best choice.");
-                    	        planPoints -= 5;
+                    	        PartyPlannerIntros.planPoints -= 2;
                     	    }
                   
                     	}
@@ -415,7 +421,7 @@ public static void DJ() throws IOException {
     
     
 
-    System.out.println("\nGood job " + Name + " You have earned a total of " + planPoints + " points!");
+    System.out.println("\nGood job " + PartyPlannerHandle.Name + " You have earned a total of " + PartyPlannerIntros.planPoints + " points!");
 }
 
 
