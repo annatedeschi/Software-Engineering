@@ -37,6 +37,7 @@ public static void diceGame() {
 		answer = scan.nextLine().toLowerCase();
 	}else if(answer.equals("yes")) {
 		i++;
+		System.out.println("blah");
 		play();
 }
 }
@@ -66,15 +67,15 @@ while (i != 4) {
 	
 	if (playerRoll == dealerRoll) {
 	System.out.println("Congratulations! You won the round!");
-	PartyPlannerIntros.planPoints += 10;
+	planPoints += 10;
 	} else {
-	PartyPlannerIntros.planPoints -= 10;
+	planPoints -= 10;
 	System.out.println("You lost this round. 10 planning points deducted.");
 	
 		}	i++;}
 	System.out.println("Alright, good work. you have done a great job of tackling all these wedding tasks." );
 	System.out.println("I think you are ready to handle a new challenge... " );
-	System.out.println(PartyPlannerHandle.Name + "You now have "  + PartyPlannerIntros.planPoints + " points:");}
+	System.out.println(Name + "You now have "  + planPoints + " points:");}
 
 private static void printDie(int roll) {
 	String[] diceFaces = {
@@ -154,39 +155,36 @@ public static void Bartender( ) throws FileNotFoundException {
 	Base = scan2.nextLine().trim().toLowerCase();
 	if (Base.equals(eachingredient[0])){
 	System.out.println("\nYou got the Base right!");
-	PartyPlannerIntros.planPoints +=2;
 	}else {
     randommm = (int)(Math.random() * feedback.size()); // range of random numbers from 0 to the size of my array
     guestfeedback = feedback.get(randommm);
 	System.out.println("\nGuest: " + guestfeedback);
 	System.out.println("\nYou got the Base wrong you are down 1 point lets move on ");
-	PartyPlannerIntros.planPoints -=1;}
+	planPoints -=1;}
 	Scanner scan3 = new Scanner(System.in);
 	System.out.println("\nPick Your Sweetner: Honey, Cane sugar, caramel, pineapple juice\n");
 	Sweetner = scan3.nextLine().trim().toLowerCase();
 	if (Sweetner.equals(eachingredient[1])){
 	System.out.println("\nYou got the Sweetner right!");
-	PartyPlannerIntros.planPoints +=2;
 	}else {
 	//create a variable to hold the randomly picked guest feedback
 	randommm = (int)(Math.random() * feedback.size()); // range of random numbers from 0 to the size of my array
 	guestfeedback = feedback.get(randommm);
 	System.out.println("\nGuest: " + guestfeedback);
 	System.out.println("\nYou got the Sweetner wrong you are down 1 point lets move on");
-	PartyPlannerIntros.planPoints -=1;}
+	planPoints -=1;}
 	Scanner scan4 = new Scanner(System.in);
 	System.out.println("\nPick Your Topping: Strawberries, Oranges, Lime, Pineapple Chunks, Mint Leaves, Cherries, Apple Slices, Candy Cane\n");
 	Topping = scan4.nextLine().trim().toLowerCase();
 	if (Topping.equals(eachingredient[2])){
 	System.out.println("\nYou got the Topping right!");
-	PartyPlannerIntros.planPoints +=2;
 	}else {
 	//create a variable to hold the randomly picked guest feedback
 	randommm = (int)(Math.random() * feedback.size()); // range of random numbers from 0 to the size of my array
 	guestfeedback = feedback.get(randommm);
 	System.out.println("\nGuest: " + guestfeedback);
 	System.out.println("\nYou got the Topping wrong you are down 1 point lets move on ");
-	PartyPlannerIntros.planPoints -=1;}
+	planPoints -=1;}
 	
 	
 	random = (int)(Math.random() * fileorders.size()); // range of random numbers from 0 to the size of my array
@@ -195,7 +193,7 @@ public static void Bartender( ) throws FileNotFoundException {
 	correctingredients = ingredients.get(randomm);
 	eachingredient = correctingredients.split("\\s+");
 	i+=1;}
-	System.out.println("\nNice game " + PartyPlannerHandle.Name + " The status of your points are: " + PartyPlannerIntros.planPoints);
+	System.out.println("\nNice game " + Name + " The status of your points are: " + planPoints);
 	}
 	
 
@@ -203,7 +201,7 @@ public static void Bartender( ) throws FileNotFoundException {
 
 	public static void GuestSeatingGame() {
 	// Game description + intro
-	System.out.println("\nWelcome, " + PartyPlannerHandle.Name + "!");
+	System.out.println("\nWelcome, " + Name + "!");
 	System.out.println("In this mini-game, you will be organizing the seating for the wedding guests.");
 	System.out.println("Each guest has specific preferences for where they want to sit, which will affect their satisfaction with the seating.");
 	System.out.println("Be strategic! Assign guests to tables according to their preferences to earn planning points.\n");
@@ -308,10 +306,10 @@ public static void Bartender( ) throws FileNotFoundException {
 	(assignedTable.equals("Table 4 (View Table)") && selectedGuest.equals("Emily")) ||
 	(assignedTable.equals("Table 5 (General Table)") && selectedGuest.equals("John"))) {
 	System.out.println(selectedGuest + " is happy with their seating!");
-	PartyPlannerIntros.planPoints += 3; // Award points for correct seating
+	planPoints += 3; // Award points for correct seating
 	} else {
 	System.out.println(selectedGuest + " is not happy with their seating arrangement.");
-	PartyPlannerIntros.planPoints -= 2; // Deduct points for incorrect seating
+	planPoints -= 2; // Deduct points for incorrect seating
 	}
 	
 	remainingSeating--; // Reduce the number of unseated guests
@@ -319,8 +317,8 @@ public static void Bartender( ) throws FileNotFoundException {
 	}}
 	
 	// End of game summary
-	System.out.println("\nCongratulations " + PartyPlannerHandle.Name + ", the seating arrangement is complete!");
-	System.out.println("You have earned a total of " + PartyPlannerIntros.planPoints + " planning points.");}
+	System.out.println("\nCongratulations " + Name + ", the seating arrangement is complete!");
+	System.out.println("You have earned a total of " + planPoints + " planning points.");}
 	
 	// public static void GamblingGame(Scanner scan, String playerName, int planPoints) {
 	// making dice roller game, "dealer" asks what number the user think they will roll, the user guesses, then

@@ -13,9 +13,8 @@ public class PartyPlannerHandle {
 	static String username;
 	static String nameofficial;
 	static String password;
-	public static String Name;
+	static String Name;
 	static String input;
-	static String playerName;
 	static int Game;
 	static int Level;
 	static int planPoints;
@@ -30,8 +29,7 @@ public class PartyPlannerHandle {
 		
 	}
 	//login method
-	public static void login( ArrayList<String>namesf) throws IOException {
-		
+	public static void login() throws IOException {
 		System.out.println("\nLet's log into your account");
 		
 		 boolean Login = false;
@@ -51,7 +49,7 @@ public class PartyPlannerHandle {
 		userInfo.put(username, password);
 		//send them back where they left off by calling the method which does so-rachenza
 		Login = true;
-		goingback(namesf);}
+		goingback();}
 		else {
 	        continue;
 	    }
@@ -167,7 +165,7 @@ public class PartyPlannerHandle {
 		String userfeedprogress = scan0.nextLine().trim().toLowerCase();
 		if (userfeedprogress.equals("yes")) {
 		BufferedWriter writer = new BufferedWriter(new FileWriter("progress.txt",true));
-		writer.write(username + ", " + password + ", " + Name + ", " + Level + ", " + Game + ", " + PartyPlannerIntros.planPoints);
+		writer.write(username + ", " + password + ", " + Name + ", " + Level + ", " + Game + ", " + planPoints);
 		writer.newLine();
 		writer.close();
 		System.out.println("all set");
@@ -185,21 +183,21 @@ public class PartyPlannerHandle {
 	//rachenza
 	//sends the user to the correct game once they log back in
 		public static void handlelevel( ArrayList<String>namesf) throws IOException {
-			System.out.println("Let's get you back where you left off " + Name + " !");
+		System.out.println("Debug: handlelevel called with Game = " + Game + ", Level = " + Level);
 		
 		if (Game == 1 && Level == 1) {
 		Obj1.UnscrambleBabyName();
 		saveprogress();
 		Obj1.DateGuesser();
 		saveprogress();
-		Obj3.Wedding();
+		Obj3.Wedding(namesf);
 		Obj4.diceGame();
 		saveprogress();
 		Obj4.Bartender();
 		saveprogress();
 		Obj4.GuestSeatingGame( );
 		saveprogress();
-		Obj3.Quincenera();
+		Obj3.Quincenera(namesf);
 		Obj5.Shopping();
 		saveprogress();
 		Obj5.DJ();
@@ -211,14 +209,14 @@ public class PartyPlannerHandle {
 		if (Game == 2 && Level == 1) {
 		Obj1.DateGuesser();
 		saveprogress();
-		Obj3.Wedding();
+		Obj3.Wedding(namesf);
 		Obj4.diceGame();
 		saveprogress();
 		Obj4.Bartender();
 		saveprogress();
 		Obj4.GuestSeatingGame();
 		saveprogress();
-		Obj3.Quincenera();
+		Obj3.Quincenera(namesf);
 		Obj5.Shopping();
 		saveprogress();
 		Obj5.DJ();
@@ -227,14 +225,14 @@ public class PartyPlannerHandle {
 		}
 		
 		if (Game == 3 && Level == 1) {
-		Obj3.Wedding();
+		Obj3.Wedding(namesf);
 		Obj4.diceGame();
 		saveprogress();
 		Obj4.Bartender();
 		saveprogress();
 		Obj4.GuestSeatingGame();
 		saveprogress();
-		Obj3.Quincenera();
+		Obj3.Quincenera(namesf);
 		Obj5.Shopping();
 		saveprogress();
 		Obj5.DJ();
@@ -244,11 +242,13 @@ public class PartyPlannerHandle {
 		
 		
 		if (Game == 1 && Level == 2) {
+		Obj4.diceGame();
+		saveprogress();
 		Obj4.Bartender();
 		saveprogress();
 		Obj4.GuestSeatingGame();
 		saveprogress();
-		Obj3.Quincenera();
+		Obj3.Quincenera(namesf);
 		Obj5.Shopping();
 		saveprogress();
 		Obj5.DJ();
@@ -257,9 +257,11 @@ public class PartyPlannerHandle {
 		}
 		
 		if (Game == 2 && Level == 2) {
+		Obj4.Bartender();
+		saveprogress();
 		Obj4.GuestSeatingGame();
 		saveprogress();
-		Obj3.Quincenera();
+		Obj3.Quincenera(namesf);
 		Obj5.Shopping();
 		saveprogress();
 		Obj5.DJ();
@@ -268,7 +270,9 @@ public class PartyPlannerHandle {
 		}
 		
 		if (Game == 3 && Level == 2) {
-		Obj3.Quincenera();
+	    Obj4.GuestSeatingGame();
+		saveprogress();
+		Obj3.Quincenera(namesf);
 		Obj5.Shopping();
 		saveprogress();
 		Obj5.DJ();
@@ -277,13 +281,17 @@ public class PartyPlannerHandle {
 		}
 		
 		if (Game == 1 && Level == 3) {
+		Obj3.Quincenera(namesf);
+		Obj5.Shopping();
+		saveprogress();
 		Obj5.DJ();
 		saveprogress();
 		}else {
 		}
 		
 		if (Game == 2 && Level == 3) {
-		//third game
+		Obj5.DJ();
+		saveprogress();
 			}else {
 			}
 		
@@ -297,13 +305,25 @@ public class PartyPlannerHandle {
 		System.out.println("\nWelcome to your event planning adventure!");
 		System.out.println("We need help to plan a variety of events happening around town.");
 		System.out.print("First off, What is your name?");
-		 Name = scan.nextLine(); //user inputs their name
-		
+		String playerName = scan.nextLine(); //user inputs their name
+		Name = playerName;
 		System.out.println("Welcome, " + Name + "! Let's begin your event planning journey.\n");
 		System.out.println("You are tasked with planning events for your local neighborhood");
 		System.out.println("Let's start easy, " + Name + ". First you will begin by planning a baby shower.");
 		System.out.println("As you go along and complete challenges, you will earn 'Planning points'. Earn enough and you will become the ultimate planner pro!\n");
-	
+		ArrayList<String> namesf = new ArrayList<String>();
+		
+		File O = new File("Femalenames.txt");
+
+	Scanner read = new Scanner(O);
+
+	while (read.hasNextLine()) {
+	String data1 = read.nextLine();
+	namesf.add(data1);
+	}
+	//create a variable to hold the randomly picked female names
+	int random = (int)(Math.random() * namesf.size()); // range of random numbers from 0 to the size of my array
+		nameofficial = namesf.get(random);
 		Level +=1;
 		Obj3.Babyshower();
 		//minigames
@@ -316,12 +336,12 @@ public class PartyPlannerHandle {
 		Obj1.DateGuesser();
 		Game +=1;
 		saveprogress();
-		
+		System.out.println("\n" + Name + ", great job so far! You have earned a total of " + planPoints + " planning points! Lets move on to level 2...");
 		//rachenza
 		//calling intro to lvl 2
 		
 		Game = 0;
-		Obj3.Wedding();
+		Obj3.Wedding(namesf);
 		Obj4.diceGame();
 		Game+=1;
 		saveprogress();
@@ -332,11 +352,12 @@ public class PartyPlannerHandle {
 		Game+=1;
 		Level +=1;
 		saveprogress();
+		System.out.println("\n" + Name + ", great job so far! You have earned a total of " + planPoints + " planning points! Lets move on to level 3...");
 		//rachenza
 		//calling intro to lvl 3
 		
 		Game = 0;
-		Obj3.Quincenera();
+		Obj3.Quincenera(namesf);
 		Obj5.Shopping();
 		Game+=1;
 		saveprogress();
@@ -346,7 +367,7 @@ public class PartyPlannerHandle {
 		
 		}
 	//finds the users progress and information needed to move them through the game once they log back in
-	public static void goingback( ArrayList<String>namesf) throws IOException {
+	public static void goingback() throws IOException {
 		ArrayList<String> usersaveprogress = new ArrayList<>();
 		File O4 = new File("progress.txt");
 		Scanner scan = new Scanner(O4);
@@ -366,7 +387,16 @@ public class PartyPlannerHandle {
 		break;}}
 		if (index != -1) {
 		//create array to hold file info for female names
+		ArrayList<String> namesf = new ArrayList<String>();
 		
+		File O = new File("Femalenames.txt");
+		
+		Scanner read = new Scanner(O);
+		
+		while (read.hasNextLine()) {
+		String data1 = read.nextLine();
+		namesf.add(data1);
+		}
 		//create a variable to hold the randomly picked female names
 		int random = (int)(Math.random() * namesf.size()); // range of random numbers from 0 to the size of my array
 		nameofficial = namesf.get(random);
@@ -375,11 +405,11 @@ public class PartyPlannerHandle {
 		Name = parts[2];
 		Level = Integer.parseInt(parts[3]);
 		Game = Integer.parseInt(parts[4]);
-		PartyPlannerIntros.planPoints = Integer.parseInt(parts[5]);
+		planPoints = Integer.parseInt(parts[5]);
 		System.out.println("\nWelcome back! " + Name +
 		"\nYou left off at Level: " + Level +
 		"\nAnd Game: " + Game +
-		"\nYour Plan Points are: " + PartyPlannerIntros.planPoints);
+		"\nYour Plan Points are " + planPoints + "Let's get you back where you left off!");
 		//System.out.println("Debug: handlelevel called with Game = " + Game + ", Level = " + Level);
 		
 		handlelevel(namesf);

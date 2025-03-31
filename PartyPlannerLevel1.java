@@ -25,7 +25,7 @@ public class PartyPlannerLevel1 {
 	//minigame #1 - rock paper scissors
 	public static void RockPaperScissors() {
 			// okay the next line i tried to somehow tie in a baby shower and rock paper scissors...we can workshop the storyline part
-			System.out.println("Your first task is to play rock, paper, scissors to decide who will go first to give the first present!"
+			System.out.println("Your first task is to help plan a baby shower! Lets play rock, paper, scissors to who will go first to give the first present!"
 			+ " It will help you earn some planning points.");
 			System.out.println("here we go!");
 			//tallies player and computer wins to see who wins more
@@ -51,13 +51,13 @@ public class PartyPlannerLevel1 {
 			// i had it award points based on each round... but we can change this - maybe based on overall winner or not
 			if (playerWins > computerWins) {
 			System.out.println("Congratulations! You won!");
-			PartyPlannerIntros.planPoints+=10; // award 10 planning points for a win
+			planPoints+=10; // award 10 planning points for a win
 			} else if (computerWins > playerWins) {
 			System.out.println("The computer wins this round.");
-			PartyPlannerIntros.planPoints+=2; // award 5 planning points for trying
+			planPoints+=5; // award 5 planning points for trying
 			} else {
 			System.out.println("It's a tie!");
-			PartyPlannerIntros.planPoints+= 5; // award 7 planning points for a tie
+			planPoints+= 7; // award 7 planning points for a tie
 			}}
 			
 			//results of the round
@@ -130,11 +130,11 @@ public class PartyPlannerLevel1 {
 			if (guessedLast) {
 			System.out.println("Congratulations! You unscrambled the full name: "
 			+ firstName + " " + middleName + " " + lastName);
-			PartyPlannerIntros.planPoints+= 10; // planing points
+			planPoints+= 15; // planing points
 			} else {
 			System.out.println("Game over! The correct full name was: "
 			+ firstName + " " + middleName + " " + lastName);
-			PartyPlannerIntros.planPoints+= 2; }}
+			planPoints+= 5; }}
 			
 			// scramble method
 			public static String scramble(String name) {
@@ -189,69 +189,69 @@ public class PartyPlannerLevel1 {
 			System.out.println("Try to guess the due date (month/day). You'll have 15 attempts.");
 			
 			// month guess
-			System.out.println("\nFirst, guess the month (1-12). Press Enter to guess: ");
+			System.out.println("\nFirst, guess the month (1-12). Press enter to guess:");
 			while (remainingMonthGuess > 0) {
 			scan.nextLine();
-			System.out.print("Enter your guess for the month: ");
+			System.out.print("Enter your guess for the month. Press enter to guess: ");
 			if (scan.hasNextInt()) {
 			userGuess = scan.nextInt();
 			scan.nextLine();
 			} else {
-			System.out.println("Invalid. Please make sure to enter a number between 1 and 12. Try again: ");
+			System.out.println("Invalid. Please make sure to enter a number between 1 and 12. Press enter to guess");
 			scan.nextLine();
 			continue;}
 			remainingMonthGuess--;
 			
 			if (userGuess == correctMonth) {
-			System.out.println("Correct! Now guess the day: ");
+			System.out.println("Correct! Now guess the day. Press enter to guess");
 			break;
 			} else if (userGuess < correctMonth) {
-			System.out.println("The correct month is later: ");
+			System.out.println("The correct month is later. Press enter to try again");
 			} else if(userGuess > correctMonth) {
-			System.out.println("The correct month is earlier: ");}
+			System.out.println("The correct month is earlier. Press enter to try again");}
 			else if(userGuess >= 13) {
-			System.out.println("Invalid input.Try again: ");}
+			System.out.println("Invalid input. Press enter to guess");}
 			else if (userGuess <=0) {
-			System.out.println("Invalid input. Try again: ");}
+			System.out.println("Invalid input. Press enter to guess");}
 			
 			if (remainingMonthGuess == 0) {
 			System.out.println("You're out of guesses! The correct date was " +
 			correctMonth + "/" + correctDay);
-			PartyPlannerIntros.planPoints+= 5; }}
+			planPoints+= 5; }}
 			//guessing the day
 			int remainingDayGuess = totalGuesses;
-			System.out.println("\nNow, guess the day (1-31). Press Enter to guess:: ");
+			System.out.println("\nNow, guess the day (1-31). Press enter to guess:");
 			while (remainingDayGuess > 0) {
 			scan.nextLine();
-			System.out.print("Enter your guess for the day: ");
+			System.out.print("Enter your guess for the day. Press enter to guess: ");
 			if (scan.hasNextInt()) {
 			userGuess = scan.nextInt();
 			scan.nextLine();
 			} else {
-			System.out.println("Invalid input. Please enter a number between 1 and 31. Try again: ");
+			System.out.println("Invalid input. Please enter a number between 1 and 31. Press enter to guess");
 			scan.nextLine();
 			continue;}
 			remainingDayGuess-=1;
 			if (userGuess == correctDay) {
 			System.out.println("Congratulations! You guessed the correct due date: " +
 			correctMonth + "/" + correctDay);
-			PartyPlannerIntros.planPoints+= 10; // +20 plan pts
+			planPoints+= 20; // +20 plan pts
 			break;
 			} else if (userGuess < correctDay) {
-			System.out.println("The correct day is later. Try again: ");
+			System.out.println("The correct day is later. Press enter to try again");
 			} else if (userGuess > correctDay){
-			System.out.println("The correct day is earlier. Try again: ");}
+			System.out.println("The correct day is earlier. Press enter to try again");}
 			else if (userGuess >=32) {
-			System.out.println("Invalid input. Try again: ");}
+			System.out.println("Invalid input. Press enter to guess");}
 			else if (userGuess <= 0) {
-			System.out.println("Invalid input. Try again: ");}
+			System.out.println("Invalid input. Press enter to guess");}
 			if (remainingDayGuess == 0) {
 			System.out.println("You're out of guesses! The correct date was " +
 			correctMonth + "/" + correctDay);
 			System.out.println("You have earned 5 planning points");
-			PartyPlannerIntros.planPoints+= 5; // award 5 points even if user fails... rip
+			planPoints+= 5; // award 5 points even if user fails... rip
 			}}
-			PartyPlannerIntros.planPoints+= 5; }
+			planPoints+= 5; }
 
 
 }
