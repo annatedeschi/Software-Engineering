@@ -7,7 +7,7 @@ public class passwordGame {
         Random rand = new Random();
 
         Map<String, List<String>> categories = new HashMap<>();
-        categories.put("COLORS", Arrays.asList("BLUE", "PINK", "TEAL", "NAVY", "ROSE", "AQUA", "GREY"));
+        categories.put("COLORS", Arrays.asList("WHITE", "BLACK", "GREEN"));
         categories.put("ANIMALS", Arrays.asList("PANDA", "CAMEL", "SLOTH", "ZEBRA", "TIGER"));
         categories.put("SPORTS", Arrays.asList("RUGBY", "DARTS", "BOCCE", "DOGE"));
         
@@ -30,14 +30,14 @@ public class passwordGame {
         Set<Integer> revealedHints = new HashSet<>();
 
         System.out.println("Time to crack the code, you chose " + chosenCategory + ".");
-        System.out.println("Guess the 4-letter password.");
+        System.out.println("Guess the 5-letter password.");
 
         while (!guessedCorrectly) {  
             System.out.print("Enter your guess: ");
             String guess = scanner.next().toUpperCase(); 
 
-            if (guess.length() != 4) {
-                System.out.println("Password must be 4 letters long. Try again.");
+            if (guess.length() != 5) {
+                System.out.println("Password must be 5 letters long. Try again.");
                 continue;
             }
 
@@ -78,7 +78,7 @@ public class passwordGame {
     }
 
     private static void giveHint(String password, Set<Integer> revealedHints) {
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 5; i++) {
             if (!revealedHints.contains(i)) {
                 System.out.println("Hint... The letter at position " + (i + 1) + " is '" + password.charAt(i) + "'");
                 revealedHints.add(i);
