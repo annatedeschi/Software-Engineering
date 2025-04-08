@@ -43,7 +43,7 @@ public class PartyPlannerIntros {
 		int random = (int)(Math.random() * namesf.size()); // range of random numbers from 0 to the size of my array
 		nameofficial = namesf.get(random);
 		System.out.println("You are tasked with planning events for your local neighborhor!\n");
-		System.out.println("Lets start easy," + PartyPlannerHandle.Name + ". First you will begin by planning a baby shower for " + nameofficial + "\n.");
+		System.out.println("Welcome to Level1 " + PartyPlannerHandle.Name + ". First you will begin by planning a baby shower for " + nameofficial + "\n.");
 		}
 
 	
@@ -54,9 +54,9 @@ public class PartyPlannerIntros {
 		nameofficial = namesf.get(random);
 
 		
-		System.out.println("\nCongrats on making it to Level 2 " + PartyPlannerHandle.Name + "\nIn this level you will be planning a wedding");
+		System.out.println("\nWelcome to Level 2 " + PartyPlannerHandle.Name + "\nIn this level you will be planning a wedding");
 		
-		System.out.println("\n" + PartyPlannerHandle.nameofficial + " wants a fairytale wedding she's been planning for this day since she was 10." +
+		System.out.println("\n" + nameofficial + " wants a fairytale wedding she's been planning for this day since she was 10." +
 		"\nHere is a dialogue about some of the things she wants you to keep in mind: " +
 		"\nHer favorite colors are beige, blue, and gray. " +
 		"\nShe has a very serious nut allergy." +
@@ -71,13 +71,13 @@ public class PartyPlannerIntros {
 	//Intro Level 3 
 	public static void Quincenera() {
 		int random = (int)(Math.random() * namesf.size());
-		nameofficial = namesf.get(random);
+        nameofficial = namesf.get(random);
 		System.out.println("\n"
 				+ "\n"
-				+ "Welccome " +PartyPlannerHandle.Name + " To " + PartyPlannerHandle.nameofficial + " Quincenera she has been looking foward to this day since she was 7. "
+				+ "Welccome " +PartyPlannerHandle.Name + " To Level 3 " + nameofficial + " Quincenera she has been looking foward to this day since she was 7. "
 				+ "She wants the party to be Fairytale theme, very flashy with lots of flowers and vines. "
 				+ "And she wants a really big dress something that sticks out. "
-				+ "This is a really sopecial day for " + PartyPlannerHandle.nameofficial );
+				+ "This is a really sopecial day for " + nameofficial );
 		
 		
 		

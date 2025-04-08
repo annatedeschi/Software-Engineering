@@ -268,7 +268,7 @@ public class PartyPlannerHandle {
     				+"\nLevel 1: Babyshower"
     				+"\nLevel 2: Wedding"
     				+"\nLevel 3: Quincenera"
-    				+"T\nype in the number of the level of your choosing: ");
+    				+"\nype in the number of the level of your choosing: ");
     		         levelchoice = scan.nextLine();
     		        
     		   if (levelchoice.equals("1")) {

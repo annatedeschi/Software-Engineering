@@ -50,7 +50,8 @@ Random random = new Random();
 	
 while (i != 4) {
 	System.out.println("\nRound: " + i);
-	System.out.println("\nBefore the dice is rolled. You must decide are you willing to put all your money on the line? (yes/no)");
+	System.out.println("\nBefore the dice is rolled. You must decide are you "
+			+ "\nwilling to put all your money on the line? (yes/no)");
 	user = scan.nextLine().toLowerCase().trim();
 
 	 if(user.equals("yes") || user.equals("no")){
