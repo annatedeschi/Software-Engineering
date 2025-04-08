@@ -15,14 +15,22 @@ public class PartyPlannerHandle {
 	static String password;
 	static String Name;
 	static String input;
-	static int Game;
+	static String fillergame;
+	static String endgame;
+	static String	levelchoice;
 	static int Level;
+	static int Progress = 1;
+	static  int lastgame;
 	static int planPoints;
+	static int points;
+	static int fillerpoints;
 	static Scanner scan = new Scanner(System.in);
 	static PartyPlannerLevel1 Obj1 =  new PartyPlannerLevel1(); 
 	static PartyPlannerIntros Obj3 =  new PartyPlannerIntros(); 
 	static PartyPlannerLevel2 Obj4 = new PartyPlannerLevel2();
 	static PartyPlannerLevel3 Obj5 = new PartyPlannerLevel3();
+	static PartyPlannerEnding Obj6 = new PartyPlannerEnding();
+	static FillerGames Obj7 = new FillerGames();
 	public static HashMap<String, String> userInfo = new HashMap<>();
 	
 	public static void main(String[] args) throws IOException {
@@ -49,7 +57,7 @@ public class PartyPlannerHandle {
 		userInfo.put(username, password);
 		//send them back where they left off by calling the method which does so-rachenza
 		Login = true;
-		goingback();}
+		chooselevel();}
 		else {
 	        continue;
 	    }
@@ -161,211 +169,308 @@ public class PartyPlannerHandle {
 		int i = 0;
 	while (i != 1) {
 		Scanner scan0 = new Scanner(System.in);
-		System.out.println("Would you like to save your progress so far and log out ?");
+		System.out.println("\nWould you like to save your progress so far and log out ?");
 		String userfeedprogress = scan0.nextLine().trim().toLowerCase();
 		if (userfeedprogress.equals("yes")) {
 		BufferedWriter writer = new BufferedWriter(new FileWriter("progress.txt",true));
-		writer.write(username + ", " + password + ", " + Name + ", " + Level + ", " + Game + ", " + planPoints);
+		writer.write(username + ", " + password + ", " + Name + ", " + Level + ", " + lastgame + ", " + Progress + ", " + planPoints);
+	
 		writer.newLine();
 		writer.close();
-		System.out.println("all set");
+		System.out.println("\nall set");
 		i++;
 		System.exit(0);
 		}else if(userfeedprogress.equals("no")){
-		System.out.println("Okay lets keep going");
-		break;
+		System.out.println("\nOkay lets keep going");
+		chooselevel();
 		}else {
 			continue;
 		}
 	}
 	}
 
-	//rachenza
-	//sends the user to the correct game once they log back in
-		public static void handlelevel( ArrayList<String>namesf) throws IOException {
-		System.out.println("Debug: handlelevel called with Game = " + Game + ", Level = " + Level);
-		
-		if (Game == 1 && Level == 1) {
-		Obj1.UnscrambleBabyName();
-		saveprogress();
-		Obj1.DateGuesser();
-		saveprogress();
-		Obj3.Wedding(namesf);
-		Obj4.diceGame();
-		saveprogress();
-		Obj4.Bartender();
-		saveprogress();
-		Obj4.GuestSeatingGame( );
-		saveprogress();
-		Obj3.Quincenera(namesf);
-		Obj5.Shopping();
-		saveprogress();
-		Obj5.DJ();
-		saveprogress();
+	public static void filler() throws IOException {
+		ArrayList<String> mini = new ArrayList<String>();
+		mini.add("passwordgame");
 		
 		
-		}else {
+		if ( Progress == 1 && planPoints < 50) {
+			planPoints = 0;
+		  int random = (int)(Math.random() * mini.size()); // range of random numbers from 0 to the size of my array
+		  fillergame = mini.get(random);
+		  System.out.println("\nYou did not gain enough points in this level."
+		  		+ "\nYou'll gain them back through a filler game");
+		      if (fillergame.equals("passwordgame")){
+		          FillerGames.passwordGame();}
+		      else if (fillergame.equals("ana's fillergame")) {
+		    	  //calls ana's filler game
+		      }
+		      else if (fillergame.equals("rachenza's fillergame")) {
+		    	  //calls rachenza's filler game
+		      }
 		}
-		if (Game == 2 && Level == 1) {
-		Obj1.DateGuesser();
-		saveprogress();
-		Obj3.Wedding(namesf);
-		Obj4.diceGame();
-		saveprogress();
-		Obj4.Bartender();
-		saveprogress();
-		Obj4.GuestSeatingGame();
-		saveprogress();
-		Obj3.Quincenera(namesf);
-		Obj5.Shopping();
-		saveprogress();
-		Obj5.DJ();
-		saveprogress();
-		}else {
+		   
+		
+		
+		if ( Progress == 2 && planPoints < 100) {	
+		planPoints = 0;
+	  int random = (int)(Math.random() * mini.size()); // range of random numbers from 0 to the size of my array
+	  fillergame = mini.get(random);
+	  System.out.println("\nYou did not gain enough points in this level."
+	  		+ "\nYou'll gain them back through a filler game");
+	      if (fillergame.equals("passwordgame")){
+	          FillerGames.passwordGame();}
+	      else if (fillergame.equals("ana's fillergame")) {
+	    	  //calls ana's filler game
+	      }
+	      else if (fillergame.equals("rachenza's fillergame")) {
+	    	  //calls rachenza's filler game
+	      }
+	   }
+	
+	
+		
+		      
+	  while( planPoints == 60 && Progress == 1) {
+		  if(Progress == 1) {
+			System.out.println("\nMoving on to the next level");
+			Progress++;
+			saveprogress();}
+			
+			
 		}
-		
-		if (Game == 3 && Level == 1) {
-		Obj3.Wedding(namesf);
-		Obj4.diceGame();
-		saveprogress();
-		Obj4.Bartender();
-		saveprogress();
-		Obj4.GuestSeatingGame();
-		saveprogress();
-		Obj3.Quincenera(namesf);
-		Obj5.Shopping();
-		saveprogress();
-		Obj5.DJ();
-		saveprogress();
-		}else {
+	  
+	  while( planPoints == 120 && Progress == 2) {
+		  if(Progress == 2) {
+			System.out.println("\nMoving on to the next level");
+			Progress++;
+			saveprogress();
+	  }
 		}
-		
-		
-		if (Game == 1 && Level == 2) {
-		Obj4.diceGame();
-		saveprogress();
-		Obj4.Bartender();
-		saveprogress();
-		Obj4.GuestSeatingGame();
-		saveprogress();
-		Obj3.Quincenera(namesf);
-		Obj5.Shopping();
-		saveprogress();
-		Obj5.DJ();
-		saveprogress();
-		}else {
-		}
-		
-		if (Game == 2 && Level == 2) {
-		Obj4.Bartender();
-		saveprogress();
-		Obj4.GuestSeatingGame();
-		saveprogress();
-		Obj3.Quincenera(namesf);
-		Obj5.Shopping();
-		saveprogress();
-		Obj5.DJ();
-		saveprogress();
-		}else {
-		}
-		
-		if (Game == 3 && Level == 2) {
-	    Obj4.GuestSeatingGame();
-		saveprogress();
-		Obj3.Quincenera(namesf);
-		Obj5.Shopping();
-		saveprogress();
-		Obj5.DJ();
-		saveprogress();
-		}else {
-		}
-		
-		if (Game == 1 && Level == 3) {
-		Obj3.Quincenera(namesf);
-		Obj5.Shopping();
-		saveprogress();
-		Obj5.DJ();
-		saveprogress();
-		}else {
-		}
-		
-		if (Game == 2 && Level == 3) {
-		Obj5.DJ();
-		saveprogress();
-			}else {
-			}
-		
+	  
+	  while( Progress == 3) {
+			System.out.println("\nEnding the game!");
+			endgame="yes";
+		} 
+	  chooselevel();
+	}
+	
+	
+
+	public static void chooselevel() throws IOException {
+      
+       
+	                    
+     
+        while (Progress == 1) {
+    		System.out.println("\nWhat level would you like to start with today pick from your options below"
+    				+"\nGame:"
+    				+"\nLevel 1: Babyshower"
+    				+"\nLevel 2: Wedding"
+    				+"\nLevel 3: Quincenera"
+    				+"T\nype in the number of the level of your choosing: ");
+    		         levelchoice = scan.nextLine();
+    		        
+    		   if (levelchoice.equals("1")) {
+    			   Level = 1;
+    			   PartyPlannerIntros.Babyshower();
+    			   PartyPlannerLevel1.RockPaperScissors();
+    			   PartyPlannerLevel1.UnscrambleBabyName();
+    			   PartyPlannerLevel1.DateGuesser();
+    			   System.out.println("The status of your points are now: " + planPoints);
+    			   filler();}
+    		   
+    		   else if (levelchoice.equals("2")) {
+    			   Level = 2;
+    			   PartyPlannerIntros.Wedding();
+	    		   PartyPlannerLevel2.diceGame();
+	    		   PartyPlannerLevel2.Bartender();
+	    		   PartyPlannerLevel2.GuestSeatingGame();
+	    		   filler();}
+    		   
+    		   else if (levelchoice.equals("3")) {
+    			   Level = 3;
+    			   PartyPlannerIntros.Quincenera();
+    			   PartyPlannerLevel3.Shopping();;
+    			   PartyPlannerLevel3.DJ();
+    			   PartyPlannerLevel3.BouncerGame();
+    			   filler();}
+    	      else if (levelchoice.equals("1") || levelchoice.equals("2") || levelchoice.equals("3")) {
+    	    	   System.out.println("lets try that again");
+    	    	   continue;
+    	      }
+        
+        }
+        
+        
+        
+       
+        while (Progress == 2 && Level == 1) {//already played level 1
+    		System.out.println("\nYou've already played Level 1 before."
+    				+ "\nSo now what level would you like to start with today pick from your options below."
+    				+"\nGame:"
+    				+"\nLevel 2: Wedding"
+    				+"\nLevel 3: Quincenera"
+    				+"\nType in the number of the level of your choosing: ");
+    		         levelchoice = scan.nextLine();
+    		       
+    		     if (levelchoice.equals("2")) {
+    		    	 
+    		    	   Level = 2;
+    		    	   PartyPlannerIntros.Wedding();
+    	    		   PartyPlannerLevel2.diceGame();
+    	    		   PartyPlannerLevel2.Bartender();
+    	    		   PartyPlannerLevel2.GuestSeatingGame();
+    	    		   lastgame = 3;
+    	    		   filler();}
+    		 else if (levelchoice.equals("3")) {
+    			      
+    			       Level = 3;
+    		    	   PartyPlannerIntros.Quincenera();
+	    			   PartyPlannerLevel3.Shopping();;
+	    			   PartyPlannerLevel3.DJ();
+	    			   PartyPlannerLevel3.BouncerGame();
+	    			   lastgame = 2;
+	    			   filler();}
+    		 else if (!levelchoice.equals("2")|| !levelchoice.equals("3")) {
+    			  System.out.println("try again");
+    			  continue;
+    			 
+    		 }
+        }
+    
+        
+      
+        while (Progress == 2 && Level == 2) {
+    		System.out.println("\nYou've already played Level 1 before."
+    				+ "\nSo now what level would you like to start with today pick from your options below."
+    				+"\nGame:"
+    				+"\nLevel 1: Babyshower"
+    				+"\nLevel 3: Quincenera"
+    				+"\nType in the number of the level of your choosing: ");
+    		        levelchoice = scan.nextLine();
+    		       if (levelchoice.equals("1")) {
+    		    	    
+    		    	    Level = 1;
+    		            PartyPlannerIntros.Babyshower();
+     			        PartyPlannerLevel1.RockPaperScissors();
+     			        PartyPlannerLevel1.UnscrambleBabyName();
+     			        PartyPlannerLevel1.DateGuesser();
+     			        lastgame = 3;
+     			        filler();}
+     			   else if (levelchoice.equals("3")) {
+     				    Level = 3;
+    		    	    PartyPlannerIntros.Quincenera();
+    	    			PartyPlannerLevel3.Shopping();;
+    	    			PartyPlannerLevel3.DJ();
+    	    			PartyPlannerLevel3.BouncerGame();
+    	    			lastgame = 1;
+    	    			filler();}
+     			  else if (levelchoice.equals("1") || levelchoice.equals("3")) {
+     				  System.out.println("lets try that again");
+     				  continue;
+     		    	
+     		     }
+        }
+        
+    	 
+        
+      while (Progress == 2 && Level == 3) {
+    		System.out.println("\nYou've already played Level 1 before."
+    				+ "\nSo now what level would you like to start with today pick from your options below."
+    				+"\nGame:"
+    				+"\nLevel 1: Babyshower"
+    				+"\nLevel 2: Wedding"
+    				+"\nType in the number of the level of your choosing: ");
+    		 levelchoice = scan.nextLine();
+    		        
+    		      if (levelchoice.equals("1")) {
+    		    	   Level = 1;
+    		    	   PartyPlannerIntros.Babyshower();
+   			           PartyPlannerLevel1.RockPaperScissors();
+   			           PartyPlannerLevel1.UnscrambleBabyName();
+   			           PartyPlannerLevel1.DateGuesser();
+   			           lastgame = 2;
+   			           filler();}
+    		     else if (levelchoice.equals("2")) {
+    		    	  Level = 2;
+    		    	  PartyPlannerIntros.Wedding();
+  	    		      PartyPlannerLevel2.diceGame();
+  	    		      PartyPlannerLevel2.Bartender();
+  	    		      PartyPlannerLevel2.GuestSeatingGame();
+			          lastgame = 1;
+			          filler();}
+    		     else if (!levelchoice.equals("1") || !levelchoice.equals("2")) {
+    		    	  System.out.println("lets try that again");
+    		    	  continue;
+    		    	
+    		     }
+        }
+        
+    		     
+        
+    
+      if (Progress == 3 && lastgame == 1) {
+    	  System.out.println("\nYou are now playing your last level."
+    	  		+ "\nHere is the last level you have not interatced with yet.");
+    	            PartyPlannerIntros.Babyshower();
+	                PartyPlannerLevel1.RockPaperScissors();
+	                PartyPlannerLevel1.UnscrambleBabyName();
+	                PartyPlannerLevel1.DateGuesser();
+	                PartyPlannerEnding.CloseGame();
+	                System.exit(0);}
+     if (Progress == 3 && lastgame == 2) {
+    	 System.out.println("\nYou are now playing your last level."
+     	  		+ "\nHere is the last level you have not interatced with yet.");
+    	            PartyPlannerIntros.Wedding();
+		            PartyPlannerLevel2.diceGame();
+		            PartyPlannerLevel2.Bartender();
+		            PartyPlannerLevel2.GuestSeatingGame();
+		            PartyPlannerEnding.CloseGame();
+		            System.exit(0);}
+     if (Progress == 3 && lastgame == 3) {
+    	 System.out.println("\nYou are now playing your last level."
+     	  		+ "\nHere is the last level you have not interatced with yet.");
+    	            PartyPlannerIntros.Quincenera();
+			        PartyPlannerLevel3.Shopping();;
+			        PartyPlannerLevel3.DJ();
+			        PartyPlannerLevel3.BouncerGame();
+			        PartyPlannerEnding.CloseGame();
+			        System.exit(0);}
+     
+     
+     
+       if (endgame.equals("yes")) {
+    	   System.out.println(planPoints);
+    	  // FinalPoints =  Round1 + Round2 + Round3;
+   	         Obj6.CloseGame();
+       
+        }
 	}
 
+
+
+
+	
 
 	//rachenza
 	//introduction to the overall game
 	public static void startgames() throws IOException {
 		// Game INtro == in future: can change this to reading in from TXT file...
 		System.out.println("\nWelcome to your event planning adventure!");
-		System.out.println("We need help to plan a variety of events happening around town.");
-		System.out.print("First off, What is your name?");
+		System.out.println("\nWe need help to plan a variety of events happening around town.");
+		System.out.print("\nFirst off, What is your name?");
 		String playerName = scan.nextLine(); //user inputs their name
 		Name = playerName;
-		System.out.println("Welcome, " + Name + "! Let's begin your event planning journey.\n");
-		System.out.println("You are tasked with planning events for your local neighborhood");
-		System.out.println("Let's start easy, " + Name + ". First you will begin by planning a baby shower.");
-		System.out.println("As you go along and complete challenges, you will earn 'Planning points'. Earn enough and you will become the ultimate planner pro!\n");
-		ArrayList<String> namesf = new ArrayList<String>();
+		System.out.println("\nWelcome, " + Name + "! Let's begin your event planning journey.");
+		System.out.println("\nYou are tasked with planning events for your local neighborhood");
+		System.out.println("\nAs you go along and complete challenges, you will earn 'Planning points'. "
+				+ "\nEarn enough and you will become the ultimate planner pro!\n");
 		
-		File O = new File("Femalenames.txt");
-
-	Scanner read = new Scanner(O);
-
-	while (read.hasNextLine()) {
-	String data1 = read.nextLine();
-	namesf.add(data1);
-	}
-	//create a variable to hold the randomly picked female names
-	int random = (int)(Math.random() * namesf.size()); // range of random numbers from 0 to the size of my array
-		nameofficial = namesf.get(random);
-		Level +=1;
-		Obj3.Babyshower();
-		//minigames
-		Obj1.RockPaperScissors();
-		Game +=1;
-		saveprogress();
-		Obj1.UnscrambleBabyName();
-		Game +=1;
-		saveprogress();
-		Obj1.DateGuesser();
-		Game +=1;
-		saveprogress();
-		System.out.println("\n" + Name + ", great job so far! You have earned a total of " + planPoints + " planning points! Lets move on to level 2...");
-		//rachenza
-		//calling intro to lvl 2
-		
-		Game = 0;
-		Obj3.Wedding(namesf);
-		Obj4.diceGame();
-		Game+=1;
-		saveprogress();
-		Obj4.Bartender();
-		Game+=1;
-		saveprogress();
-		Obj4.GuestSeatingGame();
-		Game+=1;
-		Level +=1;
-		saveprogress();
-		System.out.println("\n" + Name + ", great job so far! You have earned a total of " + planPoints + " planning points! Lets move on to level 3...");
-		//rachenza
-		//calling intro to lvl 3
-		
-		Game = 0;
-		Obj3.Quincenera(namesf);
-		Obj5.Shopping();
-		Game+=1;
-		saveprogress();
-		Obj5.DJ();
-		Game+=1;
-		saveprogress();
-		
+		chooselevel();
 		}
+	
+	
 	//finds the users progress and information needed to move them through the game once they log back in
 	public static void goingback() throws IOException {
 		ArrayList<String> usersaveprogress = new ArrayList<>();
@@ -387,32 +492,32 @@ public class PartyPlannerHandle {
 		break;}}
 		if (index != -1) {
 		//create array to hold file info for female names
-		ArrayList<String> namesf = new ArrayList<String>();
+		//ArrayList<String> namesf = new ArrayList<String>();
 		
-		File O = new File("Femalenames.txt");
+		//File O = new File("Femalenames.txt");
 		
-		Scanner read = new Scanner(O);
+		//Scanner read = new Scanner(O);
 		
-		while (read.hasNextLine()) {
-		String data1 = read.nextLine();
-		namesf.add(data1);
-		}
+		//while (read.hasNextLine()) {
+		//String data1 = read.nextLine();
+		//namesf.add(data1);
+		//}
 		//create a variable to hold the randomly picked female names
-		int random = (int)(Math.random() * namesf.size()); // range of random numbers from 0 to the size of my array
-		nameofficial = namesf.get(random);
+		
 		String data1 = usersaveprogress.get(index);
 		String[] parts = data1.split(", ");
 		Name = parts[2];
 		Level = Integer.parseInt(parts[3]);
-		Game = Integer.parseInt(parts[4]);
-		planPoints = Integer.parseInt(parts[5]);
+		lastgame = Integer.parseInt(parts[4]);
+		Progress = Integer.parseInt(parts[5]);
+		planPoints = Integer.parseInt(parts[6]);
 		System.out.println("\nWelcome back! " + Name +
 		"\nYou left off at Level: " + Level +
-		"\nAnd Game: " + Game +
-		"\nYour Plan Points are " + planPoints + "Let's get you back where you left off!");
-		//System.out.println("Debug: handlelevel called with Game = " + Game + ", Level = " + Level);
+		"\nYour Points are " + (planPoints) + "Let's get you back where you left off!");
 		
-		handlelevel(namesf);
+		
+		
+		chooselevel();
 		}else {
 		System.out.println("error");}
 		//scan.close();
@@ -423,5 +528,4 @@ public class PartyPlannerHandle {
 	}
 
 	
-
 

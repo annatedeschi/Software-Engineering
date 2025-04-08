@@ -15,21 +15,13 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class PartyPlannerLevel3 {
-	static String nameofficial;
-	static String Name;
-	static int Game;
-	static int Level;
-	static String username;
-	static String password;
+	
 	static Scanner scan = new Scanner(System.in);
-	static int planPoints;
 	static String guest;
 	static String req;
 	static String response;
 	static Clip clip;
-public static void main(String[] args) throws IOException {
-		
-	}
+
 public static void Shopping() {
 	        int satisfactionPoints = 0;
 	        int cart = 0;
@@ -44,7 +36,7 @@ public static void Shopping() {
 	        System.out.println("\n"
 	        		+ "\n"
 	        		+ "\nIt's time for you to shop for the Quincenera.");
-	        System.out.println("Be mindful of what you buy because " + nameofficial + "'s parents set the budget at $475.");
+	        System.out.println("Be mindful of what you buy because " + PartyPlannerIntros.nameofficial + "'s parents set the budget at $475.");
 	        System.out.println("If you go over budget, you will lose points, but if you go under, you gain points. Let's go shopping!");
 
 	        // Dresses selection
@@ -259,7 +251,7 @@ public static void Shopping() {
 	        		+ "\n.....");
 	        LocalDate currentDate = LocalDate.now();
 	        System.out.println("\n" +
-	                "Card Owner: " + Name +
+	                "Card Owner: " + PartyPlannerHandle.Name +
 	                "\nDate: " + currentDate +
 	                "\n-------------------------------------------------" +
 	                "\nTotal Items: " + cart +
@@ -268,35 +260,36 @@ public static void Shopping() {
 
 	        // Check if the user stayed within budget
 	        if (total == 475) {
-	            System.out.println("\nYou have purchased perfectly within the budget! Good job " + Name + ". You have earned 20 points.");
+	            System.out.println("\nYou have purchased perfectly within the budget! Good job " + PartyPlannerHandle.Name + ". You have earned 20 points.");
+	            PartyPlannerHandle.planPoints+=20;
 	        } else if (total > 475) {
-	            System.out.println("\nYou did not purchase within the budget. You went over. You have lost 20 points.");
+	            System.out.println("\nYou did not purchase within the budget. You went over.");
 	        } else if (total < 475) {
 	            System.out.println("\nYou did not purchase within the budget. You went under. You have gained 10 points.");
+	            PartyPlannerHandle.planPoints+=10;
 	        }
 
 	        // Satisfaction Points check
 	        if (satisfactionPoints == 100) {
-	            System.out.println("\nYou have made " + nameofficial + " really happy! You will end this game with an extra 2 points.");
+	            System.out.println("\nYou have made " + PartyPlannerIntros.nameofficial + " really happy! You will end this game with an extra 2 points.");
 	        } else if (satisfactionPoints >= 60) {
-	            System.out.println("\nYou have made " + nameofficial + " somewhat happy. You will end this game with an extra 1 point.");
+	            System.out.println("\nYou have made " + PartyPlannerIntros.nameofficial + " somewhat happy. You will end this game with an extra 1 point.");
 	        } else {
-	            System.out.println("\nYou have made " + nameofficial + " unsatisfied with the choices you picked.");
+	            System.out.println("\nYou have made " + PartyPlannerIntros.nameofficial + " unsatisfied with the choices you picked.");
 	        }
 
-	        // Final Points
-	        planPoints += satisfactionPoints;
-	        System.out.println("\nCongrats on finishing the shopping spree. Your total points are now: " + planPoints);
+	        
+	        System.out.println("\nCongrats on finishing the shopping spree. Your total points are now: " + PartyPlannerHandle.planPoints);
 	    }
 	
 
    
 	
-//ball gown dress-200
-   //floral centerpiecec-30
-   //red velvet cake-100
-   //cooton candy bags-45
-	//simple silver tiraa-100
+//ball gown dress-200(1)
+   //floral centerpiecec-30(2)
+   //red velvet cake-100(3)
+   //cooton candy bags-45(5)
+	//simple silver tiraa-100(4)
 //475-perfect amount
 
 
@@ -305,7 +298,7 @@ public static void DJ() throws IOException {
 
 	System.out.println("\n"
             + "\n"
-            + "Hello " + "Name" + " The DJ is sick and we need you to fill in"
+            + "Hello " + PartyPlannerHandle.Name + " The DJ is sick and we need you to fill in"
             + "\nThe party guests have song requests and you need to use your judgment"
             + "\nTo select based off the options you have for each request"
             + "\nChoose the right songs and earn points. Choose the wrong song and lose points"
@@ -315,7 +308,8 @@ public static void DJ() throws IOException {
     BufferedReader read = new BufferedReader(new FileReader("MusicRequest.txt"));
     String line;
     int g = 0;  
-    int i = 0; 
+    int i = 0;
+    int a = 0;
 
    
     while ((line = read.readLine()) != null) {
@@ -345,12 +339,12 @@ public static void DJ() throws IOException {
                     + "\nE. BIRDS OF A FEATHER-Billie Eilish"
                     + "\nF. Until I Found You-Stephen Sanchez");
 
-            System.out.println("\nType 'Yes' to listen to the samples of these songs."
-             		+ "\nOr type 'No' to pick which song to play for the guest?");
+            System.out.println("\nType 'preview' to listen to the samples of these songs."
+             		+ "\nOr type 'select' to pick which song to play for the guest?");
                   
             response = scan.next().toLowerCase();
             
-            while (response.equals("yes")){
+            while (response.equals("preview")){
             	System.out.println("\nWhich sample did you want to hear:");
             	 response = scan.next().toLowerCase();
             	 if(response.equals("a")) {
@@ -373,7 +367,7 @@ public static void DJ() throws IOException {
                      playSong("Until I Found You-Stephen Sanchez-cut.wav");
                  }
                  }
-            if (!response.equals("yes") && !response.equals("no")){
+            if (!response.equals("preview") && !response.equals("select")){
                     System.out.println("invalid response try again");
                                   continue;}
            
@@ -384,25 +378,28 @@ public static void DJ() throws IOException {
             	 
                
             
-            if (response.equals("no")){
+            while (response.equals("select")){
             		 System.out.println("\nWhich sample suits the guest's request?");
                      response = scan.next().toLowerCase();
-                     g++;  // Increment the round counter
+                   
                      
 
-                  if ((response.equals("b") && guest.equals("Birthday Girl")) ||
+                     
+                      if (response.equals("b")&& guest.equals("Birthday Girl") ||
                     	        (response.equals("c") && guest.equals("Dad")) ||
                     	        (response.equals("e") && guest.equals("Mom")) ||
-                    	        (response.equals("f") && guest.equals("Grandma"))) {
+                    	        (response.equals("f") && guest.equals("Grandma"))||
+                    	        response.equals("a") && guest.equals("Aunt")) {
                     	        stopSong();
                     	        System.out.println("\nYou're good at this.");
-                    	        planPoints += 10;
+                    	        PartyPlannerHandle.planPoints +=5;
+                    	        GuestReq.remove(randomline);
                     	   } else {
                     	        stopSong();
                     	        System.out.println("\nNot the best choice.");
-                    	        planPoints -= 5;
+                    	        GuestReq.remove(randomline);
                     	    }
-                  
+                	   g++;  // Increment the round counter
                     	}
           
       
@@ -415,7 +412,7 @@ public static void DJ() throws IOException {
     
     
 
-    System.out.println("\nGood job " + Name + " You have earned a total of " + planPoints + " points!");
+    System.out.println("\nGood job " + PartyPlannerHandle.Name + " You have earned a total of " + PartyPlannerHandle.planPoints + " points!");
 }
 
 
@@ -441,16 +438,14 @@ private static void stopSong() {
     }
 }
 
-public static void bouncer(String[] args) throws IOException {
-}
 
 
 
 public static void BouncerGame() throws IOException {
-    System.out.println("\nWelcome " + Name + ", you are the bouncer for the quinceañera!");
+	System.out.println("\nWelcome " + PartyPlannerHandle.Name + ", you are the bouncer for the quinceañera!");
     System.out.println("The venue has reached max capacity, and only select guests can enter.");
-    System.out.println("You must choose who gets in based on the gift they bring for " + nameofficial + ".");
-    System.out.println("Hint: " + nameofficial + " loves jewelry, books, and anything pink!");
+    System.out.println("You must choose who gets in based on the gift they bring for " + PartyPlannerIntros.nameofficial + ".");
+    System.out.println("Hint: " + PartyPlannerIntros.nameofficial + " loves jewelry, books, and anything pink!");
 
     ArrayList<String> guestList = new ArrayList<>();
     BufferedReader read = new BufferedReader(new FileReader("GuestGifts.txt"));
@@ -459,9 +454,11 @@ public static void BouncerGame() throws IOException {
         guestList.add(line);
     }
     read.close();
+    System.out.println(guestList);
 
     int rounds = 4;
-    for (int i = 0; i < rounds; i++) {
+    int i = 0;
+    while ( i != rounds) {
         int randomIndex = (int) (Math.random() * guestList.size());
         String guestEntry = guestList.get(randomIndex);
         String[] parts = guestEntry.split(":", 2);
@@ -472,17 +469,26 @@ public static void BouncerGame() throws IOException {
         System.out.println("Gift: " + gift);
         System.out.println("Should this guest be allowed in? (yes/no)");
         response = scan.next().trim().toLowerCase();
-
+       
+    
         if ((gift.contains("jewelry") || gift.contains("book") || gift.contains("pink")) && response.equals("yes")) {
-            System.out.println("\nGreat choice! " + nameofficial + " will love this gift.");
-            planPoints += 10;
-        } else if ((!gift.contains("jewelry") && !gift.contains("book") && !gift.contains("pink")) && response.equals("no")) {
-            System.out.println("\nGood call! This gift wasn't the best choice for " + nameofficial + ".");
-            planPoints += 5;
-        } else {
-            System.out.println("\nHmm, that may not have been the best choice.");
-            planPoints -= 5;
+            System.out.println("\nGreat choice! " + PartyPlannerIntros.nameofficial + " will love this gift.");
+            PartyPlannerHandle.planPoints += 5;
+            guestList.remove(randomIndex);
+        } else if ((!gift.contains("jewelry") || !gift.contains("book") || !gift.contains("pink")) && response.equals("no")) {
+            System.out.println("\nGood call! This gift wasn't the best choice for " + PartyPlannerIntros.nameofficial + ".");
+            PartyPlannerHandle.planPoints += 5;
+            guestList.remove(randomIndex);}
+        else {
+           System.out.println("\nHmm, that may not have been the best choice.");
+           guestList.remove(randomIndex);
         }
-    }
-}}
+        i++;
+        }
+    
+    System.out.println("Good job selecting the guest all spots are filled. You ended with a total of " + PartyPlannerHandle.planPoints + " points ");
+}
+}
 
+
+ 

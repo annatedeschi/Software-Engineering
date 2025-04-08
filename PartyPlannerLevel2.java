@@ -8,40 +8,34 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class PartyPlannerLevel2 {
-	static String username;
-	static String nameofficial;
-	static String password;
-	static String Name;
-	static String input;
-	static int Game;
-	static int Level;
-	static int planPoints;
-	static Scanner scan = new Scanner(System.in);
-
-public static void main(String[] args) throws IOException {
 	
-}
+	static Scanner scan = new Scanner(System.in);
+    static String user;
+   
+
 public static void diceGame() {
-	String answer = "";
-	int i = 0;
+	String answer;
+	int a = 0;
 	System.out.println("Your client's Husband, Tom wants help planning his bachelor after party!");
 	System.out.println("Tom and his six closest friends have decided to celebrate at the local casino.");
-	System.out.println("To keep the fun going, They will play a special dice gambling game! But its up to yo uto test it first.");
+	System.out.println("To keep the fun going, They will play a special dice gambling game! But its up to you to test it first.");
+	
+	while(a != 1) {
 	System.out.println("Are you ready to roll the dice and test your luck?");
 	
 	answer = scan.nextLine().toLowerCase();
 	
- while (i != 1){
-	if (!answer.equals("yes")) {
-		System.out.println("Are you ready to roll the dice and test your luck?");
-		answer = scan.nextLine().toLowerCase();
-	}else if(answer.equals("yes")) {
-		i++;
-		System.out.println("blah");
+
+	if(!answer.equals("yes")) {
+		System.out.println("Wrong response");
+		continue;
+	} else if(answer.equals("yes")) {
+		a++;
 		play();
+	}
 }
 }
-}
+
 
 
 public static void play() {
@@ -49,13 +43,24 @@ int i = 1;
 Scanner scanner = new Scanner(System.in);
 Random random = new Random();
 
-	System.out.println("\nYou and the dealer will each roll one dice. If you roll the same number as the dealer, you win!");
-	System.out.println("\nOtherwise, you lose 10 planning points.");
+	System.out.println("\nYou and the dealer will each roll one dice. You will get the choice to put all your money in."
+			+ "\nIf you roll the same number as the dealer , you win! "
+			+ "\nThis is all based on chance so be wise with your money.");
+	System.out.println("\nOtherwise, you dont gain points.");
 	
 while (i != 4) {
 	System.out.println("\nRound: " + i);
-	System.out.println("\nContinue and press enter to roll the dice and test your luck!");
-	scanner.nextLine();
+	System.out.println("\nBefore the dice is rolled. You must decide are you willing to put all your money on the line? (yes/no)");
+	user = scan.nextLine().toLowerCase().trim();
+
+	 if(user.equals("yes") || user.equals("no")){
+		 System.out.println("Rolling the dice............");}
+	 else if(!user.equals("yes") || !user.equals("no")) {
+		 continue;}
+	
+     
+	//System.out.println("\nContinue and press enter to roll the dice and test your luck!");
+	//scanner.nextLine();
 	
 	int playerRoll = random.nextInt(6) + 1;
 	int dealerRoll = random.nextInt(6) + 1;
@@ -65,17 +70,29 @@ while (i != 4) {
 	System.out.println("The dealer rolled: " + dealerRoll);
 	printDie(dealerRoll);
 	
-	if (playerRoll == dealerRoll) {
-	System.out.println("Congratulations! You won the round!");
-	planPoints += 10;
-	} else {
-	planPoints -= 10;
-	System.out.println("You lost this round. 10 planning points deducted.");
 	
-		}	i++;}
+	if(playerRoll == dealerRoll && user.equals("yes")) {
+	System.out.println("\nCongratulations! You won the round!");
+	PartyPlannerHandle.planPoints += 5;
+	} else if (playerRoll == dealerRoll && user.equals("no")){
+	          System.out.println("\nLuck was actually on your side that's too bad");
+		      System.out.println("You lost this round.");
+	} else if (playerRoll != dealerRoll && user.equals("yes")){
+			System.out.println("I hope that money wasn't for your honeymoon");
+	        System.out.println("You lost this round.");
+    } else if (playerRoll != dealerRoll && user.equals("no")){
+    System.out.println("\nCongratulations! You won the round!");
+    PartyPlannerHandle.planPoints += 5;
+       }
+	 i++;
+       }
+       
+       
+	
+	
 	System.out.println("Alright, good work. you have done a great job of tackling all these wedding tasks." );
 	System.out.println("I think you are ready to handle a new challenge... " );
-	System.out.println(Name + "You now have "  + planPoints + " points:");}
+	System.out.println(PartyPlannerHandle.Name + "You now have "  + PartyPlannerHandle.planPoints + " points:");}
 
 private static void printDie(int roll) {
 	String[] diceFaces = {
@@ -148,43 +165,43 @@ public static void Bartender( ) throws FileNotFoundException {
 	"\n Pay very close attention to the options you choose based on the order you get" +
 	"\n You will pick your base, your sweetener, and a topping\n");
 	int i = 0;
-	while (i != 3) {
+	while (i !=2) {
 	System.out.println("\nI would like to order a: " + order + " With: " + correctingredients);
 	Scanner scan2 = new Scanner(System.in);
 	System.out.println("\nPick Your Base: Espresso, Tonic Water, Club Soda, Rum, Tequila, Vodka, Gin, Whiskey, Ice Tea\n ");
 	Base = scan2.nextLine().trim().toLowerCase();
 	if (Base.equals(eachingredient[0])){
 	System.out.println("\nYou got the Base right!");
+	PartyPlannerHandle.planPoints+=1;
 	}else {
     randommm = (int)(Math.random() * feedback.size()); // range of random numbers from 0 to the size of my array
     guestfeedback = feedback.get(randommm);
 	System.out.println("\nGuest: " + guestfeedback);
-	System.out.println("\nYou got the Base wrong you are down 1 point lets move on ");
-	planPoints -=1;}
+	System.out.println("\nYou got the Base wrong");}
 	Scanner scan3 = new Scanner(System.in);
 	System.out.println("\nPick Your Sweetner: Honey, Cane sugar, caramel, pineapple juice\n");
 	Sweetner = scan3.nextLine().trim().toLowerCase();
 	if (Sweetner.equals(eachingredient[1])){
 	System.out.println("\nYou got the Sweetner right!");
+	PartyPlannerHandle.planPoints+=1;
 	}else {
 	//create a variable to hold the randomly picked guest feedback
 	randommm = (int)(Math.random() * feedback.size()); // range of random numbers from 0 to the size of my array
 	guestfeedback = feedback.get(randommm);
 	System.out.println("\nGuest: " + guestfeedback);
-	System.out.println("\nYou got the Sweetner wrong you are down 1 point lets move on");
-	planPoints -=1;}
+	System.out.println("\nYou got the Sweetner wrong");}
 	Scanner scan4 = new Scanner(System.in);
 	System.out.println("\nPick Your Topping: Strawberries, Oranges, Lime, Pineapple Chunks, Mint Leaves, Cherries, Apple Slices, Candy Cane\n");
 	Topping = scan4.nextLine().trim().toLowerCase();
 	if (Topping.equals(eachingredient[2])){
 	System.out.println("\nYou got the Topping right!");
+	PartyPlannerHandle.planPoints+=1;
 	}else {
 	//create a variable to hold the randomly picked guest feedback
 	randommm = (int)(Math.random() * feedback.size()); // range of random numbers from 0 to the size of my array
 	guestfeedback = feedback.get(randommm);
 	System.out.println("\nGuest: " + guestfeedback);
-	System.out.println("\nYou got the Topping wrong you are down 1 point lets move on ");
-	planPoints -=1;}
+	System.out.println("\nYou got the Topping wrong");}
 	
 	
 	random = (int)(Math.random() * fileorders.size()); // range of random numbers from 0 to the size of my array
@@ -193,7 +210,7 @@ public static void Bartender( ) throws FileNotFoundException {
 	correctingredients = ingredients.get(randomm);
 	eachingredient = correctingredients.split("\\s+");
 	i+=1;}
-	System.out.println("\nNice game " + Name + " The status of your points are: " + planPoints);
+	System.out.println("\nNice game " + PartyPlannerHandle.Name + " The status of your points are: " + PartyPlannerHandle.planPoints);
 	}
 	
 
@@ -201,7 +218,7 @@ public static void Bartender( ) throws FileNotFoundException {
 
 	public static void GuestSeatingGame() {
 	// Game description + intro
-	System.out.println("\nWelcome, " + Name + "!");
+	System.out.println("\nWelcome, " + PartyPlannerHandle.Name + "!");
 	System.out.println("In this mini-game, you will be organizing the seating for the wedding guests.");
 	System.out.println("Each guest has specific preferences for where they want to sit, which will affect their satisfaction with the seating.");
 	System.out.println("Be strategic! Assign guests to tables according to their preferences to earn planning points.\n");
@@ -306,10 +323,9 @@ public static void Bartender( ) throws FileNotFoundException {
 	(assignedTable.equals("Table 4 (View Table)") && selectedGuest.equals("Emily")) ||
 	(assignedTable.equals("Table 5 (General Table)") && selectedGuest.equals("John"))) {
 	System.out.println(selectedGuest + " is happy with their seating!");
-	planPoints += 3; // Award points for correct seating
+	PartyPlannerHandle.planPoints += 4; // Award points for correct seating
 	} else {
 	System.out.println(selectedGuest + " is not happy with their seating arrangement.");
-	planPoints -= 2; // Deduct points for incorrect seating
 	}
 	
 	remainingSeating--; // Reduce the number of unseated guests
@@ -317,8 +333,8 @@ public static void Bartender( ) throws FileNotFoundException {
 	}}
 	
 	// End of game summary
-	System.out.println("\nCongratulations " + Name + ", the seating arrangement is complete!");
-	System.out.println("You have earned a total of " + planPoints + " planning points.");}
+	System.out.println("\nCongratulations " + PartyPlannerHandle.Name + ", the seating arrangement is complete!");
+	System.out.println("You have earned a total of " + PartyPlannerHandle.planPoints + " planning points.");}
 	
 	// public static void GamblingGame(Scanner scan, String playerName, int planPoints) {
 	// making dice roller game, "dealer" asks what number the user think they will roll, the user guesses, then
