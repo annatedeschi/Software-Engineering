@@ -87,7 +87,7 @@ public class FillerGames {
             }
         }
 
-        scanner.close();
+         scanner.close();
     }
 
     private static void giveHint(String password, Set<Integer> revealedHints) {

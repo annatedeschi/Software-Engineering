@@ -269,7 +269,7 @@ public static void Shopping() {
 	            PartyPlannerHandle.planPoints+=10;
 	        }
 
-	        // Satisfaction Points check
+	        //Satisfaction Points check
 	        if (satisfactionPoints == 100) {
 	            System.out.println("\nYou have made " + PartyPlannerIntros.nameofficial + " really happy! You will end this game with an extra 2 points.");
 	        } else if (satisfactionPoints >= 60) {

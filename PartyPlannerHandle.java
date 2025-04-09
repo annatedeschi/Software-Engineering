@@ -66,7 +66,7 @@ public class PartyPlannerHandle {
 			}}
 
 
-		//create a new acc method
+		// create a new acc method
 		public static void register(String intro) throws IOException {
 		System.out.println("\nCreate a New Account!");
 		while (intro.equals("no")) {

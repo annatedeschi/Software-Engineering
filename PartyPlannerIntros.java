@@ -37,7 +37,7 @@ public class PartyPlannerIntros {
 		}
 	}
 
-	//rachenza
+	// rachenza
 	//intro to level 1
 	public static void Babyshower() {
 		int random = (int)(Math.random() * namesf.size()); // range of random numbers from 0 to the size of my array

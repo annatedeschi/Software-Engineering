@@ -57,7 +57,7 @@ public class PartyPlannerEnding {
                }
              }
             
-         // Sort the leaderboard in descending order based on the score
+         //Sort the leaderboard in descending order based on the score
             LeaderBoard.sort((a, b) -> {
                 int scoreA = Integer.parseInt(a.split(":")[1]);
                 int scoreB = Integer.parseInt(b.split(":")[1]);

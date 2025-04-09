@@ -14,7 +14,7 @@ public class PartyPlannerLevel1 {
 	
 	
 	
-	//minigame #1 - rock paper scissors
+	// minigame #1 - rock paper scissors
 	public static void RockPaperScissors() {
 			// okay the next line i tried to somehow tie in a baby shower and rock paper scissors...we can workshop the storyline part
 			System.out.println("Your first task is to help plan a baby shower! Lets play rock, paper, scissors to who will go first to give the first present!"

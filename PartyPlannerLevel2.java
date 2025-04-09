@@ -110,7 +110,7 @@ private static void printDie(int roll) {
 
 
 //rachenza
-//game 1 of level 2
+// game 1 of level 2
 public static void Bartender( ) throws FileNotFoundException {
 	String Base = "";
 	String Topping = "";
