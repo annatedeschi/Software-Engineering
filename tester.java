@@ -131,7 +131,7 @@ package Port;
 	                    cart++;//hdjfgkldndndm
 	                    total += toInput;
 	                    System.out.println("\nItem added. Cart[" + cart + "]");
-	                } else {
+	                } else {dfnj
 	                	 System.out.println("\nThis item isn't ringing up. Type in the price to buy your item:  ");
 		                 input = scan.nextLine().trim();
 	                     continue;
