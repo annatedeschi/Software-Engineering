@@ -88,8 +88,11 @@ public class FillerGames {
         }
 
          scanner.close();
+         
+         
     }
-
+    	
+    	   
     private static void giveHint(String password, Set<Integer> revealedHints) {
         for (int i = 0; i < 5; i++) {
             if (!revealedHints.contains(i)) {
@@ -99,4 +102,102 @@ public class FillerGames {
             }
         }
     }
+    
+    
+    static void ticTacToeGame() throws IOException {
+        Scanner scan = new Scanner(System.in);
+        Random rand = new Random();
+        char[] board = {'1','2','3','4','5','6','7','8','9'};
+        int moves = 0;
+
+        System.out.println("\nWelcome to Tic Tac Toe! Try your luck to move onto the next round!");
+        printSimpleBoard(board);
+
+        while (true) {
+            // Player move
+            System.out.print("Your move! Pick a spot (1-9): ");
+            int playerSpot;
+            try {
+                playerSpot = Integer.parseInt(scan.nextLine()) - 1;
+            } catch (Exception e) {
+                System.out.println("Please enter a number from 1 to 9.");
+                continue;
+            }
+
+            if (playerSpot < 0 || playerSpot > 8 || board[playerSpot] == 'x' || board[playerSpot] == 'o') {
+                System.out.println("Invalid input. Try again.");
+                continue;
+            }
+
+            board[playerSpot] = 'x';
+            moves++;
+            printSimpleBoard(board);
+
+            if (checkSimpleWin(board, 'x')) {
+                System.out.println("You win!");
+
+                if (PartyPlannerHandle.Progress == 1) {
+                    PartyPlannerHandle.planPoints = 60;
+                } else if (PartyPlannerHandle.Progress == 2) {
+                    PartyPlannerHandle.planPoints = 120;
+                }
+
+                System.out.println("Points: " + PartyPlannerHandle.planPoints);
+                PartyPlannerHandle.filler();
+                break;
+            }
+
+            if (moves == 9) {
+                System.out.println("It's a tie!");
+                PartyPlannerHandle.filler();
+                break;
+            }
+
+            // Computer move
+            System.out.println("Computer's turn...");
+            int compSpot;
+            while (true) {
+                compSpot = rand.nextInt(9);
+                if (board[compSpot] != 'x' && board[compSpot] != 'o') {
+                    board[compSpot] = 'o';
+                    moves++;
+                    break;
+                }
+            }
+
+            printSimpleBoard(board);
+
+            if (checkSimpleWin(board, 'o')) {
+                System.out.println("Computer wins!");
+                PartyPlannerHandle.filler();
+                break;
+            }
+        }
+    }
+
+    private static void printSimpleBoard(char[] board) {
+        System.out.println("\n" + board[0] + " | " + board[1] + " | " + board[2]);
+        System.out.println("--+---+--");
+        System.out.println(board[3] + " | " + board[4] + " | " + board[5]);
+        System.out.println("--+---+--");
+        System.out.println(board[6] + " | " + board[7] + " | " + board[8]);
+    }
+
+    private static boolean checkSimpleWin(char[] board, char player) {
+        return (board[0] == player && board[1] == player && board[2] == player) ||
+               (board[3] == player && board[4] == player && board[5] == player) ||
+               (board[6] == player && board[7] == player && board[8] == player) ||
+               (board[0] == player && board[3] == player && board[6] == player) ||
+               (board[1] == player && board[4] == player && board[7] == player) ||
+               (board[2] == player && board[5] == player && board[8] == player) ||
+               (board[0] == player && board[4] == player && board[8] == player) ||
+               (board[2] == player && board[4] == player && board[6] == player);
+    }
 }
+    
+    
+    
+}
+
+
+ 
