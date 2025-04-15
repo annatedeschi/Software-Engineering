@@ -64,7 +64,7 @@ public class PartyPlannerEnding {
                 return Integer.compare(scoreB, scoreA);  // Sorting in descending order
             });
 
-            // Write the sorted leaderboard back to the file
+            //Write the sorted leaderboard back to the file
             try (BufferedWriter writer1 = new BufferedWriter(new FileWriter("scoreboard.txt"))) {
                 for (String entry : LeaderBoard) {
                     writer1.write(entry);

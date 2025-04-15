@@ -199,7 +199,7 @@ public class PartyPlannerHandle {
 		ArrayList<String> mini = new ArrayList<String>();
 		mini.add("passwordgame");
 		mini.add("jeopardy");
-		mini.add("anas game");
+		mini.add("tic tac toe");
 		
 		
 		while ( Progress == 1 && planPoints < 50) {
@@ -210,9 +210,10 @@ public class PartyPlannerHandle {
 		  		+ "\nYou'll gain them back through a filler game");
 		      if (fillergame.equals("passwordgame")){
 		          FillerGames.passwordGame();}
-		      else if (fillergame.equals("anas game")) {
+		      else if (fillergame.equals("tic tac toe")) {
 		    	  //calls ana's filler game
-		    	    }
+		    	  FillerGames.ticTacToeGame();}
+		    	    
 		    	  else if (fillergame.equals("jeopardy")) {
 		    	  System.out.println( "Taking you to jeopardy when you finish the game and get your money amount type in yes");
 				  Jeopardy.enter();
@@ -240,9 +241,9 @@ public class PartyPlannerHandle {
 			  		+ "\nYou'll gain them back through a filler game");
 			      if (fillergame.equals("passwordgame")){
 			          FillerGames.passwordGame();}
-			      else if (fillergame.equals("anas game")) {
+			      else if (fillergame.equals("tic tac toe")) {
 			    	  //calls ana's filler game
-			    	 }
+			    	  FillerGames.ticTacToeGame();}
 			    	  else if (fillergame.equals("jeopardy")) {
 			    	  System.out.println("Taking you to jeopardy when you finish the game and get your money amount type in yes");
 					  Jeopardy.enter();
