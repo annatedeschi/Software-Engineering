@@ -18,6 +18,7 @@ public class PartyPlannerHandle {
 	static String fillergame;
 	static String endgame;
 	static String	levelchoice;
+	static String gui;
 	static int Level;
 	static int Progress = 1;
 	static  int lastgame;
@@ -125,6 +126,7 @@ public class PartyPlannerHandle {
 		
 
 		}
+	     
 
 	//rachenza
 	//writes username and password to file -rachenza
@@ -166,6 +168,7 @@ public class PartyPlannerHandle {
 	//rachenza
 	//save the users progress once they say yes and add to a progress file
 	public static void saveprogress() throws IOException {
+	  
 		int i = 0;
 	while (i != 1) {
 		Scanner scan0 = new Scanner(System.in);
@@ -190,76 +193,99 @@ public class PartyPlannerHandle {
 	}
 
 	public static void filler() throws IOException {
+		int random;
+		
+	
 		ArrayList<String> mini = new ArrayList<String>();
 		mini.add("passwordgame");
+		mini.add("jeopardy");
+		mini.add("anas game");
 		
 		
-		if ( Progress == 1 && planPoints < 50) {
+		while ( Progress == 1 && planPoints < 50) {
 			planPoints = 0;
-		  int random = (int)(Math.random() * mini.size()); // range of random numbers from 0 to the size of my array
+		  random = (int)(Math.random() * mini.size()); // range of random numbers from 0 to the size of my array
 		  fillergame = mini.get(random);
 		  System.out.println("\nYou did not gain enough points in this level."
 		  		+ "\nYou'll gain them back through a filler game");
 		      if (fillergame.equals("passwordgame")){
 		          FillerGames.passwordGame();}
-		      else if (fillergame.equals("ana's fillergame")) {
+		      else if (fillergame.equals("anas game")) {
 		    	  //calls ana's filler game
+		    	    }
+		    	  else if (fillergame.equals("jeopardy")) {
+		    	  System.out.println( "Taking you to jeopardy when you finish the game and get your money amount type in yes");
+				  Jeopardy.enter();
+				  scan.nextLine();
+				  gui = scan.nextLine().toLowerCase();
+		    	  if (gui.equals("yes") && planPoints == 60 && Jeopardy.access.equals("yes")) {
+		    		  break;
+		    	  }else {
+		    		  continue;
+		    	  }
+		    	  }
 		      }
-		      else if (fillergame.equals("rachenza's fillergame")) {
-		    	  //calls rachenza's filler game
-		      }
-		}
+		
+				  
+		
+		
 		   
 		
 		
-		if ( Progress == 2 && planPoints < 100) {	
-		planPoints = 0;
-	  int random = (int)(Math.random() * mini.size()); // range of random numbers from 0 to the size of my array
-	  fillergame = mini.get(random);
-	  System.out.println("\nYou did not gain enough points in this level."
-	  		+ "\nYou'll gain them back through a filler game");
-	      if (fillergame.equals("passwordgame")){
-	          FillerGames.passwordGame();}
-	      else if (fillergame.equals("ana's fillergame")) {
-	    	  //calls ana's filler game
-	      }
-	      else if (fillergame.equals("rachenza's fillergame")) {
-	    	  //calls rachenza's filler game
-	      }
-	   }
+		while ( Progress == 2 && planPoints < 100) {	
+			planPoints = 0;
+			   random = (int)(Math.random() * mini.size()); // range of random numbers from 0 to the size of my array
+			  fillergame = mini.get(random);
+			  System.out.println("\nYou did not gain enough points in this level."
+			  		+ "\nYou'll gain them back through a filler game");
+			      if (fillergame.equals("passwordgame")){
+			          FillerGames.passwordGame();}
+			      else if (fillergame.equals("anas game")) {
+			    	  //calls ana's filler game
+			    	 }
+			    	  else if (fillergame.equals("jeopardy")) {
+			    	  System.out.println("Taking you to jeopardy when you finish the game and get your money amount type in yes");
+					  Jeopardy.enter();
+					  scan.nextLine();
+					  gui = scan.nextLine().toLowerCase();
+			    	  if (gui.equals("yes") && planPoints == 60 && Jeopardy.access.equals("yes")) {
+			    		  break;
+			    	  }else {
+			    		  continue;
+			    	  }
+			    	  }
+			      
+		}
+		
+		if (Progress == 1 && planPoints == 60) {
+			saveprogress();
+		}
+		if (Progress == 2 && planPoints == 120) {
+			saveprogress();
+		}
+		if( Progress == 3) {
+			System.out.println("\nEnding the game!");
+			endgame="yes";
+			chooselevel();
+		} 
+	}
+		
+		
+		
+		
+	      
+	   
 	
 	
 		
 		      
-	  while( planPoints == 60 && Progress == 1) {
-		  if(Progress == 1) {
-			System.out.println("\nMoving on to the next level");
-			Progress++;
-			saveprogress();}
-			
-			
-		}
+	 
 	  
-	  while( planPoints == 120 && Progress == 2) {
-		  if(Progress == 2) {
-			System.out.println("\nMoving on to the next level");
-			Progress++;
-			saveprogress();
-	  }
-		}
 	  
-	  while( Progress == 3) {
-			System.out.println("\nEnding the game!");
-			endgame="yes";
-		} 
-	  chooselevel();
-	}
 	
 	
 
 	public static void chooselevel() throws IOException {
-      
-       
 	                    
      
         while (Progress == 1) {
@@ -379,8 +405,9 @@ public class PartyPlannerHandle {
     		System.out.println("\nYou've already played Level 1 before."
     				+ "\nSo now what level would you like to start with today pick from your options below."
     				+"\nGame:"
-    				+"\nLevel 1: Babyshower"
+    				+"\nLevel 1: Babyshower" 
     				+"\nLevel 2: Wedding"
+    				+"\n You possibly may have already played Level 1 but in this instajnce its up to you to play it again"
     				+"\nType in the number of the level of your choosing: ");
     		 levelchoice = scan.nextLine();
     		        
@@ -447,6 +474,7 @@ public class PartyPlannerHandle {
        
         }
 	}
+	
 
 
 

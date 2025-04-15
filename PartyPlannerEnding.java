@@ -92,7 +92,7 @@ public class PartyPlannerEnding {
 	   
 	            while (!LeaderBoard.isEmpty()) {
 	            	 System.out.println("\nWould you like to restart the game?" +
-	         	    	"\nOr would you like to exit the game? (yes/no)");
+	         	    	"\nOr would you like to exit the game? (yes to restart /no to exit)");
 	         	          String restart = scan.nextLine().trim();
 	            if(restart.equals("yes")) {
 	            	System.out.println("\nYour username and password is still the same.");
