@@ -212,8 +212,7 @@ public class PartyPlannerHandle {
 		          FillerGames.passwordGame();}
 		      else if (fillergame.equals("tic tac toe")) {
 		    	  //calls ana's filler game
-		    	  FillerGames.ticTacToeGame();}
-		    	    
+		    	  FillerGames.ticTacToeGame();} 
 		    	  else if (fillergame.equals("jeopardy")) {
 		    	  System.out.println( "Taking you to jeopardy when you finish the game and get your money amount type in yes");
 				  Jeopardy.enter();
@@ -259,9 +258,11 @@ public class PartyPlannerHandle {
 		}
 		
 		if (Progress == 1 && planPoints == 60) {
+			Progress++;
 			saveprogress();
 		}
 		if (Progress == 2 && planPoints == 120) {
+			Progress++;
 			saveprogress();
 		}
 		if( Progress == 3) {
