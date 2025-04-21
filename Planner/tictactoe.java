@@ -144,7 +144,7 @@ public class tictactoe extends Frame implements ActionListener {
             b.setEnabled(false);
         }
     }
-// checking the win
+// checking the win    
     public boolean checkWin(char p) {
         return (board[0] == p && board[1] == p && board[2] == p) ||
                (board[3] == p && board[4] == p && board[5] == p) ||
