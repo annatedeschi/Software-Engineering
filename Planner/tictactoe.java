@@ -2,20 +2,23 @@ package Planner;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.util.Random;
-
+//main class for tic tac toe
 public class tictactoe extends Frame implements ActionListener {
-
+// setting the buttons
     private Button[] buttons = new Button[9];
     private char[] board = {'1','2','3','4','5','6','7','8','9'};
     private int moves = 0;
     private Label statusLabel;
     private Random rand = new Random();
-
+    private int playerWins = 0;
+    private int computerWins = 0;
+// the title, squares , and layout specs
     public tictactoe() {
-        setTitle("Tic Tac Toe ");
+        setTitle("Tic Tac Toe - Best of 3");
         setLayout(new BorderLayout());
-
+// setting the panel board, fonts and buttons
         Panel boardPanel = new Panel();
         boardPanel.setLayout(new GridLayout(3, 3));
         Font font = new Font("Arial", Font.BOLD, 40);
@@ -42,8 +45,8 @@ public class tictactoe extends Frame implements ActionListener {
             }
         });
     }
-
-
+// this is button getting pressed and marking it on the board
+    @Override
     public void actionPerformed(ActionEvent e) {
         Button clicked = (Button) e.getSource();
         int index = -1;
@@ -60,26 +63,34 @@ public class tictactoe extends Frame implements ActionListener {
         buttons[index].setLabel("X");
         board[index] = 'x';
         moves++;
-
+// checking the wins , best of three and then reset
         if (checkWin('x')) {
-            statusLabel.setText("You win!");
-            awardPoints();
-            PartyPlannerHandle.filler();
-            disableBoard();
+            playerWins++;
+            statusLabel.setText("You win this round!");
+            if (playerWins == 2) {
+                statusLabel.setText("You win best of 3!");
+                awardPoints();
+                finishGame();
+            } else {
+                resetBoard("You won this round! Score: You " + playerWins + " - " + computerWins);
+            }
             return;
         }
 
         if (moves == 9) {
             statusLabel.setText("It's a tie!");
-            PartyPlannerHandle.filler();
-            disableBoard();
+            resetBoard("It's a tie! Score: You " + playerWins + " - " + computerWins);
             return;
         }
 
-        computerMove();
+        try {
+            computerMove();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
     }
-
-    private void computerMove() {
+// this is the computers turn , honest havent been beaten by the computer yet sooo might have to go back 
+    private void computerMove() throws IOException {
         statusLabel.setText("Computer's turn...");
         int compSpot;
         while (true) {
@@ -91,26 +102,49 @@ public class tictactoe extends Frame implements ActionListener {
                 break;
             }
         }
-
+        // checking if the computer wins , computer ALWAYS O and User is always x (maybe change this?)
         if (checkWin('o')) {
-            statusLabel.setText("Computer wins!");
-            PartyPlannerHandle.filler();
-            disableBoard();
+            computerWins++;
+            statusLabel.setText("Computer wins this round!");
+            if (computerWins == 2) {
+                statusLabel.setText("Computer wins best of 3!");
+                finishGame();
+            } else {
+                resetBoard("Computer won this round! Score: You " + playerWins + " - " + computerWins);
+            }
         } else if (moves == 9) {
             statusLabel.setText("It's a tie!");
-            PartyPlannerHandle.filler();
-            disableBoard();
+            resetBoard("It's a tie! Score: You " + playerWins + " - " + computerWins);
         } else {
             statusLabel.setText("Your move!");
         }
     }
+// resetting the board so we can play best of 3
+    private void resetBoard(String message) {
+        for (int i = 0; i < 9; i++) {
+            board[i] = (char) ('1' + i);
+            buttons[i].setLabel("");
+            buttons[i].setEnabled(true);
+        }
+        moves = 0;
+        statusLabel.setText(message);
+    }
 
+    private void finishGame() {
+        disableBoard();
+        try {
+            PartyPlannerHandle.filler();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+// closing out of the board
     private void disableBoard() {
         for (Button b : buttons) {
             b.setEnabled(false);
         }
     }
-
+// checking the win
     private boolean checkWin(char p) {
         return (board[0] == p && board[1] == p && board[2] == p) ||
                (board[3] == p && board[4] == p && board[5] == p) ||
@@ -121,7 +155,7 @@ public class tictactoe extends Frame implements ActionListener {
                (board[0] == p && board[4] == p && board[8] == p) ||
                (board[2] == p && board[4] == p && board[6] == p);
     }
-
+// awarding the points to the user
     private void awardPoints() {
         if (PartyPlannerHandle.Progress == 1) {
             PartyPlannerHandle.planPoints = 60;
@@ -130,9 +164,12 @@ public class tictactoe extends Frame implements ActionListener {
         }
         System.out.println("Points: " + PartyPlannerHandle.planPoints);
     }
-
+//launching the game
+    public static void launch() {
+        new tictactoe();
+    }
 
     public static void main(String[] args) {
-        tictactoe.launch();
+        launch();
     }
 }
