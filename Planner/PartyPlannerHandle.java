@@ -211,7 +211,9 @@ public class PartyPlannerHandle {
 		      if (fillergame.equals("passwordgame")){
 		          FillerGames.passwordGame();}
 		      else if (fillergame.equals("tic tac toe")) {
-		    	  FillerGames.ticTacToeGame();}
+		    	    System.out.println("You picked Tic Tac Toe...starting game");
+		    	    tictactoe.launch();
+		    	}
 		    	    
 		    	  else if (fillergame.equals("jeopardy")) {
 		    	  System.out.println( "Taking you to jeopardy type 'yay' to start.");
