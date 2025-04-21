@@ -7,13 +7,13 @@ import java.util.Random;
 //main class for tic tac toe
 public class tictactoe extends Frame implements ActionListener {
 // setting the buttons
-    private Button[] buttons = new Button[9];
-    private char[] board = {'1','2','3','4','5','6','7','8','9'};
-    private int moves = 0;
-    private Label statusLabel;
-    private Random rand = new Random();
-    private int playerWins = 0;
-    private int computerWins = 0;
+    public Button[] buttons = new Button[9];
+    public char[] board = {'1','2','3','4','5','6','7','8','9'};
+    public int moves = 0;
+    public Label statusLabel;
+    public Random rand = new Random();
+    public int playerWins = 0;
+    public int computerWins = 0;
 // the title, squares , and layout specs
     public tictactoe() {
         setTitle("Tic Tac Toe - Best of 3");
@@ -90,7 +90,7 @@ public class tictactoe extends Frame implements ActionListener {
         }
     }
 // this is the computers turn , honest havent been beaten by the computer yet sooo might have to go back 
-    private void computerMove() throws IOException {
+    public void computerMove() throws IOException {
         statusLabel.setText("Computer's turn...");
         int compSpot;
         while (true) {
@@ -120,7 +120,7 @@ public class tictactoe extends Frame implements ActionListener {
         }
     }
 // resetting the board so we can play best of 3
-    private void resetBoard(String message) {
+    public void resetBoard(String message) {
         for (int i = 0; i < 9; i++) {
             board[i] = (char) ('1' + i);
             buttons[i].setLabel("");
@@ -130,7 +130,7 @@ public class tictactoe extends Frame implements ActionListener {
         statusLabel.setText(message);
     }
 
-    private void finishGame() {
+    public void finishGame() {
         disableBoard();
         try {
             PartyPlannerHandle.filler();
@@ -139,13 +139,13 @@ public class tictactoe extends Frame implements ActionListener {
         }
     }
 // closing out of the board
-    private void disableBoard() {
+    public void disableBoard() {
         for (Button b : buttons) {
             b.setEnabled(false);
         }
     }
 // checking the win
-    private boolean checkWin(char p) {
+    public boolean checkWin(char p) {
         return (board[0] == p && board[1] == p && board[2] == p) ||
                (board[3] == p && board[4] == p && board[5] == p) ||
                (board[6] == p && board[7] == p && board[8] == p) ||
@@ -156,7 +156,7 @@ public class tictactoe extends Frame implements ActionListener {
                (board[2] == p && board[4] == p && board[6] == p);
     }
 // awarding the points to the user
-    private void awardPoints() {
+    public void awardPoints() {
         if (PartyPlannerHandle.Progress == 1) {
             PartyPlannerHandle.planPoints = 60;
         } else if (PartyPlannerHandle.Progress == 2) {
