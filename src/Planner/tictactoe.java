@@ -110,7 +110,7 @@ public class tictactoe extends Frame implements ActionListener {
             statusLabel.setText("Computer wins this round!");
             if (computerWins == 2) {
                 statusLabel.setText("Computer wins best of 3!");
-                finishGame();
+                newgame.tictactoe();
             } else {
                 resetBoard("Computer won this round! Score: You " + playerWins + " - " + computerWins);
             }
