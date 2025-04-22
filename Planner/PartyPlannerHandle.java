@@ -212,7 +212,7 @@ public class PartyPlannerHandle {
                   FillerGames.passwordGame();}
               else if (fillergame.equals("tic tac toe")) {
                     System.out.println("You picked Tic Tac Toe...starting game.");
-                   gui= scan.nextLine().toLowerCase();
+                   gui = scan.nextLine().toLowerCase();
 				if (gui.equals("yes")) {
 					break;
 				}
