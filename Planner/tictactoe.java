@@ -46,7 +46,7 @@ public class tictactoe extends Frame implements ActionListener {
         });
     }
 // this is button getting pressed and marking it on the board
-    @Override
+
     public void actionPerformed(ActionEvent e) {
         Button clicked = (Button) e.getSource();
         int index = -1;
@@ -88,6 +88,7 @@ public class tictactoe extends Frame implements ActionListener {
         } catch (IOException e1) {
             e1.printStackTrace();
         }
+        
     }
 // this is the computers turn , honest havent been beaten by the computer yet sooo might have to go back 
     public void computerMove() throws IOException {
@@ -109,6 +110,8 @@ public class tictactoe extends Frame implements ActionListener {
             if (computerWins == 2) {
                 statusLabel.setText("Computer wins best of 3!");
                 finishGame();
+                
+                
             } else {
                 resetBoard("Computer won this round! Score: You " + playerWins + " - " + computerWins);
             }
@@ -118,6 +121,7 @@ public class tictactoe extends Frame implements ActionListener {
         } else {
             statusLabel.setText("Your move!");
         }
+        
     }
 // resetting the board so we can play best of 3
     public void resetBoard(String message) {
@@ -138,12 +142,7 @@ public class tictactoe extends Frame implements ActionListener {
             e.printStackTrace();
         }
     }
-// closing out of the board
-    public void disableBoard() {
-        for (Button b : buttons) {
-            b.setEnabled(false);
-        }
-    }
+
 // checking the win    
     public boolean checkWin(char p) {
         return (board[0] == p && board[1] == p && board[2] == p) ||
@@ -159,11 +158,12 @@ public class tictactoe extends Frame implements ActionListener {
     public void awardPoints() {
         if (PartyPlannerHandle.Progress == 1) {
             PartyPlannerHandle.planPoints = 60;
-        } else if (PartyPlannerHandle.Progress == 2) {
-            PartyPlannerHandle.planPoints = 120;
+        } disableboard();
+        else if (PartyPlannerHandle.Progress == 2) {
+        	PartyPlannerHandle.planpoints = 120
+        	disableboard();
         }
-        System.out.println("Points: " + PartyPlannerHandle.planPoints);
-    }
+
 //launching the game
     public static void launch() {
         new tictactoe();
@@ -173,3 +173,4 @@ public class tictactoe extends Frame implements ActionListener {
         launch();
     }
 }
+// go back and check diablse board and close boards fix by today
