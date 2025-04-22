@@ -72,7 +72,6 @@ public class tictactoe extends Frame implements ActionListener {
             if (playerWins == 2) {
                 statusLabel.setText("You win best of 3!");
                 awardPoints();
-                finishGame();
             } else {
                 resetBoard("You won this round! Score: You " + playerWins + " - " + computerWins);
             }
@@ -132,14 +131,6 @@ public class tictactoe extends Frame implements ActionListener {
         statusLabel.setText(message);
     }
 
-    private void finishGame() {
-        disableBoard();
-        try {
-            PartyPlannerHandle.filler();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 // closing out of the board
     private void disableBoard() {
         for (Button b : buttons) {
@@ -161,10 +152,11 @@ public class tictactoe extends Frame implements ActionListener {
     private void awardPoints() {
         if (PartyPlannerHandle.Progress == 1) {
             PartyPlannerHandle.planPoints = 60;
-            win = "yes";
-        } else if (PartyPlannerHandle.Progress == 2) {
+            
+        disableBoard();}
+        else if (PartyPlannerHandle.Progress == 2) {
             PartyPlannerHandle.planPoints = 120;
-            win = "yes";
+            disableBoard();
         }
         System.out.println("Points: " + PartyPlannerHandle.planPoints);
     }
