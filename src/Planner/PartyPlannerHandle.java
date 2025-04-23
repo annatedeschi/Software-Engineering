@@ -238,7 +238,7 @@ public class PartyPlannerHandle {
 
 
 
-        random = (int)(Math.random() * mini.size()); //range of random numbers from 0 to the size of my array
+        random = (int)(Math.random() * mini.size()); // range of random numbers from 0 to the size of my array
          fillergame = mini.get(random);
         while ( Progress == 2 && planPoints < 100) {
             planPoints = 0;
