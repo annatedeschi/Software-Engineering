@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.util.Random;
+
+import javax.swing.JOptionPane;
 //main class for tic tac toe
 public class tictactoe extends Frame implements ActionListener {
 // setting the buttons
@@ -152,10 +154,11 @@ public class tictactoe extends Frame implements ActionListener {
     private void awardPoints() {
         if (PartyPlannerHandle.Progress == 1) {
             PartyPlannerHandle.planPoints = 60;
-            
+            JOptionPane.showMessageDialog(null,"Game Over, Type 'Yes' into console");
         disableBoard();}
         else if (PartyPlannerHandle.Progress == 2) {
             PartyPlannerHandle.planPoints = 120;
+            JOptionPane.showMessageDialog(null," Game Over, Type 'Yes' into console");
             disableBoard();
         }
         System.out.println("Points: " + PartyPlannerHandle.planPoints);
