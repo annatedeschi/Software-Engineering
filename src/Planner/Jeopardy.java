@@ -305,7 +305,7 @@ public String randomq(String price) {
 		        frame3.dispose(); // Dispose after user clicks OK
 		    }
 
-		    // Stop clips after dialog is shown
+		    //Stop clips after dialog is shown
 		    if (clip2 != null && clip2.isRunning()) {
 		        clip2.stop();
 		    }
