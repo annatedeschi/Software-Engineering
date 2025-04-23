@@ -51,9 +51,9 @@ public class Jeopardy implements ActionListener  {
 	static String access;
 	JLabel questionlabel = new JLabel();
 	
-	String[] q100 = {"100 For Best Event Planner: If your client wants to do a firework show inside the venue. Type your answer below: (Firework Show/No Firework Show)","100 For Best Event Planner: Your client wants you to go big but their budget says go small. Type your answer below: (Drop Client/Go Big Charge Later)","100 For Best Event Planner: Your client is having cold feet on their big day they are contemplating being a runaway bride but need your support. Type answer below: (Runaway Bride/Convince Them So You Get Paid)","100 For Best Event Planner: Your client want's a perfect wedding but the weather has changed the plans its pouring rain and theres thunder and lighting the outdoor venue is ruined. Type your answer below: (Have The Reception & Ceremony Inside The Church/Hold A Spot Availible For Them To Reschedule Free Of Charge)","100 For Best Event Planner: Your client is happy about their babyshower its huge and expensive but they go into labor. Type your answer below: (Cancel & Send The Family Home/Continue The Party While The Client Is Gone On Their Behalf)"};
-	String[] q200 = {"200 For Movies: A kid is left behind by his family during the holidays give this to.....? Type your answer below: (Kevin/James)","200 For Movies: A teenage girl falls in love with two non-human beings and somehow one of them hates the sun. Type your answer below: (Twilight/Pitch Perfect)","200 For Movies: A group of girls who could never not wear pink on a wednesday but love to write in their burn book. Type your answer below: (Mean Girls/Clueless","200 For Movies: Her family is odd including her hand for a uncle she's blunt she's dark she's..... Type your answer below: (Wednesday/Thursday)","200 For Movies: Their toys their fake excecpt when you leave the room they come alive its.... Type your answer below: (Toy Story/Monsters Inc) "};
-	String[] q300 = {"300 For Tv Shows: A core childhood show where there are 104 days of summer vaction yet the summer never ends. Type your answer below: (Phineas and Ferb/Johnny10)","300 For Tv Shows: A show where two brothers fight over one girl all while fighting vervain. Type your answer below: (The Vampire Diaries/The Orignals","300 For Tv Shows: A hospital where evertghing that could go wrong goes wrong but at least we have McDreamy. Type answer below: (Greys Anatomy/The Good Doctor","300 For Tv Shows: Who is the sister of Ross? Type your answer below: (Monica/Rachel","300 For Tv Shows: White Lotus seasons are always fillmed at what hotel? Type your answer below: (4 Seasons/Mariott"};
+	String[] q100 = {"100 For Best Event Planner: If your client wants to do a firework show inside the venue. Type your answer below: (Firework Show/No Firework Show)","100 For Best Event Planner: Your client wants you to go big but their budget says go small. Type your answer below: (Drop Client/Go Big Charge Later)","100 For Best Event Planner: Your client is having cold feet on their big day they are contemplating being a runaway bride but need your support. Type answer below: (Runaway Bride/Convince Them So You Get Paid)"};
+	String[] q200 = {"200 For Movies: A kid is left behind by his family during the holidays give this to.....? Type your answer below: (Kevin/James)","A teenage girl falls in love with two non-human beings and somehow one of them hates the sun. Type your answer below: (Twilight/Pitch Perfect)","200 For Movies: A group of girls who could never not wear pink on a wednesday but love to write in their burn book. Type your answer below: (Mean Girls/Clueless"};
+	String[] q300 = {"300 For Tv Shows: A core childhood show where there are 104 days of summer vaction yet the summer never ends. Type your answer below: (Phineas and Ferb/Johnny10)","300 For Tv Shows: A show where two brothers fight over one girl all while fighting vervain. Type your answer below: (The Vampire Diaries/The Orignals","300 For Tv Shows: A hospital where evertghing that could go wrong goes wrong but at least we have McDreamy. Type answer below: (Greys Anatomy/The Good Doctor"};
 	
 
 	 public static void main(String[] args) {
@@ -61,6 +61,8 @@ public class Jeopardy implements ActionListener  {
 	 }
 	
 	 public static void enter () {
+		 System.out.println("You will be answering some questions based on your pick of the price you want."
+		 		+ " You only will answer three questions.");
 		 Jeopardy jeopardy = new Jeopardy();
 			jeopardy.reset();
 	 }
@@ -153,7 +155,7 @@ public class Jeopardy implements ActionListener  {
 		        ex.printStackTrace();
 		    }
 		}else if (buttons == button3) {
-		  useranswer = TextField.getText().toLowerCase().trim();
+		  useranswer = TextField.getText().toLowerCase();
 		  check();
         }else {
         	for ( a = 0; a <button2.length; a++) {
@@ -168,40 +170,30 @@ public class Jeopardy implements ActionListener  {
         				String questionselected = randomq(button2[a].getText());
         				answer(questionselected);
         			}else if (count == 3){
+        				JOptionPane.showMessageDialog(null, "Game over You have earned " + "$" + money);
+        				panel2.setVisible(false);
+        				panel3.setVisible(false);
+        				panel1.setVisible(false);
+        				frame1.dispose();
+        				frame2.dispose();
+        				frame3.dispose();
+        				
         				if (money > 200) {
         				    if (PartyPlannerHandle.Progress == 1) {
         				        PartyPlannerHandle.planPoints = 60;
         				        access = "yes";
-        				        JOptionPane.showMessageDialog(null, "Game over You have earned " + "$" + money + " (Press OK)");
-                				JOptionPane.showMessageDialog(null, "Type 'Yes' into the console to go back into the game (Press OK)");
-                				panel2.setVisible(false);
-                				panel3.setVisible(false);
-                				panel1.setVisible(false);
-                				frame1.dispose();
-                				frame2.dispose();
-                				frame3.dispose();
+        				        
         				        
         				    } else if (PartyPlannerHandle.Progress == 2) {
         				        PartyPlannerHandle.planPoints = 120;
         				        access = "yes";
-        				        JOptionPane.showMessageDialog(null, "Game over You have earned " + "$" + money + " (Press OK)");
-                				JOptionPane.showMessageDialog(null, "Type 'Yes' into the console to go back into the game (Press OK)");
-                				panel2.setVisible(false);
-                				panel3.setVisible(false);
-                				panel1.setVisible(false);
-                				frame1.dispose();
-                				frame2.dispose();
-                				frame3.dispose();
+        				        
         				   
         				    }
         				}	
         				if (money < 200) {
-        					JOptionPane.showMessageDialog(null, "You did not gain enough points in the filler game play jeopardy again (Press OK)");
         					reset();
         				}
-        				
-        				
-        				
         		}
         	}
 	    }
@@ -235,53 +227,35 @@ public String randomq(String price) {
 	       if (currentq.contains("Twilight")) {
 		        correcta = "twilight";
 		        payment = 200;
-		    } else if (currentq.contains("No firework Show")) {
+		    } else if (currentq.contains("No Firework Show")) {
 		        correcta = "no firework show";
 		        payment = 100;
-		    }else if (currentq.contains("Continue The Party While The Client Is Gone On Their Behalf 100")) {
-		    	correcta = "continue the party while the client is gone on their behalf";
-		    	payment = 100;
-		    }else if (currentq.contains("Have The Reception & Ceremony Inside The Church")) {
-	            correcta= "have the reception & ceremony inside the church";
-	    		payment = 100;
-		    } else if (currentq.contains("Phineas And Ferb")) {
+		    } else if (currentq.contains("Phineas and Ferb")) {
 		        correcta = "phineas and ferb";
 		        payment = 300;
 		    } else if (currentq.contains("Kevin")) {
 		        correcta = "kevin";
 		        payment = 200;
 		    } else if (currentq.contains("The Vampire Diaries")) {
-		        correcta = "the vampire diaries";
+		        correcta = "The Vampire Diaries";
 		        payment = 300;
-		    }else if (currentq.contains("Wednesday")) {
-		    	correcta = "wednesday";
-		    	payment = 200;
-	        }else if (currentq.contains("Greys Anatomy")) {
-		    	correcta = "greys anatomy";
+		    }else if (currentq.contains("Greys Anatomy")) {
+		    	correcta = "Greys Anatomy";
 		    	payment = 300;
-		    }else if (currentq.contains("Toy Story")) {
-		    	correcta= "toy story";
-		        payment = 200;
-	        }else if (currentq.contains("Mean Girls")) {
-		    	correcta = "mean girls";
+		    }else if (currentq.contains("Mean Girls")) {
+		    	correcta = "Mean Girls";
 		    	payment = 200;
-		    }else if (currentq.contains("Monica")){
-		    	correcta = "monica";
-		    	payment =300;
 		    }else if (currentq.contains("Drop Client")) {
-		    	correcta = "drop client";
+		    	correcta = "Drop Client";
 		    	payment = 100;			
-		    }else if (currentq.contains("4 Seasons")) {
-		    	correcta = "4 seasons";
-		    	payment = 300;
 		    }else if (currentq.contains("Convince Them So You Get Paid")) {
-		    	correcta = "convince them so you get paid";
+		    	correcta = "Convince Them So You Get Paid";
 	            payment = 100;}
 
 		    if (useranswer.equals(correcta)) {
 		    	clip2.setFramePosition(0);
 		        clip2.start();
-		        JOptionPane.showMessageDialog(null, "That Is Correct!! (Press OK)");
+		        JOptionPane.showMessageDialog(null, "That Is Correct!!");
 		        money +=payment;
 		        acount++;
 		        panel3.setVisible(false);
@@ -291,7 +265,7 @@ public String randomq(String price) {
 		    if (!useranswer.equals(correcta)) {
 		    	clip3.setFramePosition(0);
 		        clip3.start();
-		        JOptionPane.showMessageDialog(null, "That Is Incorrect!! (Press OK)");
+		        JOptionPane.showMessageDialog(null, "That Is Incorrect!");
 		        money -=payment;
 		        panel3.setVisible(false);
 		        clip1.setFramePosition(0);
