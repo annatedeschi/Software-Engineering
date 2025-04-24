@@ -193,7 +193,7 @@ public class PartyPlannerHandle {
     }
     }
 
-    public static void filler() throws IOException {
+	public static void filler() throws IOException {
         int random;
         ////
 
@@ -205,69 +205,79 @@ public class PartyPlannerHandle {
         random = (int)(Math.random() * mini.size()); // range of random numbers from 0 to the size of my array
         fillergame = mini.get(random);
         while ( Progress == 1 && planPoints < 50) {
-            planPoints = 0;
-          System.out.println("\nYou did not gain enough points in this level."
-                  + "\nYou'll gain them back through a filler game");
-              if (fillergame.equals("passwordgame")){
-                  FillerGames.passwordGame();}
-              else if (fillergame.equals("tic tac toe")) {
-                    System.out.println("You picked Tic Tac Toe...starting game.");
-                   gui = scan.nextLine().toLowerCase();
-				if (gui.equals("yes")) {
-					break;
-				}
-
-                }else if (fillergame.equals("jeopardy")) {
-                      System.out.println( "Taking you to jeopardy type 'yay' to start.");
-                      yayresponse = scan.nextLine().toLowerCase().trim();
-                      if (yayresponse.equals("yay")){
-                      Jeopardy.enter();
-                      gui = scan.nextLine().toLowerCase();
-                      if (gui.equals("yes") && planPoints == 60 && Jeopardy.access.equals("yes")) {
-                          break;
-                      }else {
-                          continue;
-                      }
-                      }
-                }
-        }
-
-
-
-
-
-
-
-
-        random = (int)(Math.random() * mini.size()); // range of random numbers from 0 to the size of my array
-         fillergame = mini.get(random);
-        while ( Progress == 2 && planPoints < 100) {
-            planPoints = 0;
-              System.out.println("\nYou did not gain enough points in this level."
-                      + "\nYou'll gain them back through a filler game");
-                  if (fillergame.equals("passwordgame")){
-                      FillerGames.passwordGame();}
-                  else if (fillergame.equals("tic tac toe")) {
-	                    System.out.println("You picked Tic Tac Toe...starting game.");
-	                   gui = scan.nextLine().toLowerCase();
-					if (gui.equals("yes")) {
-						break;
-					}
-
-                    }else if (fillergame.equals("jeopardy")) {
-                          System.out.println( "Taking you to jeopardy type 'yay' to start.");
-                          yayresponse = scan.nextLine().toLowerCase().trim();
-                          if (yayresponse.equals("yay")){
-                          Jeopardy.enter();
-                          gui = scan.nextLine().toLowerCase();
-                          if (gui.equals("yes") && planPoints == 60 && Jeopardy.access.equals("yes")) {
-                              break;
-                          }else {
-                              continue;
-                          }
-                          }
-                           }
-                       }
+	planPoints = 0;
+	  random = (int)(Math.random() * mini.size()); // range of random numbers from 0 to the size of my array
+	  fillergame = mini.get(random);
+	  System.out.println("\nYou did not gain enough points in this level."
+	  		+ "\nYou'll gain them back through a filler game");
+	      if (fillergame.equals("passwordgame")) {
+	    		System.out.println("You picked password cracker...starting game.");
+	    		passwordGame.start();
+	    		gui = scan.nextLine().toLowerCase();
+	    						if (gui.equals("yes")) {
+	    							break;
+	    						}}
+	      
+	      else if (fillergame.equals("tic tac toe")) {
+	    	  //calls ana's filler game
+	    	  FillerGames.ticTacToeGame();}
+	    	    
+	    	  else if (fillergame.equals("jeopardy")) {
+	    	  System.out.println( "Taking you to jeopardy when you finish the game and get your money amount type in yes");
+			  Jeopardy.enter();
+			  scan.nextLine();
+			  gui = scan.nextLine().toLowerCase();
+	    	  if (gui.equals("yes") && planPoints == 60 && Jeopardy.access.equals("yes")) {
+	    		  break;
+	    	  }else {
+	    		  continue;
+	    	  }
+	    	  }
+	      }
+	
+			  
+	
+	
+	   
+	
+	
+	while ( Progress == 2 && planPoints < 100) {	
+		planPoints = 0;
+		   random = (int)(Math.random() * mini.size()); // range of random numbers from 0 to the size of my array
+		  fillergame = mini.get(random);
+		  System.out.println("\nYou did not gain enough points in this level."
+		  		+ "\nYou'll gain them back through a filler game");
+		      if (fillergame.equals("passwordgame")){
+		          FillerGames.passwordGame();}
+		      else if (fillergame.equals("tic tac toe")) {
+		    	  //calls ana's filler game
+		    	  FillerGames.ticTacToeGame();}
+		    	  else if (fillergame.equals("jeopardy")) {
+		    	  System.out.println("Taking you to jeopardy when you finish the game and get your money amount type in yes");
+				  Jeopardy.enter();
+				  scan.nextLine();
+				  gui = scan.nextLine().toLowerCase();
+		    	  if (gui.equals("yes") && planPoints == 60 && Jeopardy.access.equals("yes")) {
+		    		  break;
+		    	  }else {
+		    		  continue;
+		    	  }
+		    	  }
+		      
+	}}
+	
+	if (Progress == 1 && planPoints == 60) {
+		saveprogress();
+	}
+	if (Progress == 2 && planPoints == 120) {
+		saveprogress();
+	}
+	if( Progress == 3) {
+		System.out.println("\nEnding the game!");
+		endgame="yes";
+		chooselevel();
+	} 
+}
 
 
         if (Progress == 1 && planPoints == 60) {
