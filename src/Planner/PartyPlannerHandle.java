@@ -217,6 +217,7 @@
    	    					}}
                   else if (fillergame.equals("tic tac toe")) {
                           System.out.println("You picked Tic Tac Toe...starting game.");
+                          tictactoe.launch();
                           gui= scan.nextLine().toLowerCase();
     				      if (gui.equals("yes")) {
     					  break;
@@ -257,6 +258,7 @@
     
                      else if (fillergame.equals("tic tac toe")) {
                             System.out.println("You picked Tic Tac Toe...starting game.");
+                            tictactoe.launch();
                             gui= scan.nextLine().toLowerCase();
       				         if (gui.equals("yes")) {
       					     break;
