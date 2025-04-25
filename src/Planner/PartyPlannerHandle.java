@@ -199,8 +199,8 @@ public class PartyPlannerHandle {
     }
     }
 
-<<<<<<< HEAD
-        random = (int)(Math.random() * mini.size()); // range of random numbers from 0 to the size of my array
+//<<<<<<< HEAD
+		random = (int)(Math.random() * mini.size()); // range of random numbers from 0 to the size of my array
         fillergame = mini.get(random);
         while ( Progress == 1 && planPoints < 50) {
 	planPoints = 0;
@@ -245,8 +245,13 @@ public class PartyPlannerHandle {
 		  fillergame = mini.get(random);
 		  System.out.println("\nYou did not gain enough points in this level."
 		  		+ "\nYou'll gain them back through a filler game");
-		      if (fillergame.equals("passwordgame")){
-		          FillerGames.passwordGame();}
+		  if (fillergame.equals("passwordgame")) {
+	    		System.out.println("You picked password cracker...starting game.");
+	    		passwordGame.start();
+	    		gui = scan.nextLine().toLowerCase();
+	    						if (gui.equals("yes")) {
+	    							break;
+	    						}}
 		      else if (fillergame.equals("tic tac toe")) {
 		    	  //calls ana's filler game
 		    	  FillerGames.ticTacToeGame();}
