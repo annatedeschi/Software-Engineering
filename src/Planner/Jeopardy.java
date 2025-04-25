@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -49,11 +50,12 @@ public class Jeopardy implements ActionListener  {
 	static int a;
 	static int i;
 	static String access;
+	static ArrayList<String> answered;
 	JLabel questionlabel = new JLabel();
 	
-	String[] q100 = {"100 For Best Event Planner: If your client wants to do a firework show inside the venue. Type your answer below: (Firework Show/No Firework Show)","100 For Best Event Planner: Your client wants you to go big but their budget says go small. Type your answer below: (Drop Client/Go Big Charge Later)","100 For Best Event Planner: Your client is having cold feet on their big day they are contemplating being a runaway bride but need your support. Type answer below: (Runaway Bride/Convince Them So You Get Paid)"};
-	String[] q200 = {"200 For Movies: A kid is left behind by his family during the holidays give this to.....? Type your answer below: (Kevin/James)","A teenage girl falls in love with two non-human beings and somehow one of them hates the sun. Type your answer below: (Twilight/Pitch Perfect)","200 For Movies: A group of girls who could never not wear pink on a wednesday but love to write in their burn book. Type your answer below: (Mean Girls/Clueless"};
-	String[] q300 = {"300 For Tv Shows: A core childhood show where there are 104 days of summer vaction yet the summer never ends. Type your answer below: (Phineas and Ferb/Johnny10)","300 For Tv Shows: A show where two brothers fight over one girl all while fighting vervain. Type your answer below: (The Vampire Diaries/The Orignals","300 For Tv Shows: A hospital where evertghing that could go wrong goes wrong but at least we have McDreamy. Type answer below: (Greys Anatomy/The Good Doctor"};
+	String[] q100 = {"100 For Best Event Planner: If your client wants to do a firework show inside the venue. Type your answer below: (Firework Show/No Firework Show)","100 For Best Event Planner: Your client wants you to go big but their budget says go small. Type your answer below: (Drop Client/Go Big Charge Later)","100 For Best Event Planner: Your client is having cold feet on their big day they are contemplating being a runaway bride but need your support. Type answer below: (Runaway Bride/Convince Them So You Get Paid)","100 For Best Event Planner: Your client's water breaks at their babyshower. They need to go to the hospital in the middle of the party. Type your answer below: (Continue The Party/Shut It Down Send Everyone Home)"};
+	String[] q200 = {"200 For Movies: A kid is left behind by his family during the holidays give this to.....? Type your answer below: (Kevin/James)","A teenage girl falls in love with two non-human beings and somehow one of them hates the sun. Type your answer below: (Twilight/Pitch Perfect)","200 For Movies: A group of girls who could never not wear pink on a wednesday but love to write in their burn book. Type your answer below: (Mean Girls/Clueless","200 For Movies: She's off shes a little psychotic and her uncle is a hand shes.... Type Your Answer Below: (Wednesday/Thursday)"};
+	String[] q300 = {"300 For Tv Shows: A core childhood show where there are 104 days of summer vaction yet the summer never ends. Type your answer below: (Phineas and Ferb/Johnny10)","300 For Tv Shows: A show where two brothers fight over one girl all while fighting vervain. Type your answer below: (The Vampire Diaries/The Orignals","300 For Tv Shows: A hospital where evertghing that could go wrong goes wrong but at least we have McDreamy. Type answer below: (Greys Anatomy/The Good Doctor","300 For TV Show: This show loves stacking food on sticks from donuts to spaghetti its... Type Your Answer Below: (ICarly)/Victorious"};
 	
 
 	 public static void main(String[] args) {
@@ -74,6 +76,8 @@ public class Jeopardy implements ActionListener  {
 		    useranswer = "";
 		    currentq = "";
 		    questions = null;
+		    answered = new ArrayList<>();
+		    
 
 		    Intro(); 
 		}
@@ -224,33 +228,58 @@ public String randomq(String price) {
 	
 
 	public void check() {
-	       if (currentq.contains("Twilight")) {
+	       if (currentq.contains("Twilight") && !answered.contains(currentq)) {
 		        correcta = "twilight";
 		        payment = 200;
-		    } else if (currentq.contains("No Firework Show")) {
+		        answered.add(currentq);
+		    } else if (currentq.contains("No Firework Show") && !answered.contains(currentq)) {
 		        correcta = "no firework show";
 		        payment = 100;
-		    } else if (currentq.contains("Phineas and Ferb")) {
+		        answered.add(currentq);
+		    } else if (currentq.contains("Phineas and Ferb") && !answered.contains(currentq)) {
 		        correcta = "phineas and ferb";
 		        payment = 300;
-		    } else if (currentq.contains("Kevin")) {
+		        answered.add(currentq);
+		    } else if (currentq.contains("Kevin") && !answered.contains(currentq)) {
 		        correcta = "kevin";
 		        payment = 200;
-		    } else if (currentq.contains("The Vampire Diaries")) {
-		        correcta = "The Vampire Diaries";
+		        answered.add(currentq);
+		    } else if (currentq.contains("The Vampire Diaries") && !answered.contains(currentq)) {
+		        correcta = "the vampire diaries";
 		        payment = 300;
-		    }else if (currentq.contains("Greys Anatomy")) {
-		    	correcta = "Greys Anatomy";
+		        answered.add(currentq);
+		    }else if (currentq.contains("Greys Anatomy") && !answered.contains(currentq)) {
+		    	correcta = "greys anatomy";
 		    	payment = 300;
-		    }else if (currentq.contains("Mean Girls")) {
-		    	correcta = "Mean Girls";
+		    	answered.add(currentq);
+		    }else if (currentq.contains("Mean Girls") && !answered.contains(currentq)) {
+		    	correcta = "mean girls";
 		    	payment = 200;
-		    }else if (currentq.contains("Drop Client")) {
-		    	correcta = "Drop Client";
-		    	payment = 100;			
-		    }else if (currentq.contains("Convince Them So You Get Paid")) {
-		    	correcta = "Convince Them So You Get Paid";
-	            payment = 100;}
+		    	answered.add(currentq);
+		    }else if (currentq.contains("Drop Client") && !answered.contains(currentq)) {
+		    	correcta = "drop client";
+		    	payment = 100;	
+		    	answered.add(currentq);
+		    }else if (currentq.contains("Convince Them So You Get Paid") && !answered.contains(currentq)) {
+		    	correcta = "convince them so you get paid";
+	            payment = 100;
+	            answered.add(currentq);
+		    }else if (currentq.contains("Continue The Party") && !answered.contains(currentq)) {
+			    correcta = "continue the party";
+		        payment = 100;
+		        answered.add(currentq);
+		    }else if (currentq.contains("Wednesday") && !answered.contains(currentq)) {
+				correcta = "wednesday";
+			    payment = 200;
+			    answered.add(currentq);
+		    }else if (currentq.contains("ICarly") && !answered.contains(currentq)) {
+					correcta = "icarly";
+				    payment = 100;
+				    answered.add(currentq);}
+			    
+		            
+	      
+	       
 
 		    if (useranswer.equals(correcta)) {
 		    	clip2.setFramePosition(0);
@@ -283,7 +312,7 @@ public String randomq(String price) {
 		    if (clip3 != null && clip3.isRunning()) {
 		        clip3.stop();
 		    }
-		   // JOptionPane.showMessageDialog(null, "Press ok and select the red exit button to choose your next question.");
+		    JOptionPane.showMessageDialog(null, "Press ok and select the red exit button to choose your next question.");
 		}
 
 public void playsound () throws UnsupportedAudioFileException, IOException, LineUnavailableException {
