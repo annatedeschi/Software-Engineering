@@ -208,8 +208,13 @@
                 planPoints = 0;
               System.out.println("\nYou did not gain enough points in this level."
                       + "\nYou'll gain them back through a filler game");
-                  if (fillergame.equals("passwordgame")){
-                      FillerGames.passwordGame();}
+                 if (fillergame.equals("passwordgame")) {
+   	    		    System.out.println("You picked password cracker...starting game.");
+   	    		    passwordGame.start();
+   	    		    gui = scan.nextLine().toLowerCase();
+   	    			if (gui.equals("yes")) {
+   	    					break;
+   	    					}}
                   else if (fillergame.equals("tic tac toe")) {
                           System.out.println("You picked Tic Tac Toe...starting game.");
                           gui= scan.nextLine().toLowerCase();
@@ -242,8 +247,14 @@
                planPoints = 0;
                  System.out.println("\nYou did not gain enough points in this level."
                          + "\nYou'll gain them back through a filler game");
-                     if (fillergame.equals("passwordgame")){
-                         FillerGames.passwordGame();}
+                 if (fillergame.equals("passwordgame")) {
+    	    		    System.out.println("You picked password cracker...starting game.");
+    	    		    passwordGame.start();
+    	    		    gui = scan.nextLine().toLowerCase();
+    	    			if (gui.equals("yes")) {
+    	    					break;
+    	    					}}
+    
                      else if (fillergame.equals("tic tac toe")) {
                             System.out.println("You picked Tic Tac Toe...starting game.");
                             gui= scan.nextLine().toLowerCase();
