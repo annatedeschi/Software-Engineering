@@ -312,7 +312,7 @@ public String randomq(String price) {
 		    if (clip3 != null && clip3.isRunning()) {
 		        clip3.stop();
 		    }
-		    JOptionPane.showMessageDialog(null, "Press ok and select the red exit button to choose your next question.");
+		    
 		}
 
 public void playsound () throws UnsupportedAudioFileException, IOException, LineUnavailableException {
