@@ -200,7 +200,7 @@
             ArrayList<String> mini = new ArrayList<>();
             mini.add("passwordgame");
             mini.add("jeopardy");
-            mini.add("tic tac toe");
+           mini.add("tic tac toe");
 
             random = (int)(Math.random() * mini.size()); // range of random numbers from 0 to the size of my array
             fillergame = mini.get(random);
