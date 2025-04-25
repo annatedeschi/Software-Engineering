@@ -169,7 +169,7 @@ public static void Bartender( ) throws FileNotFoundException {
 	while (i !=2) {
 	System.out.println("\nI would like to order a: " + order + " With: " + correctingredients);
 	Scanner scan2 = new Scanner(System.in);
-	System.out.println("\nPick Your Base: Espresso, Tonic Water, Club Soda, Rum, Tequila, Vodka, Gin, Whiskey, Ice Tea\n ");
+	System.out.println("\nPick Your Base: Espresso, Tonic-Water, Club-Soda, Rum, Tequila, Vodka, Gin, Whiskey, Ice-Tea\n ");
 	Base = scan2.nextLine().trim().toLowerCase();
 	if (Base.equals(eachingredient[0])){
 	System.out.println("\nYou got the Base right!");
@@ -180,7 +180,7 @@ public static void Bartender( ) throws FileNotFoundException {
 	System.out.println("\nGuest: " + guestfeedback);
 	System.out.println("\nYou got the Base wrong");}
 	Scanner scan3 = new Scanner(System.in);
-	System.out.println("\nPick Your Sweetner: Honey, Cane sugar, caramel, pineapple juice\n");
+	System.out.println("\nPick Your Sweetner: Honey, Cane-sugar, caramel, pineapple-juice\n");
 	Sweetner = scan3.nextLine().trim().toLowerCase();
 	if (Sweetner.equals(eachingredient[1])){
 	System.out.println("\nYou got the Sweetner right!");
@@ -192,7 +192,7 @@ public static void Bartender( ) throws FileNotFoundException {
 	System.out.println("\nGuest: " + guestfeedback);
 	System.out.println("\nYou got the Sweetner wrong");}
 	Scanner scan4 = new Scanner(System.in);
-	System.out.println("\nPick Your Topping: Strawberries, Oranges, Lime, Pineapple Chunks, Mint Leaves, Cherries, Apple Slices, Candy Cane\n");
+	System.out.println("\nPick Your Topping: Strawberries, Oranges, Lime, Pineapple-Chunks, Mint-Leaves, Cherries, Apple-Slices, Candy-Cane\n");
 	Topping = scan4.nextLine().trim().toLowerCase();
 	if (Topping.equals(eachingredient[2])){
 	System.out.println("\nYou got the Topping right!");

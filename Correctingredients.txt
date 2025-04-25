@@ -1,10 +1,10 @@
-espresso  pineapple juice  mint leaves
-club soda  honey  lime
-ice tea  caramel  strawberries 
-tonic water  cane sugar  mint leaves
-rum  pineapple juice  cherries
-whiskey  cane sugar  candy cane 
-vodka  honey  orange sclices
-tequila  pineapple juice  lime 
+espresso  pineapple-juice  mint-leaves
+club-soda  honey  lime
+ice-tea  caramel  strawberries 
+tonic-water  cane-sugar  mint-leaves
+rum  pineapple-juice  cherries
+whiskey  cane-sugar  candy-cane 
+vodka  honey  orange-sclices
+tequila  pineapple-juice  lime 
 gin  caramel  strawberries 
-espresso  cane sugar  lime 
+espresso  cane-sugar  lime 
