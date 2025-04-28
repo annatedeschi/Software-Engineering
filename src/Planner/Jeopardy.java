@@ -55,7 +55,7 @@ public class Jeopardy implements ActionListener  {
 	
 	String[] q100 = {"100 For Best Event Planner: If your client wants to do a firework show inside the venue. Type your answer below: (Firework Show/No Firework Show)","100 For Best Event Planner: Your client wants you to go big but their budget says go small. Type your answer below: (Drop Client/Go Big Charge Later)","100 For Best Event Planner: Your client is having cold feet on their big day they are contemplating being a runaway bride but need your support. Type answer below: (Runaway Bride/Convince Them So You Get Paid)","100 For Best Event Planner: Your client's water breaks at their babyshower. They need to go to the hospital in the middle of the party. Type your answer below: (Continue The Party/Shut It Down Send Everyone Home)"};
 	String[] q200 = {"200 For Movies: A kid is left behind by his family during the holidays give this to.....? Type your answer below: (Kevin/James)","A teenage girl falls in love with two non-human beings and somehow one of them hates the sun. Type your answer below: (Twilight/Pitch Perfect)","200 For Movies: A group of girls who could never not wear pink on a wednesday but love to write in their burn book. Type your answer below: (Mean Girls/Clueless","200 For Movies: She's off shes a little psychotic and her uncle is a hand shes.... Type Your Answer Below: (Wednesday/Thursday)"};
-	String[] q300 = {"300 For Tv Shows: A core childhood show where there are 104 days of summer vaction yet the summer never ends. Type your answer below: (Phineas and Ferb/Johnny10)","300 For Tv Shows: A show where two brothers fight over one girl all while fighting vervain. Type your answer below: (The Vampire Diaries/The Orignals","300 For Tv Shows: A hospital where evertghing that could go wrong goes wrong but at least we have McDreamy. Type answer below: (Greys Anatomy/The Good Doctor","300 For TV Show: This show loves stacking food on sticks from donuts to spaghetti its... Type Your Answer Below: (ICarly)/Victorious"};
+	String[] q300 = {"300 For Tv Shows: A core childhood show where there are 104 days of summer vaction yet the summer never ends. Type your answer below: (Phineas and Ferb/Johnny10)","300 For Tv Shows: A show where two brothers fight over one girl all while fighting vervain. Type your answer below: (The Vampire Diaries/The Orignals","300 For Tv Shows: A hospital where everything that could go wrong goes wrong but at least we have McDreamy. Type answer below: (Greys Anatomy/The Good Doctor","300 For TV Show: This show loves stacking food on sticks from donuts to spaghetti its... Type Your Answer Below: (ICarly)/Victorious"};
 	
 
 	 public static void main(String[] args) {
@@ -174,7 +174,7 @@ public class Jeopardy implements ActionListener  {
         				String questionselected = randomq(button2[a].getText());
         				answer(questionselected);
         			}else if (count == 3){
-        				JOptionPane.showMessageDialog(null, "Game over You have earned " + "$" + money);
+        				JOptionPane.showMessageDialog(null, "Game over you have earned " + "$" + money);
         				panel2.setVisible(false);
         				panel3.setVisible(false);
         				panel1.setVisible(false);
@@ -302,10 +302,10 @@ public String randomq(String price) {
 		    }
 
 		    if (frame3 != null) {
-		        frame3.dispose(); // Dispose after user clicks OK
+		        frame3.dispose(); 
 		    }
 
-		    // Stop clips after dialog is shown
+		 
 		    if (clip2 != null && clip2.isRunning()) {
 		        clip2.stop();
 		    }
