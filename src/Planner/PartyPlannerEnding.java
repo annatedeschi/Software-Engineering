@@ -29,7 +29,7 @@ public class PartyPlannerEnding {
 		
 	    System.out.println("\nThe party is over, " + PartyPlannerHandle.Name + "!");
 	    System.out.println("\nYou finished with " + PartyPlannerHandle.planPoints);
-	    if ( ( PartyPlannerHandle.planPoints) == 180) { //idk have to change values to like the actual value scale 
+	    if ( ( PartyPlannerHandle.planPoints) == 180) { 
 	        System.out.println("\nAmazing job! You're one of our top-tier party planner's!");
 	    } else if (( PartyPlannerHandle.planPoints) == 120) {
 	        System.out.println("\nGood job! You did well managing the party.");
@@ -114,21 +114,21 @@ public class PartyPlannerEnding {
 	
 	
 	public static void restartgame() throws IOException {
-		 // Read all lines from the file and filter out the ones that start with "razzi pazzi"
+		 
 		  File file = new File("progress.txt");
 		 List<String> Changedprogress = new ArrayList<>();
 		
 		    try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
 		         String line;
 
-		         // Read all lines and add to the list except the ones starting with "razzi pazzi"
+		        
 		         while ((line = reader.readLine()) != null) {
 		             if (!line.startsWith(PartyPlannerHandle.username + ", " + PartyPlannerHandle.password)) {
 		                    Changedprogress.add(line);
 		                }
 		            }
 
-		        // Write the remaining lines back to the file
+		       
 		        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
 		            for (String remainingLine : Changedprogress) {
 		                 writer.write(remainingLine);

@@ -36,8 +36,8 @@ public static void Shopping() {
 	        System.out.println("\n"
 	        		+ "\n"
 	        		+ "\nIt's time for you to shop for the Quincenera.");
-	        System.out.println("Be mindful of what you buy because " + PartyPlannerIntros.nameofficial + "'s parents set the budget at $475.");
-	        System.out.println("If you go over budget, you will lose points, but if you go under, you gain points. Let's go shopping!");
+	        System.out.println("Be mindful of what you buy because " + PartyPlannerIntros.nameofficial + " parents set the budget at $475.");
+	        System.out.println("If you go over budget, you will lose points, but if you go under, you will gain points. Let's go shopping!");
 
 	        // Dresses selection
 	        System.out.println("\n"
@@ -85,7 +85,7 @@ public static void Shopping() {
 	        		+ "\n"
 	        		+ "\nDecorations:");
 	        System.out.println("Pink Banner ($200), Floral Centerpiece ($30), LED Lights ($100)");
-	        System.out.print("]nType in the price to buy your item: ");
+	        System.out.print("\nType in the price to buy your item: ");
 
 	        while (true) {
 	            input = scan.nextLine().trim();
@@ -299,8 +299,8 @@ public static void DJ() throws IOException {
 	System.out.println("\n"
             + "\n"
             + "Hello " + PartyPlannerHandle.Name + " The DJ is sick and we need you to fill in"
-            + "\nThe party guests have song requests and you need to use your judgment"
-            + "\nTo select based off the options you have for each request"
+            + "\nThe party guests have song requests "
+            + "\nYou must select a song based off the options you have for each request"
             + "\nChoose the right songs and earn points. Choose the wrong song and lose points"
             + "\nYou got this, if you mess up the only murder on the dancefloor will be your music.");
 
