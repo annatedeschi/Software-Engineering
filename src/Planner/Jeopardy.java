@@ -39,7 +39,7 @@ public class Jeopardy implements ActionListener  {
 	JPanel panel2;
 	JPanel panel3;
 	
-	
+	static String test;
 	static JButton button1;
 	static JButton[] button2 = new JButton[9];
 	static JButton button3;
@@ -47,17 +47,21 @@ public class Jeopardy implements ActionListener  {
 	static int money;
 	static int payment;
 	static String [] questions;
+	static String checkquestion;
 	static int a;
 	static int i;
+	static int r;
+	static int randomizer;
 	static String access;
 	static ArrayList<String> answered;
 	JLabel questionlabel = new JLabel();
 	
 	String[] q100 = {"100 For Best Event Planner: If your client wants to do a firework show inside the venue. Type your answer below: (Firework Show/No Firework Show)","100 For Best Event Planner: Your client wants you to go big but their budget says go small. Type your answer below: (Drop Client/Go Big Charge Later)","100 For Best Event Planner: Your client is having cold feet on their big day they are contemplating being a runaway bride but need your support. Type answer below: (Runaway Bride/Convince Them So You Get Paid)","100 For Best Event Planner: Your client's water breaks at their babyshower. They need to go to the hospital in the middle of the party. Type your answer below: (Continue The Party/Shut It Down Send Everyone Home)"};
-	String[] q200 = {"200 For Movies: A kid is left behind by his family during the holidays give this to.....? Type your answer below: (Kevin/James)","A teenage girl falls in love with two non-human beings and somehow one of them hates the sun. Type your answer below: (Twilight/Pitch Perfect)","200 For Movies: A group of girls who could never not wear pink on a wednesday but love to write in their burn book. Type your answer below: (Mean Girls/Clueless","200 For Movies: She's off shes a little psychotic and her uncle is a hand shes.... Type Your Answer Below: (Wednesday/Thursday)"};
+	String[] q200 = {"200 For Movies: A kid is left behind by his family during the holidays give this to.....? Type your answer below: (Kevin/James)","200 For Movies: A teenage girl falls in love with two non-human beings and somehow one of them hates the sun. Type your answer below: (Twilight/Pitch Perfect)","200 For Movies: A group of girls who could never not wear pink on a wednesday but love to write in their burn book. Type your answer below: (Mean Girls/Clueless","200 For Movies: She's off shes a little psychotic and her uncle is a hand shes.... Type Your Answer Below: (Wednesday/Thursday)"};
 	String[] q300 = {"300 For Tv Shows: A core childhood show where there are 104 days of summer vaction yet the summer never ends. Type your answer below: (Phineas and Ferb/Johnny10)","300 For Tv Shows: A show where two brothers fight over one girl all while fighting vervain. Type your answer below: (The Vampire Diaries/The Orignals","300 For Tv Shows: A hospital where everything that could go wrong goes wrong but at least we have McDreamy. Type answer below: (Greys Anatomy/The Good Doctor","300 For TV Show: This show loves stacking food on sticks from donuts to spaghetti its... Type Your Answer Below: (ICarly)/Victorious"};
 	
-
+	
+    
 	 public static void main(String[] args) {
 		 enter();
 	 }
@@ -174,7 +178,7 @@ public class Jeopardy implements ActionListener  {
         				String questionselected = randomq(button2[a].getText());
         				answer(questionselected);
         			}else if (count == 3){
-        				JOptionPane.showMessageDialog(null, "Game over you have earned " + "$" + money);
+        				JOptionPane.showMessageDialog(null, "Game over you have earned " + "$" + money + " Type 'Yes' into console");
         				panel2.setVisible(false);
         				panel3.setVisible(false);
         				panel1.setVisible(false);
@@ -185,11 +189,14 @@ public class Jeopardy implements ActionListener  {
         				if (money > 200) {
         				    if (PartyPlannerHandle.Progress == 1) {
         				        PartyPlannerHandle.planPoints = 60;
+        				        answered.clear();
         				        access = "yes";
+        				        
         				        
         				        
         				    } else if (PartyPlannerHandle.Progress == 2) {
         				        PartyPlannerHandle.planPoints = 120;
+        				        answered.clear();
         				        access = "yes";
         				        
         				   
@@ -209,6 +216,7 @@ public class Jeopardy implements ActionListener  {
 
 public String randomq(String price) {
     questions = null;
+    test = "yes";
 	switch (price) {
 	case "$100":
 		questions = q100;
@@ -220,7 +228,20 @@ public String randomq(String price) {
 		questions = q300;
 		break;
 	}
-	int randomizer = (int)(Math.random() * questions.length);
+	
+	randomizer = (int)(Math.random() * questions.length);
+	checkquestion = questions[randomizer];
+	while (test.equals("yes")) {
+		if (answered.contains(checkquestion) & r != 4) {
+	    randomizer = (int)(Math.random() * questions.length);
+	    checkquestion = questions[randomizer];
+	    r++;
+		continue;
+	}else if (!answered.contains(checkquestion)) {
+		r = 0;
+		break;
+	}
+	}
 	return questions[randomizer];
 	}
 
@@ -231,7 +252,7 @@ public String randomq(String price) {
 	       if (currentq.contains("Twilight") && !answered.contains(currentq)) {
 		        correcta = "twilight";
 		        payment = 200;
-		        answered.add(currentq);
+		        answered.add(currentq);   
 		    } else if (currentq.contains("No Firework Show") && !answered.contains(currentq)) {
 		        correcta = "no firework show";
 		        payment = 100;
@@ -273,9 +294,9 @@ public String randomq(String price) {
 			    payment = 200;
 			    answered.add(currentq);
 		    }else if (currentq.contains("ICarly") && !answered.contains(currentq)) {
-					correcta = "icarly";
-				    payment = 100;
-				    answered.add(currentq);}
+				correcta = "icarly";
+				 payment = 100;
+				 answered.add(currentq);}
 			    
 		            
 	      

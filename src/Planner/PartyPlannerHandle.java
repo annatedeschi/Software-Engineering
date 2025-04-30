@@ -195,27 +195,31 @@
 
         public static void filler() throws IOException {
             int random;
-            ////
+          
 
             ArrayList<String> mini = new ArrayList<>();
+            ArrayList<String> miniplayed = new ArrayList<>();
             mini.add("passwordgame");
             mini.add("jeopardy");
-           mini.add("tic tac toe");
+            mini.add("tic tac toe");
 
             random = (int)(Math.random() * mini.size()); // range of random numbers from 0 to the size of my array
             fillergame = mini.get(random);
+            
+            
             while ( Progress == 1 && planPoints < 50) {
                 planPoints = 0;
               System.out.println("\nYou did not gain enough points in this level."
                       + "\nYou'll gain them back through a filler game");
-                 if (fillergame.equals("passwordgame")) {
+                 if (fillergame.equals("passwordgame") & !miniplayed.contains(fillergame)) {
+                	 miniplayed.add(fillergame);
    	    		    System.out.println("You picked password cracker...starting game.");
    	    		    passwordGame.start();
    	    		    gui = scan.nextLine().toLowerCase();
    	    			if (gui.equals("yes")) {
    	    					break;
    	    					}}
-                  else if (fillergame.equals("tic tac toe")) {
+                  else if (fillergame.equals("tic tac toe")& !miniplayed.contains(fillergame)) {
                           System.out.println("You picked Tic Tac Toe...starting game.");
                           tictactoe.launch();
                           gui= scan.nextLine().toLowerCase();
@@ -224,7 +228,7 @@
     				      }else {
                               continue;
                           }
-                    }else if (fillergame.equals("jeopardy")) {
+                    }else if (fillergame.equals("jeopardy") & !miniplayed.contains(fillergame)) {
                              System.out.println( "Taking you to Jeopardy.....");
                              Jeopardy.enter();
                              gui = scan.nextLine().toLowerCase();
@@ -248,7 +252,7 @@
                planPoints = 0;
                  System.out.println("\nYou did not gain enough points in this level."
                          + "\nYou'll gain them back through a filler game");
-                 if (fillergame.equals("passwordgame")) {
+                 if (fillergame.equals("passwordgame") & !miniplayed.contains(fillergame)) {
     	    		    System.out.println("You picked password cracker...starting game.");
     	    		    passwordGame.start();
     	    		    gui = scan.nextLine().toLowerCase();
@@ -256,7 +260,7 @@
     	    					break;
     	    					}}
     
-                     else if (fillergame.equals("tic tac toe")) {
+                     else if (fillergame.equals("tic tac toe") & !miniplayed.contains(fillergame )) {
                             System.out.println("You picked Tic Tac Toe...starting game.");
                             tictactoe.launch();
                             gui= scan.nextLine().toLowerCase();
@@ -265,7 +269,7 @@
       				         }else {
                                 continue;
                             }
-                       }else if (fillergame.equals("jeopardy")) {
+                       }else if (fillergame.equals("jeopardy") & !miniplayed.contains(fillergame)) {
                              System.out.println( "Taking you to Jeopardy.....");
                              Jeopardy.enter();
                              gui = scan.nextLine().toLowerCase();
@@ -288,6 +292,8 @@
             if( Progress == 3) {
                 System.out.println("\nEnding the game!");
                 endgame="yes";
+                mini.clear();
+                miniplayed.clear();
                 chooselevel();
             }
         }
@@ -317,7 +323,7 @@
                         +"\nLevel 1: Babyshower"
                         +"\nLevel 2: Wedding"
                         +"\nLevel 3: Quincenera"
-                        +"\nype in the number of the level of your choosing: ");
+                        +"\nType in the number of the level of your choosing: ");
                          levelchoice = scan.nextLine();
 
                    if (levelchoice.equals("1")) {
@@ -391,7 +397,7 @@
 
 
             while (Progress == 2 && Level == 2) {
-                System.out.println("\nYou've already played Level 1 before."
+                System.out.println("\nYou've already played Level 2 before."
                         + "\nSo now what level would you like to start with today pick from your options below."
                         +"\nGame:"
                         +"\nLevel 1: Babyshower"
@@ -425,12 +431,12 @@
 
 
           while (Progress == 2 && Level == 3) {
-                System.out.println("\nYou've already played Level 1 before."
+                System.out.println("\nYou've already played Level 3 before."
                         + "\nSo now what level would you like to start with today pick from your options below."
                         +"\nGame:"
                         +"\nLevel 1: Babyshower"
                         +"\nLevel 2: Wedding"
-                        +"\n You possibly may have already played Level 1 but in this instajnce its up to you to play it again"
+                        +"\nYou possibly may have already played Level 1 but in this instajnce its up to you to play it again"
                         +"\nType in the number of the level of your choosing: ");
                  levelchoice = scan.nextLine();
 
