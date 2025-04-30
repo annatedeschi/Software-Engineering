@@ -16,7 +16,7 @@ public class PartyPlannerLevel2 {
 public static void diceGame() {
 	String answer;
 	int a = 0;
-	System.out.println("-----------------------------------------------------------------------!");
+	System.out.println("-----------------------------------------------------------------------");
 	System.out.println("Your client's Husband, Tom wants help planning his bachelor after party!");
 	System.out.println("Tom and his six closest friends have decided to celebrate at the local casino.");
 	System.out.println("To keep the fun going, They will play a special dice gambling game! But its up to you to test it first.");
