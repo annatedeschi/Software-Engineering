@@ -50,7 +50,6 @@ public class tictactoe extends Frame implements ActionListener {
         });
     }
 // this is button getting pressed and marking it on the board
-    @Override
     public void actionPerformed(ActionEvent e) {
         Button clicked = (Button) e.getSource();
         int index = -1;
@@ -104,7 +103,7 @@ public class tictactoe extends Frame implements ActionListener {
                 moves++;
                 break;
             }
-        }
+        }    
         // checking if the computer wins , computer ALWAYS O and User is always x (maybe change this?)
         if (checkWin('o')) {
             computerWins++;
@@ -132,7 +131,7 @@ public class tictactoe extends Frame implements ActionListener {
         moves = 0;
         statusLabel.setText(message);
     }
-
+     
 // closing out of the board
     private void disableBoard() {
         for (Button b : buttons) {

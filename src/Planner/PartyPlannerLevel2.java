@@ -46,7 +46,7 @@ Random random = new Random();
 	System.out.println("\nYou and the dealer will each roll one dice. You will get the choice to put all your money in."
 			+ "\nIf you roll the same number as the dealer , you win! "
 			+ "\nThis is all based on chance so be wise with your money.");
-	System.out.println("\nOtherwise, you dont gain points.");
+	System.out.println("\nOtherwise, you don't gain points.");
 	
 while (i != 4) {
 	System.out.println("\nRound: " + i);
