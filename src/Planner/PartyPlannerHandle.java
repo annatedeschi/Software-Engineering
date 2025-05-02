@@ -26,6 +26,8 @@
         static int planPoints;
         static int points;
         static int fillerpoints;
+        static ArrayList<String> mini = new ArrayList<>();
+        static ArrayList<String> miniplayed = new ArrayList<>();
         static Scanner scan = new Scanner(System.in);
         static PartyPlannerLevel1 Obj1 =  new PartyPlannerLevel1();
         static PartyPlannerIntros Obj3 =  new PartyPlannerIntros();
@@ -197,8 +199,7 @@
             int random;
           
 
-            ArrayList<String> mini = new ArrayList<>();
-            ArrayList<String> miniplayed = new ArrayList<>();
+           
             mini.add("passwordgame");
             mini.add("jeopardy");
             mini.add("tic tac toe");
@@ -220,6 +221,7 @@
    	    					break;
    	    					}}
                   else if (fillergame.equals("tic tac toe")& !miniplayed.contains(fillergame)) {
+                	      miniplayed.add(fillergame);
                           System.out.println("You picked Tic Tac Toe...starting game.");
                           tictactoe.launch();
                           gui= scan.nextLine().toLowerCase();
@@ -229,6 +231,7 @@
                               continue;
                           }
                     }else if (fillergame.equals("jeopardy") & !miniplayed.contains(fillergame)) {
+                    	     miniplayed.add(fillergame);
                              System.out.println( "Taking you to Jeopardy.....");
                              Jeopardy.enter();
                              gui = scan.nextLine().toLowerCase();

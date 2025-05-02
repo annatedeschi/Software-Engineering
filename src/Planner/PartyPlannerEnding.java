@@ -137,6 +137,8 @@ public class PartyPlannerEnding {
 		           }
 		    PartyPlannerHandle.Progress = 1;
 		    PartyPlannerHandle.planPoints = 0;
+		    PartyPlannerHandle.miniplayed.clear();
+		    PartyPlannerHandle.mini.clear();
 		    PartyPlannerHandle.login();
 	              }
 }
