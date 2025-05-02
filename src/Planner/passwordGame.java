@@ -29,7 +29,7 @@ public class passwordGame extends JFrame {
     private final Map<String, List<String>> categories = Map.of(
             "COLORS", List.of("WHITE", "BLACK", "GREEN"),
             "ANIMALS", List.of("PANDA", "CAMEL", "SLOTH", "ZEBRA", "TIGER"),
-            "SPORTS", List.of("RUGBY", "DARTS", "BOCCE", "DOGE")
+            "SPORTS", List.of("RUGBY", "DARTS", "BOCCE")
     );
 
     public void passwordGame() {
