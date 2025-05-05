@@ -1,0 +1,11 @@
+Directions:
+The full source code and package is all within the folder name src/Planner
+
+All necessary audio and txt files are all here and are all needed for the game
+Important Notes for Gameplay:
+When playing through the levels, if you don’t earn enough points, a GUI will appear outside of Eclipse.
+To return to the console and continue playing, you must type "yes" into the console when prompted by the GUI. This is the only way to resume the game from the console.
+Each GUI must be completed successfully to advance. If a GUI reopens after you’ve already played it, it most likely means you didn’t earn enough points and will need to replay that GUI.
+
+
+
